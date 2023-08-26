@@ -1,0 +1,25 @@
+definitions:
+  rest.SuccessResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/test:
+    get:
+      consumes:
+      - application/json
+      description: Test the server by sending a request to this endpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+      summary: Test the server
+      tags:
+      - test
+swagger: "2.0"
