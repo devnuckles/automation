@@ -7,3 +7,5 @@
     3. user table: id, super_admin_id, username, email, password, first_name, last_name
 
     Access token: Multiple device login? blacklist/drop?, Refresh token
+
+    4. image table: id, url
