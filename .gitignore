@@ -1,4 +1,4 @@
 .bashrc
 .idea
-iac/.terraform/providers
+.terraform
 .env
