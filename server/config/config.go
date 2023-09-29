@@ -11,14 +11,8 @@ import (
 var appOnce = sync.Once{}
 var awsOnce = sync.Once{}
 var tableOnce = sync.Once{}
-var saltOnce = sync.Once{}
-var tokenOnce = sync.Once{}
 
 type Table struct {
-	UserTableName     string `mapstructure:"USER_TABLE_NAME"`
-	PostTableName     string `mapstructure:"POST_TABLE_NAME"`
-	CategoryTableName string `mapstructure:"CATEGORY_TABLE_NAME"`
-	CommentTableName  string `mapstructure:"COMMENT_TABLE_NAME"`
 	ErrorTableName    string `mapstructure:"ERROR_TABLE_NAME"`
 }
 
@@ -33,20 +27,9 @@ type Aws struct {
 	Region          string `mapstructure:"AWS_REGION"`
 }
 
-type Salt struct {
-	SecretKey int `mapstructure:"SECRET_SALT_KEY"`
-}
-
-type Token struct {
-	JWToken string `mapstructure:"JWT_TOKEN"`
-}
-
-
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
-var saltConfig *Salt
-var tokenConfig *Token
 
 func loadApp() {
 	err := godotenv.Load(".env")
@@ -90,33 +73,6 @@ func loadTable() {
 	}
 }
 
-func loadSalt() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		fmt.Printf(".env file was not found, that's okay")
-	}
-
-	viper.AutomaticEnv()
-
-	saltConfig = &Salt{
-		SecretKey: viper.GetInt("SECRET_SALT_KEY"),
-	}
-}
-
-func loadToken() {
-	err := godotenv.Load((".env"))
-	if err != nil {
-		fmt.Println(".env file was not found, that's okay")
-	}
-	viper.AutomaticEnv()
-
-	tokenConfig = &Token{
-		JWToken: viper.GetString("JWT_TOKEN"),
-	}
-
-}
-
-
 func GetApp() *Application {
 	appOnce.Do(func() {
 		loadApp()
@@ -136,18 +92,4 @@ func GetTable() *Table {
 		loadTable()
 	})
 	return tableConfig
-}
-
-func GetSalt() *Salt {
-	saltOnce.Do(func() {
-		loadSalt()
-	})
-	return saltConfig
-}
-
-func GetToken() *Token {
-	tokenOnce.Do(func() {
-		loadToken()
-	})
-	return tokenConfig
 }

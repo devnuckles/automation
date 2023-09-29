@@ -17,8 +17,6 @@ func serveRest() {
 	appConfig := config.GetApp()
 	awsConfig := config.GetAws()
 	tableConfig := config.GetTable()
-	saltConfig := config.GetSalt()
-	tokenConfig := config.GetToken()
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsConfig.Region),
@@ -27,16 +25,15 @@ func serveRest() {
 		panic(err)
 	}
 
-	ddbClient := dynamodb.New(sess)
+	ddbClient := dynamodb.New(sess) 
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
-	//
 	redisClient := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
 	cache := cache.NewCache(redisClient)
 	svc := service.NewService(errorRepo, cache)
-	server, err := rest.NewServer(appConfig, svc, saltConfig, tokenConfig)
+	server, err := rest.NewServer(appConfig, svc)
 	if err != nil {
 		panic("Server can not start")
 	}

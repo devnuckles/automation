@@ -3,11 +3,9 @@ package rest
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/schemetech-developer/automation/config"
 	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/util"
 )
@@ -68,21 +66,12 @@ func (s *Server) authMiddleware() gin.HandlerFunc {
 	}
 }
 
-func GenerateToken(ID string, secret *config.Token) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":  ID,
-		"exp": time.Now().Add(time.Hour * 24).Unix(),
-	})
-
-	return token.SignedString([]byte(secret.JWToken))
-}
-
 func (s *Server) validateJWT(token *jwt.Token) (interface{}, error) {
 	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 		return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 	}
 
-	return []byte(s.jwt.JWToken), nil
+	return "Random for now", nil
 }
 
 func corsMiddleware(c *gin.Context) {

@@ -14,16 +14,12 @@ type Server struct {
 	router    *gin.Engine
 	appConfig *config.Application
 	svc       service.Service
-	jwt       *config.Token
-	salt      *config.Salt
 }
 
-func NewServer(appConfig *config.Application, svc service.Service, salt *config.Salt, jwt *config.Token) (*Server, error) {
+func NewServer(appConfig *config.Application, svc service.Service) (*Server, error) {
 	server := &Server{
 		appConfig: appConfig,
 		svc:       svc,
-		salt:      salt,
-		jwt:       jwt,
 	}
 
 	server.setupRouter()
