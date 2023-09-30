@@ -26,7 +26,7 @@ func (s *Server) signupUser(ctx *gin.Context) {
 	}
 	err = s.svc.CreateUser(ctx, user)
 
-	if err != nil {
+	if err != nil {  	
 		logger.Error(ctx, "cannot store user into db", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
 		return

@@ -25,18 +25,10 @@ func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClient
 }
 
 func (r *userRepo) Create(ctx context.Context, user *service.User) error {
-	userAttributes := []*cognitoidentityprovider.AttributeType{
-		{
-			Name:  aws.String("email"),
-			Value: aws.String(user.Email),
-		},
-	}
-
 	input := &cognitoidentityprovider.SignUpInput{
-		ClientId:       aws.String(r.appClientID),
-		Password:       aws.String(user.Password),
-		Username:       aws.String(user.Email),
-		UserAttributes: userAttributes,
+		ClientId: aws.String(r.appClientID),
+		Password: aws.String(user.Password),
+		Username: aws.String(user.Email),
 	}
 
 	_, err := r.svc.SignUp(input)
