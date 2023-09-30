@@ -4,6 +4,10 @@ resource "aws_cognito_user_pool" "pool" {
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
 
+  # lambda_config {
+  #   pre_sign_up = var.cognito_user_auto_confirm_function_arn
+  # }
+
   username_configuration {
     case_sensitive = false
   }

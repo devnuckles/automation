@@ -11,9 +11,14 @@ import (
 var appOnce = sync.Once{}
 var awsOnce = sync.Once{}
 var tableOnce = sync.Once{}
+var cognitoOnce = sync.Once{}
 
 type Table struct {
 	ErrorTableName    string `mapstructure:"ERROR_TABLE_NAME"`
+}
+
+type Cognito struct {
+	ClientId    string `mapstructure:"COGNITO_APP_CLIENT_ID"`
 }
 
 type Application struct {
@@ -30,6 +35,7 @@ type Aws struct {
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
+var cognitoConfig *Cognito
 
 func loadApp() {
 	err := godotenv.Load(".env")
@@ -73,6 +79,19 @@ func loadTable() {
 	}
 }
 
+func loadCognito() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Printf(".env file was not found, that's okay")
+	}
+
+	viper.AutomaticEnv()
+
+	cognitoConfig = &Cognito{
+		ClientId:  viper.GetString("COGNITO_APP_CLIENT_ID"),
+	}
+}
+
 func GetApp() *Application {
 	appOnce.Do(func() {
 		loadApp()
@@ -92,4 +111,12 @@ func GetTable() *Table {
 		loadTable()
 	})
 	return tableConfig
+}
+
+
+func GetCognito() *Cognito {
+	cognitoOnce.Do(func() {
+		loadCognito()
+	})
+	return cognitoConfig
 }

@@ -37,6 +37,8 @@ func (server *Server) setupRouter() {
 
 	router.GET("/api/test", server.test) // healtch check
 
+	router.POST("/api/auth/signup", server.signupUser) 
+
 	server.router = router
 }
 

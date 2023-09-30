@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/go-redis/redis"
 
@@ -17,6 +18,8 @@ func serveRest() {
 	appConfig := config.GetApp()
 	awsConfig := config.GetAws()
 	tableConfig := config.GetTable()
+	cognitoConfig := config.GetCognito()
+
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsConfig.Region),
@@ -26,13 +29,15 @@ func serveRest() {
 	}
 
 	ddbClient := dynamodb.New(sess) 
+	cognitoClient := cognitoidentityprovider.New(sess)
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
+	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId)
 	redisClient := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
 	cache := cache.NewCache(redisClient)
-	svc := service.NewService(errorRepo, cache)
+	svc := service.NewService(userRepo, errorRepo, cache)
 	server, err := rest.NewServer(appConfig, svc)
 	if err != nil {
 		panic("Server can not start")

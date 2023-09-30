@@ -9,17 +9,18 @@ import (
 )
 
 type service struct {
+	userRepo     UserRepo
 	errRepo      ErrorRepo
 	cache        Cache
 }
 
 func NewService(
-
+	userRepo UserRepo,
 	errorRepo ErrorRepo,
 	cache Cache,
 ) Service {
 	return &service{
-
+		userRepo: 	  userRepo,
 		errRepo:      errorRepo,
 		cache:        cache,
 	}
