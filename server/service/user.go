@@ -10,5 +10,5 @@ type User struct {
 	Role        string `json:"Role"`
 	Status      string `json:"Status"`
 	CreatedAt   int64  `json:"CreatedAt"`
-	CreatedBy   int64  `json:"CreatedBy"`
+	CreatedBy   string `json:"CreatedBy"`
 }

@@ -19,7 +19,7 @@ func serveRest() {
 	awsConfig := config.GetAws()
 	tableConfig := config.GetTable()
 	cognitoConfig := config.GetCognito()
-
+	tokenConfig := config.GetToken()
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsConfig.Region),
@@ -28,7 +28,7 @@ func serveRest() {
 		panic(err)
 	}
 
-	ddbClient := dynamodb.New(sess) 
+	ddbClient := dynamodb.New(sess)
 	cognitoClient := cognitoidentityprovider.New(sess)
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
@@ -38,7 +38,7 @@ func serveRest() {
 	})
 	cache := cache.NewCache(redisClient)
 	svc := service.NewService(userRepo, errorRepo, cache)
-	server, err := rest.NewServer(appConfig, svc)
+	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig)
 	if err != nil {
 		panic("Server can not start")
 	}
