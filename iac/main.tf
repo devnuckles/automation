@@ -1,6 +1,7 @@
 
 module "lambda" {
   source = "./lambda"
+  cognito_user_pool_arn = module.cognito.cognito_user_pool_arn
 }
 
 module "cognito" {

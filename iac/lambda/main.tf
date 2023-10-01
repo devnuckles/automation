@@ -15,7 +15,6 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
-
 resource "aws_lambda_function" "cognito-user-auto-confirm" {
   function_name = "dev-automation-cognito-user-auto-confirm"
   runtime = "nodejs18.x"
@@ -29,5 +28,5 @@ resource "aws_lambda_permission" "cognito-user-auto-confirm" {
   action        = "lambda:InvokeFunction"
   function_name = "dev-automation-cognito-user-auto-confirm"
   principal     = "cognito-idp.amazonaws.com"
-  source_arn    = aws_iam_role.lambda_role.arn
+  source_arn    = var.cognito_user_pool_arn
 }
