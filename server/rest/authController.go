@@ -1,8 +1,6 @@
 package rest
 
 import (
-	"crypto/rand"
-	"encoding/base64"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,8 +8,6 @@ import (
 	"github.com/schemetech-developer/automation/service"
 	"github.com/schemetech-developer/automation/util"
 )
-
-const SYSADMIN = "SYSTEM_ADMIN"
 
 func (s *Server) signupUser(ctx *gin.Context) {
 	var req signupUserReq
@@ -26,9 +22,9 @@ func (s *Server) signupUser(ctx *gin.Context) {
 	user := &service.User{
 		Email:     req.Email,
 		Password:  password,
-		Role:      "super-admin",
-		Status:    "approved",
-		CreatedBy: SYSADMIN,
+		Role:      util.SUPER_ADMIN,
+		Status:    util.APPROVED,
+		CreatedBy: util.SYSADMIN,
 	}
 
 	err = s.svc.CreateUser(ctx, user)
@@ -56,23 +52,18 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	}
 	token, err := s.svc.LoginUser(ctx, user)
 	if err != nil {
-		logger.Error(ctx, "cannot get user", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		logger.Error(ctx, "User Not Found", err)
+		ctx.JSON(http.StatusUnauthorized, s.svc.Error(ctx, util.EN_UNAUTHORIZED_ERROR, "Invalid Credentials"))
 		return
 	}
 
 	res := loginUserRes{
 		AccessToken:  *token.AuthenticationResult.AccessToken,
 		RefreshToken: *token.AuthenticationResult.RefreshToken,
+		IdToken:      *token.AuthenticationResult.IdToken,
 	}
+	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
-	ctx.SetCookie("token", res.AccessToken, 3600, "/", "", false, true)
+	ctx.SetCookie("token", res.AccessToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
-}
-
-func generateRandomPassword() string {
-	length := 8
-	randBytes := make([]byte, length)
-	rand.Read(randBytes)
-	return base64.URLEncoding.EncodeToString(randBytes)
 }
