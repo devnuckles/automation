@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -30,6 +31,15 @@ func (s *Server) signupUser(ctx *gin.Context) {
 	err = s.svc.CreateUser(ctx, user)
 	if err != nil {
 		logger.Error(ctx, "cannot store user into db", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	emailBody := fmt.Sprintf("Thank you for registering \r\n User Email: %s \r\n User Password: %s\n", user.Email, user.Password)
+	err = s.svc.SendMail(ctx, []string{user.Email}, "Your Account was created Successfully", emailBody)
+
+	if err != nil {
+		logger.Error(ctx, "cannot send email to user", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
 		return
 	}
@@ -64,6 +74,6 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	}
 	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
-	ctx.SetCookie("token", res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
 }
