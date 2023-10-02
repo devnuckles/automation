@@ -20,6 +20,7 @@ func serveRest() {
 	tableConfig := config.GetTable()
 	cognitoConfig := config.GetCognito()
 	tokenConfig := config.GetToken()
+	smtpConfig := config.GetSmtpHost()
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsConfig.Region),
@@ -37,7 +38,7 @@ func serveRest() {
 		Addr: "localhost:6379",
 	})
 	cache := cache.NewCache(redisClient)
-	svc := service.NewService(userRepo, errorRepo, cache)
+	svc := service.NewService(userRepo, errorRepo, cache, smtpConfig)
 	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig)
 	if err != nil {
 		panic("Server can not start")

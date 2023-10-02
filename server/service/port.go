@@ -13,6 +13,7 @@ type Service interface {
 
 	CreateUser(ctx context.Context, user *User) error
 	LoginUser(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
+	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
 }
 
 type ErrorRepo interface {

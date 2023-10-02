@@ -13,6 +13,7 @@ var awsOnce = sync.Once{}
 var tableOnce = sync.Once{}
 var cognitoOnce = sync.Once{}
 var tokenOnce = sync.Once{}
+var smtpOnce = sync.Once{}
 
 type Table struct {
 	ErrorTableName string `mapstructure:"ERROR_TABLE_NAME"`
@@ -38,11 +39,19 @@ type Token struct {
 	SecretKey string `mapstructure:"JWT_SECRET_KEY"`
 }
 
+type Smtp struct {
+	Email    string `mapstructure:"SMTP_EMAIL"`
+	Password string `mapstructure:"SMTP_PASSWORD"`
+	Host     string `mapstructure:"SMTP_HOST"`
+	Port     string `mapstructure:"SMTP_PORT"`
+}
+
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
 var cognitoConfig *Cognito
 var tokenConfig *Token
+var smtpConfig *Smtp
 
 func loadApp() {
 	err := godotenv.Load(".env")
@@ -111,6 +120,22 @@ func loadToken() {
 
 }
 
+func loadSmtp() {
+	err := godotenv.Load((".env"))
+	if err != nil {
+		fmt.Println(".env file was not found, that's okay")
+	}
+	viper.AutomaticEnv()
+
+	smtpConfig = &Smtp{
+		Email:    viper.GetString("SMTP_EMAIL"),
+		Password: viper.GetString("SMTP_PASSWORD"),
+		Host:     viper.GetString("SMTP_HOST"),
+		Port:     viper.GetString("SMTP_PORT"),
+	}
+
+}
+
 func GetApp() *Application {
 	appOnce.Do(func() {
 		loadApp()
@@ -144,4 +169,11 @@ func GetToken() *Token {
 		loadToken()
 	})
 	return tokenConfig
+}
+
+func GetSmtpHost() *Smtp {
+	smtpOnce.Do(func() {
+		loadSmtp()
+	})
+	return smtpConfig
 }
