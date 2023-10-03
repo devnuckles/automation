@@ -8,11 +8,15 @@ import (
 )
 
 type Service interface {
+	// General Service
 	Error(ctx context.Context, internalCode string, description string) *ErrorResponse
 	Response(ctx context.Context, description string, data interface{}) *ResponseData
 
+	// Auth Service
 	CreateUser(ctx context.Context, user *User) error
 	LoginUser(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
+
+	// Mail Service
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
 }
 

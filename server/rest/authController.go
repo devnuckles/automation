@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -35,11 +34,11 @@ func (s *Server) signupUser(ctx *gin.Context) {
 		return
 	}
 
-	emailBody := fmt.Sprintf("Thank you for registering \r\n User Email: %s \r\n User Password: %s\n", user.Email, user.Password)
+	emailBody := generateEmailBody(user)
 	err = s.svc.SendMail(ctx, []string{user.Email}, "Your Account was created Successfully", emailBody)
 
 	if err != nil {
-		logger.Error(ctx, "cannot send email to user", err)
+		logger.Error(ctx, "Could not send email to user", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
 		return
 	}
