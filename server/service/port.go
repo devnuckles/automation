@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"mime/multipart"
 	"time"
 
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
@@ -18,6 +19,9 @@ type Service interface {
 
 	// Mail Service
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
+
+	// S3 Service
+	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error)
 }
 
 type ErrorRepo interface {
@@ -34,4 +38,8 @@ type Cache interface {
 type UserRepo interface {
 	Create(ctx context.Context, user *User) error
 	Login(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
+}
+
+type FileRepo interface {
+	Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error)
 }

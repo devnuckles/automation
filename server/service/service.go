@@ -11,6 +11,7 @@ import (
 
 type service struct {
 	userRepo   UserRepo
+	fileRepo   FileRepo
 	errRepo    ErrorRepo
 	cache      Cache
 	smtpConfig *config.Smtp
@@ -18,12 +19,14 @@ type service struct {
 
 func NewService(
 	userRepo UserRepo,
+	fileRepo FileRepo,
 	errorRepo ErrorRepo,
 	cache Cache,
 	smtpConfig *config.Smtp,
 ) Service {
 	return &service{
 		userRepo:   userRepo,
+		fileRepo:   fileRepo,
 		errRepo:    errorRepo,
 		cache:      cache,
 		smtpConfig: smtpConfig,

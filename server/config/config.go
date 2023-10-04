@@ -14,6 +14,7 @@ var tableOnce = sync.Once{}
 var cognitoOnce = sync.Once{}
 var tokenOnce = sync.Once{}
 var smtpOnce = sync.Once{}
+var s3Once = sync.Once{}
 
 type Table struct {
 	ErrorTableName string `mapstructure:"ERROR_TABLE_NAME"`
@@ -46,12 +47,17 @@ type Smtp struct {
 	Port     string `mapstructure:"SMTP_PORT"`
 }
 
+type S3 struct {
+	Bucket string `mapstructure:"S3_BUCKET"`
+}
+
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
 var cognitoConfig *Cognito
 var tokenConfig *Token
 var smtpConfig *Smtp
+var s3Config *S3
 
 func loadApp() {
 	err := godotenv.Load(".env")
@@ -133,7 +139,19 @@ func loadSmtp() {
 		Host:     viper.GetString("SMTP_HOST"),
 		Port:     viper.GetString("SMTP_PORT"),
 	}
+}
 
+func loadS3() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Printf(".env file was not found, that's okay")
+	}
+
+	viper.AutomaticEnv()
+
+	s3Config = &S3{
+		Bucket: viper.GetString("S3_BUCKET"),
+	}
 }
 
 func GetApp() *Application {
@@ -176,4 +194,11 @@ func GetSmtpHost() *Smtp {
 		loadSmtp()
 	})
 	return smtpConfig
+}
+
+func GetS3() *S3 {
+	s3Once.Do(func() {
+		loadS3()
+	})
+	return s3Config
 }
