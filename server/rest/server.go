@@ -44,6 +44,8 @@ func (server *Server) setupRouter() {
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
 
+	//Dashboard APIs
+	router.POST("/api/features/images", server.uploadFeatureImages)
 	server.router = router
 }
 

@@ -28,16 +28,17 @@ func NewFileRepo(s3Client *s3.S3, s3Bucket string) FileRepo {
 	}
 }
 
-func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error) {
+func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, metadata map[string]*string) (string, error) {
 	fileName, err := createFileName(fileHeader)
 	if err != nil {
 		return "", err
 	}
 
 	_, err = r.s3Client.PutObject((&s3.PutObjectInput{
-		Bucket: aws.String(r.s3Bucket),
-		Key:    aws.String(fileName),
-		Body:   file,
+		Bucket:   aws.String(r.s3Bucket),
+		Key:      aws.String(fileName),
+		Body:     file,
+		Metadata: metadata,
 	}))
 	if err != nil {
 		return "", fmt.Errorf("cannot put file into s3: %v", err)

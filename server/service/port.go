@@ -21,7 +21,7 @@ type Service interface {
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
 
 	// S3 Service
-	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error)
+	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, metadata map[string]*string) (string, error)
 }
 
 type ErrorRepo interface {
@@ -41,5 +41,5 @@ type UserRepo interface {
 }
 
 type FileRepo interface {
-	Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error)
+	Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, metadata map[string]*string) (string, error)
 }
