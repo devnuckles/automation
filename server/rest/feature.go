@@ -17,13 +17,6 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 	}
 
 	fileHeaders := ctx.Request.MultipartForm.File["file"]
-	metas := ctx.Request.MultipartForm.Value["meta"]
-
-	if len(fileHeaders) != len(metas) {
-		logger.Error(ctx, "Mismathch in number of metas & files", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad Request"))
-		return
-	}
 
 	res := make([]*UploadFeatureImageResponse, 0)
 	for i, fileHeader := range fileHeaders {
@@ -34,20 +27,14 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 			return
 		}
 
-		metaData := map[string]*string{
-			"imageInfo": &metas[i],
-		}
-
-		fileURL, err := s.svc.UploadFile(ctx, file, fileHeader, metaData)
+		fileURL, err := s.svc.UploadFile(ctx, file, fileHeader)
 
 		if err != nil {
 			logger.Error(ctx, "Could not upload files", err)
-
 			if len(res) > 0 {
 				for j := i; j < len(fileHeaders); j++ {
 					res = append(res, &UploadFeatureImageResponse{
 						ImageUrl: fileHeader.Filename,
-						Meta:     metas[j],
 						Status:   "Unsuccessfull",
 					})
 				}
@@ -61,10 +48,28 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 
 		res = append(res, &UploadFeatureImageResponse{
 			ImageUrl: fileURL,
-			Meta:     metas[i],
 			Status:   "successfull",
 		})
 	}
 
 	ctx.JSON(http.StatusCreated, s.svc.Response(ctx, "Created Successfully", res))
+}
+
+func (s *Server) getFeatureImages(ctx *gin.Context) {
+	imageUrlList, err := s.svc.GetFiles(ctx)
+	if err != nil {
+		logger.Error(ctx, "Could not get files", err)
+		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
+		return
+	}
+
+	res := make([]*GetFeatureImageResponse, 0)
+	for _, item := range imageUrlList {
+		res = append(res, &GetFeatureImageResponse{
+			ImageUrl: item.ImageUrl,
+		})
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfull", res))
+
 }

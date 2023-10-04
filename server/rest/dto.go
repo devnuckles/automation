@@ -6,6 +6,9 @@ type SuccessResponse struct {
 
 type UploadFeatureImageResponse struct {
 	ImageUrl string `json:"imageUrl"`
-	Meta     string `json:"meta"`
 	Status   string `json:"status"`
+}
+
+type GetFeatureImageResponse struct {
+	ImageUrl string `json:"imageUrl"`
 }
