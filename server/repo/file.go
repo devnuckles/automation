@@ -65,7 +65,6 @@ func createFileName(fileHeader *multipart.FileHeader, prefix string) (string, er
 }
 
 func (r *fileRepo) GetList(ctx context.Context, prefix string) ([]*service.S3Object, error) {
-
 	input := &s3.ListObjectsV2Input{
 		Bucket: aws.String(r.s3Bucket),
 		Prefix: &prefix,

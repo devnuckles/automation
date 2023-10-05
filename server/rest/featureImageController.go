@@ -19,9 +19,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 	}
 
 	fileHeaders := ctx.Request.MultipartForm.File["file"]
-
 	res := make([]*UploadFeatureImageResponse, 0)
-
 	for i, fileHeader := range fileHeaders {
 		file, err := fileHeader.Open()
 		if err != nil {
@@ -31,7 +29,6 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 		}
 
 		item, err := s.svc.UploadFile(ctx, file, fileHeader, PREFIX)
-
 		if err != nil {
 			logger.Error(ctx, "Could not upload files", err)
 			if len(res) > 0 {
@@ -41,6 +38,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 						Status:   "unsuccessfull",
 					})
 				}
+
 				ctx.JSON(http.StatusMultiStatus, s.svc.Response(ctx, "Upload was successfull partially", res))
 			} else {
 				ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
@@ -60,7 +58,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 }
 
 func (s *Server) getFeatureImages(ctx *gin.Context) {
-	imageUrlList, err := s.svc.GetFiles(ctx, PREFIX)
+	files, err := s.svc.GetFiles(ctx, PREFIX)
 	if err != nil {
 		logger.Error(ctx, "Could not get files", err)
 		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
@@ -68,7 +66,7 @@ func (s *Server) getFeatureImages(ctx *gin.Context) {
 	}
 
 	res := make([]*GetFeatureImageResponse, 0)
-	for _, item := range imageUrlList {
+	for _, item := range files {
 		res = append(res, &GetFeatureImageResponse{
 			Id:       item.Id,
 			ImageUrl: item.Url,
@@ -92,12 +90,12 @@ func (s *Server) deleteFeatureImage(ctx *gin.Context) {
 }
 
 func (s *Server) deleteFeatureImages(ctx *gin.Context) {
-	deletedItems, err := s.svc.DeleteFiles(ctx, PREFIX)
+	deletedfiles, err := s.svc.DeleteFiles(ctx, PREFIX)
 	if err != nil {
 		logger.Error(ctx, "Could not delete file", err)
-		if len(deletedItems) > 0 {
+		if len(deletedfiles) > 0 {
 			res := make([]*DeleteFeatureImagePartialResponse, 0)
-			for _, deletedItem := range deletedItems {
+			for _, deletedItem := range deletedfiles {
 				res = append(res, &DeleteFeatureImagePartialResponse{
 					Id:     deletedItem.Id,
 					Status: "successfull",

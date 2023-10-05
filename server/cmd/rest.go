@@ -34,15 +34,16 @@ func serveRest() {
 	ddbClient := dynamodb.New(sess)
 	cognitoClient := cognitoidentityprovider.New(sess)
 	s3Client := s3.New(sess)
-
-	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
-	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId)
-	fileRepo := repo.NewFileRepo(s3Client, s3Config.Bucket)
 	redisClient := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
 
+	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
+	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId)
+	fileRepo := repo.NewFileRepo(s3Client, s3Config.Bucket)
+
 	cache := cache.NewCache(redisClient)
+
 	svc := service.NewService(userRepo, fileRepo, errorRepo, cache, smtpConfig)
 	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig)
 	if err != nil {

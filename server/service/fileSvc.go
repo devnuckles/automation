@@ -6,12 +6,12 @@ import (
 )
 
 func (s *service) UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*S3Object, error) {
-	fileItem, err := s.fileRepo.Upload(ctx, file, fileHeader, prefix)
+	item, err := s.fileRepo.Upload(ctx, file, fileHeader, prefix)
 	if err != nil {
 		return nil, err
 	}
 
-	return fileItem, err
+	return item, err
 }
 
 func (s *service) GetFiles(ctx context.Context, prefix string) ([]*S3Object, error) {
