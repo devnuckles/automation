@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "dev-automation-client-features"
+  bucket = "dev-automation-features"
 }
 
 resource "aws_s3_bucket_public_access_block" "access_block" {
