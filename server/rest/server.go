@@ -41,6 +41,7 @@ func (server *Server) setupRouter() {
 
 	router.GET("/api/test", server.test) // healtch check
 
+	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
 
