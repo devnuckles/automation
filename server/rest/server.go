@@ -41,8 +41,15 @@ func (server *Server) setupRouter() {
 
 	router.GET("/api/test", server.test) // healtch check
 
+	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
+
+	//Feature Images APIs
+	router.POST("/api/features/images", server.uploadFeatureImages)
+	router.GET("/api/features/images", server.getFeatureImages)
+	router.DELETE("/api/features/images/:id", server.deleteFeatureImage)
+	router.DELETE("/api/features/images", server.deleteFeatureImages)
 
 	server.router = router
 }
