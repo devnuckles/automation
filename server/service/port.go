@@ -21,9 +21,10 @@ type Service interface {
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
 
 	// S3 Service
-	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (*S3Object, error)
-	GetFiles(ctx context.Context) ([]*S3Object, error)
+	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*S3Object, error)
+	GetFiles(ctx context.Context, prefix string) ([]*S3Object, error)
 	DeleteFile(ctx context.Context, id string) error
+	DeleteFiles(ctx context.Context, prefix string) ([]*S3Object, error)
 }
 
 type ErrorRepo interface {
@@ -43,7 +44,7 @@ type UserRepo interface {
 }
 
 type FileRepo interface {
-	Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (*S3Object, error)
-	GetList(ctx context.Context) ([]*S3Object, error)
+	Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*S3Object, error)
+	GetList(ctx context.Context, prefix string) ([]*S3Object, error)
 	Delete(ctx context.Context, id string) error
 }

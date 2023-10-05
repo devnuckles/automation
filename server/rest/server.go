@@ -48,6 +48,7 @@ func (server *Server) setupRouter() {
 	router.POST("/api/features/images", server.uploadFeatureImages)
 	router.GET("/api/features/images", server.getFeatureImages)
 	router.DELETE("/api/features/images/:id", server.deleteFeatureImage)
+	router.DELETE("/api/features/images", server.deleteFeatureImages)
 
 	server.router = router
 }

@@ -8,6 +8,8 @@ import (
 	"github.com/schemetech-developer/automation/util"
 )
 
+const PREFIX = "feature_image"
+
 func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 	err := ctx.Request.ParseMultipartForm(10 << 20)
 	if err != nil {
@@ -19,6 +21,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 	fileHeaders := ctx.Request.MultipartForm.File["file"]
 
 	res := make([]*UploadFeatureImageResponse, 0)
+
 	for i, fileHeader := range fileHeaders {
 		file, err := fileHeader.Open()
 		if err != nil {
@@ -27,7 +30,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 			return
 		}
 
-		item, err := s.svc.UploadFile(ctx, file, fileHeader)
+		item, err := s.svc.UploadFile(ctx, file, fileHeader, PREFIX)
 
 		if err != nil {
 			logger.Error(ctx, "Could not upload files", err)
@@ -35,7 +38,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 				for j := i; j < len(fileHeaders); j++ {
 					res = append(res, &UploadFeatureImageResponse{
 						ImageUrl: fileHeader.Filename,
-						Status:   "Unsuccessfull",
+						Status:   "unsuccessfull",
 					})
 				}
 				ctx.JSON(http.StatusMultiStatus, s.svc.Response(ctx, "Upload was successfull partially", res))
@@ -57,7 +60,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 }
 
 func (s *Server) getFeatureImages(ctx *gin.Context) {
-	imageUrlList, err := s.svc.GetFiles(ctx)
+	imageUrlList, err := s.svc.GetFiles(ctx, PREFIX)
 	if err != nil {
 		logger.Error(ctx, "Could not get files", err)
 		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
@@ -85,5 +88,28 @@ func (s *Server) deleteFeatureImage(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully Deleted", nil))
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Deleted Successfully", nil))
+}
+
+func (s *Server) deleteFeatureImages(ctx *gin.Context) {
+	deletedItems, err := s.svc.DeleteFiles(ctx, PREFIX)
+	if err != nil {
+		logger.Error(ctx, "Could not delete file", err)
+		if len(deletedItems) > 0 {
+			res := make([]*DeleteFeatureImagePartialResponse, 0)
+			for _, deletedItem := range deletedItems {
+				res = append(res, &DeleteFeatureImagePartialResponse{
+					Id:     deletedItem.Id,
+					Status: "successfull",
+				})
+			}
+
+			ctx.JSON(http.StatusMultiStatus, s.svc.Response(ctx, "Upload was successfull partially", res))
+		} else {
+			ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		}
+		return
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Deleted Successfully", nil))
 }

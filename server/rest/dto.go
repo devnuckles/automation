@@ -14,3 +14,8 @@ type GetFeatureImageResponse struct {
 	Id       string `json:"id"`
 	ImageUrl string `json:"imageUrl"`
 }
+
+type DeleteFeatureImagePartialResponse struct {
+	Id     string `json:"id"`
+	Status string `json:"status"`
+}

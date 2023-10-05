@@ -28,8 +28,8 @@ func NewFileRepo(s3Client *s3.S3, s3Bucket string) FileRepo {
 	}
 }
 
-func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (*service.S3Object, error) {
-	fileName, err := createFileName(fileHeader)
+func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*service.S3Object, error) {
+	fileName, err := createFileName(fileHeader, prefix)
 	if err != nil {
 		return nil, err
 	}
@@ -53,21 +53,22 @@ func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *
 	return s3Obj, nil
 }
 
-func createFileName(fileHeader *multipart.FileHeader) (string, error) {
+func createFileName(fileHeader *multipart.FileHeader, prefix string) (string, error) {
 	id, err := uuid.NewUUID()
 	if err != nil {
 		return "", fmt.Errorf("cannot create uuid: %v", err)
 	}
 
-	fileName := fmt.Sprintf("%s%s", id, filepath.Ext(fileHeader.Filename))
+	fileName := fmt.Sprintf("%s_%s%s", prefix, id, filepath.Ext(fileHeader.Filename))
 
 	return fileName, nil
 }
 
-func (r *fileRepo) GetList(ctx context.Context) ([]*service.S3Object, error) {
+func (r *fileRepo) GetList(ctx context.Context, prefix string) ([]*service.S3Object, error) {
 
 	input := &s3.ListObjectsV2Input{
 		Bucket: aws.String(r.s3Bucket),
+		Prefix: &prefix,
 	}
 
 	res, err := r.s3Client.ListObjectsV2(input)
