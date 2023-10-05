@@ -27,7 +27,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 			return
 		}
 
-		fileURL, err := s.svc.UploadFile(ctx, file, fileHeader)
+		item, err := s.svc.UploadFile(ctx, file, fileHeader)
 
 		if err != nil {
 			logger.Error(ctx, "Could not upload files", err)
@@ -47,7 +47,8 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 		}
 
 		res = append(res, &UploadFeatureImageResponse{
-			ImageUrl: fileURL,
+			Id:       item.Id,
+			ImageUrl: item.Url,
 			Status:   "successfull",
 		})
 	}
@@ -66,10 +67,23 @@ func (s *Server) getFeatureImages(ctx *gin.Context) {
 	res := make([]*GetFeatureImageResponse, 0)
 	for _, item := range imageUrlList {
 		res = append(res, &GetFeatureImageResponse{
-			ImageUrl: item.ImageUrl,
+			Id:       item.Id,
+			ImageUrl: item.Url,
 		})
 	}
 
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfull", res))
 
+}
+
+func (s *Server) deleteFeatureImage(ctx *gin.Context) {
+	id := ctx.Param("id")
+	err := s.svc.DeleteFile(ctx, id)
+	if err != nil {
+		logger.Error(ctx, "Could not delete file", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully Deleted", nil))
 }

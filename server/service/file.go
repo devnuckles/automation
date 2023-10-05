@@ -1,5 +1,6 @@
 package service
 
-type S3FeatureImage struct {
-	ImageUrl string
+type S3Object struct {
+	Id  string
+	Url string
 }

@@ -28,10 +28,10 @@ func NewFileRepo(s3Client *s3.S3, s3Bucket string) FileRepo {
 	}
 }
 
-func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (string, error) {
+func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader) (*service.S3Object, error) {
 	fileName, err := createFileName(fileHeader)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	_, err = r.s3Client.PutObject((&s3.PutObjectInput{
@@ -40,12 +40,17 @@ func (r *fileRepo) Upload(ctx context.Context, file multipart.File, fileHeader *
 		Body:   file,
 	}))
 	if err != nil {
-		return "", fmt.Errorf("cannot put file into s3: %v", err)
+		return nil, fmt.Errorf("cannot put file into s3: %v", err)
 	}
 
 	fileURL := fmt.Sprintf("https://%s.s3.amazonaws.com/%s", r.s3Bucket, fileName)
 
-	return fileURL, nil
+	s3Obj := &service.S3Object{
+		Id:  fileName,
+		Url: fileURL,
+	}
+
+	return s3Obj, nil
 }
 
 func createFileName(fileHeader *multipart.FileHeader) (string, error) {
@@ -59,7 +64,7 @@ func createFileName(fileHeader *multipart.FileHeader) (string, error) {
 	return fileName, nil
 }
 
-func (r *fileRepo) GetList(ctx context.Context) ([]*service.S3FeatureImage, error) {
+func (r *fileRepo) GetList(ctx context.Context) ([]*service.S3Object, error) {
 
 	input := &s3.ListObjectsV2Input{
 		Bucket: aws.String(r.s3Bucket),
@@ -70,13 +75,29 @@ func (r *fileRepo) GetList(ctx context.Context) ([]*service.S3FeatureImage, erro
 		return nil, err
 	}
 
-	imageUrlList := make([]*service.S3FeatureImage, 0)
+	files := make([]*service.S3Object, 0)
 	for _, s3Obj := range res.Contents {
 		fileURL := fmt.Sprintf("https://%s.s3.amazonaws.com/%s", r.s3Bucket, *s3Obj.Key)
-		imageUrlList = append(imageUrlList, &service.S3FeatureImage{
-			ImageUrl: fileURL,
+		files = append(files, &service.S3Object{
+			Id:  *s3Obj.Key,
+			Url: fileURL,
 		})
 	}
 
-	return imageUrlList, nil
+	return files, nil
+}
+
+func (r *fileRepo) Delete(ctx context.Context, objectKey string) error {
+	input := &s3.DeleteObjectInput{
+		Bucket: aws.String(r.s3Bucket),
+		Key:    aws.String(objectKey),
+	}
+
+	_, err := r.s3Client.DeleteObject(input)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
