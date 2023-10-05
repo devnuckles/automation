@@ -11,15 +11,17 @@ import (
 var appOnce = sync.Once{}
 var awsOnce = sync.Once{}
 var tableOnce = sync.Once{}
-var saltOnce = sync.Once{}
+var cognitoOnce = sync.Once{}
 var tokenOnce = sync.Once{}
+var smtpOnce = sync.Once{}
 
 type Table struct {
-	UserTableName     string `mapstructure:"USER_TABLE_NAME"`
-	PostTableName     string `mapstructure:"POST_TABLE_NAME"`
-	CategoryTableName string `mapstructure:"CATEGORY_TABLE_NAME"`
-	CommentTableName  string `mapstructure:"COMMENT_TABLE_NAME"`
-	ErrorTableName    string `mapstructure:"ERROR_TABLE_NAME"`
+	ErrorTableName string `mapstructure:"ERROR_TABLE_NAME"`
+}
+
+type Cognito struct {
+	ClientId string `mapstructure:"COGNITO_APP_CLIENT_ID"`
+	PoolId   string `mapstructure:"COGNITO_USER_POOL_ID"`
 }
 
 type Application struct {
@@ -33,20 +35,23 @@ type Aws struct {
 	Region          string `mapstructure:"AWS_REGION"`
 }
 
-type Salt struct {
-	SecretKey int `mapstructure:"SECRET_SALT_KEY"`
-}
-
 type Token struct {
-	JWToken string `mapstructure:"JWT_TOKEN"`
+	SecretKey string `mapstructure:"JWT_SECRET_KEY"`
 }
 
+type Smtp struct {
+	Email    string `mapstructure:"SMTP_EMAIL"`
+	Password string `mapstructure:"SMTP_PASSWORD"`
+	Host     string `mapstructure:"SMTP_HOST"`
+	Port     string `mapstructure:"SMTP_PORT"`
+}
 
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
-var saltConfig *Salt
+var cognitoConfig *Cognito
 var tokenConfig *Token
+var smtpConfig *Smtp
 
 func loadApp() {
 	err := godotenv.Load(".env")
@@ -85,12 +90,10 @@ func loadTable() {
 
 	viper.AutomaticEnv()
 
-	tableConfig = &Table{
-
-	}
+	tableConfig = &Table{}
 }
 
-func loadSalt() {
+func loadCognito() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		fmt.Printf(".env file was not found, that's okay")
@@ -98,8 +101,9 @@ func loadSalt() {
 
 	viper.AutomaticEnv()
 
-	saltConfig = &Salt{
-		SecretKey: viper.GetInt("SECRET_SALT_KEY"),
+	cognitoConfig = &Cognito{
+		ClientId: viper.GetString("COGNITO_APP_CLIENT_ID"),
+		PoolId:   viper.GetString("COGNITO_USER_POOL_ID"),
 	}
 }
 
@@ -111,11 +115,26 @@ func loadToken() {
 	viper.AutomaticEnv()
 
 	tokenConfig = &Token{
-		JWToken: viper.GetString("JWT_TOKEN"),
+		SecretKey: viper.GetString("JWT_SECRET_KEY"),
 	}
 
 }
 
+func loadSmtp() {
+	err := godotenv.Load((".env"))
+	if err != nil {
+		fmt.Println(".env file was not found, that's okay")
+	}
+	viper.AutomaticEnv()
+
+	smtpConfig = &Smtp{
+		Email:    viper.GetString("SMTP_EMAIL"),
+		Password: viper.GetString("SMTP_PASSWORD"),
+		Host:     viper.GetString("SMTP_HOST"),
+		Port:     viper.GetString("SMTP_PORT"),
+	}
+
+}
 
 func GetApp() *Application {
 	appOnce.Do(func() {
@@ -138,11 +157,11 @@ func GetTable() *Table {
 	return tableConfig
 }
 
-func GetSalt() *Salt {
-	saltOnce.Do(func() {
-		loadSalt()
+func GetCognito() *Cognito {
+	cognitoOnce.Do(func() {
+		loadCognito()
 	})
-	return saltConfig
+	return cognitoConfig
 }
 
 func GetToken() *Token {
@@ -150,4 +169,11 @@ func GetToken() *Token {
 		loadToken()
 	})
 	return tokenConfig
+}
+
+func GetSmtpHost() *Smtp {
+	smtpOnce.Do(func() {
+		loadSmtp()
+	})
+	return smtpConfig
 }

@@ -11,19 +11,19 @@ import (
 )
 
 type Server struct {
-	router    *gin.Engine
-	appConfig *config.Application
-	svc       service.Service
-	jwt       *config.Token
-	salt      *config.Salt
+	router        *gin.Engine
+	appConfig     *config.Application
+	svc           service.Service
+	cognitoConfig *config.Cognito
+	jwt           *config.Token
 }
 
-func NewServer(appConfig *config.Application, svc service.Service, salt *config.Salt, jwt *config.Token) (*Server, error) {
+func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig *config.Cognito, jwt *config.Token) (*Server, error) {
 	server := &Server{
-		appConfig: appConfig,
-		svc:       svc,
-		salt:      salt,
-		jwt:       jwt,
+		appConfig:     appConfig,
+		svc:           svc,
+		cognitoConfig: cognitoConfig,
+		jwt:           jwt,
 	}
 
 	server.setupRouter()
@@ -40,6 +40,9 @@ func (server *Server) setupRouter() {
 	router.Static("/docs", "./docs") // swagger documentation
 
 	router.GET("/api/test", server.test) // healtch check
+
+	router.POST("/api/auth/signup", server.signupUser)
+	router.POST("/api/auth/login", server.loginUser)
 
 	server.router = router
 }

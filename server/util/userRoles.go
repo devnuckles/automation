@@ -1,0 +1,9 @@
+package util
+
+// constants for all supported user roles
+const (
+	SYSADMIN    = "system-admin"
+	SUPER_ADMIN = "super-admin"
+	ADMIN       = "admin"
+	OPERATOR    = "operator"
+)

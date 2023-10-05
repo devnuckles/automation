@@ -4,24 +4,29 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/schemetech-developer/automation/config"
 	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/util"
 )
 
 type service struct {
-	errRepo      ErrorRepo
-	cache        Cache
+	userRepo   UserRepo
+	errRepo    ErrorRepo
+	cache      Cache
+	smtpConfig *config.Smtp
 }
 
 func NewService(
-
+	userRepo UserRepo,
 	errorRepo ErrorRepo,
 	cache Cache,
+	smtpConfig *config.Smtp,
 ) Service {
 	return &service{
-
-		errRepo:      errorRepo,
-		cache:        cache,
+		userRepo:   userRepo,
+		errRepo:    errorRepo,
+		cache:      cache,
+		smtpConfig: smtpConfig,
 	}
 }
 

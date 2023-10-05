@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/go-redis/redis"
 
@@ -17,8 +18,9 @@ func serveRest() {
 	appConfig := config.GetApp()
 	awsConfig := config.GetAws()
 	tableConfig := config.GetTable()
-	saltConfig := config.GetSalt()
+	cognitoConfig := config.GetCognito()
 	tokenConfig := config.GetToken()
+	smtpConfig := config.GetSmtpHost()
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(awsConfig.Region),
@@ -28,15 +30,16 @@ func serveRest() {
 	}
 
 	ddbClient := dynamodb.New(sess)
+	cognitoClient := cognitoidentityprovider.New(sess)
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
-	//
+	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId)
 	redisClient := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
 	cache := cache.NewCache(redisClient)
-	svc := service.NewService(errorRepo, cache)
-	server, err := rest.NewServer(appConfig, svc, saltConfig, tokenConfig)
+	svc := service.NewService(userRepo, errorRepo, cache, smtpConfig)
+	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig)
 	if err != nil {
 		panic("Server can not start")
 	}
