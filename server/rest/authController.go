@@ -59,6 +59,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 		Email:    req.Email,
 		Password: req.Password,
 	}
+
 	token, err := s.svc.LoginUser(ctx, user)
 	if err != nil {
 		logger.Error(ctx, "User Not Found", err)
@@ -66,7 +67,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 		return
 	}
 
-	res := loginUserRes{
+	res := &loginUserRes{
 		AccessToken:  *token.AuthenticationResult.AccessToken,
 		RefreshToken: *token.AuthenticationResult.RefreshToken,
 		IdToken:      *token.AuthenticationResult.IdToken,
@@ -75,6 +76,27 @@ func (s *Server) loginUser(ctx *gin.Context) {
 
 	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
+}
+
+func (s *Server) refrehToken(ctx *gin.Context) {
+	var req refrehTokenReq
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
+		return
+	}
+
+	token, err := s.svc.RefreshToken(ctx, req.RefreshToken)
+
+	res := &refrehTokenRes{
+		AccessToken: *token.AuthenticationResult.AccessToken,
+		IdToken:     *token.AuthenticationResult.IdToken,
+	}
+	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
+
+	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfull", res))
 }
 
 func (s *Server) logoutUser(ctx *gin.Context) {

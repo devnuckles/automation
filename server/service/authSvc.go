@@ -24,6 +24,15 @@ func (s *service) LoginUser(ctx context.Context, user *User) (*cognitoidentitypr
 	return res, nil
 }
 
+func (s *service) RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error) {
+	res, err := s.userRepo.RefreshToken(ctx, refreshToken)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
 func (s *service) Logout(ctx context.Context, accessToken string) error {
 	err := s.userRepo.Logout(ctx, accessToken)
 	if err != nil {

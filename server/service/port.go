@@ -16,6 +16,7 @@ type Service interface {
 	// Auth Service
 	CreateUser(ctx context.Context, user *User) error
 	LoginUser(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
+	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	Logout(ctx context.Context, accessToken string) error
 
 	// Mail Service
@@ -52,6 +53,7 @@ type UserRepo interface {
 	GetItem(ctx context.Context, accessToken string) (*User, error)
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
 	DeleteItemByID(ctx context.Context, id string) error
+	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	Logout(ctx context.Context, accessToken string) error
 }
 

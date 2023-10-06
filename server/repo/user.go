@@ -2,7 +2,6 @@ package repo
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -12,7 +11,10 @@ import (
 	"github.com/schemetech-developer/automation/service"
 )
 
-const flowUsernamePassword = "USER_PASSWORD_AUTH"
+const (
+	flowUsernamePassword = "USER_PASSWORD_AUTH"
+	flowRefreshToken     = "REFRESH_TOKEN_AUTH"
+)
 
 type UserRepo interface {
 	service.UserRepo
@@ -263,14 +265,28 @@ func (r *userRepo) Logout(ctx context.Context, accessToken string) (*cognitoiden
 	return res, err
 }
 
+func (r *userRepo) RefreshToken(ctx context.Context, refrehToken string) (*cognitoidentityprovider.InitiateAuthOutput, error) {
+	authParameters := map[string]*string{
+		"REFRESH_TOKEN": aws.String(refrehToken),
+	}
+
+	input := &cognitoidentityprovider.InitiateAuthInput{
+		ClientId:       aws.String(r.appClientID),
+		AuthParameters: authParameters,
+		AuthFlow:       aws.String(flowRefreshToken),
+	}
+
+	res, err := r.svc.InitiateAuth(input)
+
+	return res, err
+}
+
 func (r *userRepo) Logout(ctx context.Context, accessToken string) error {
 	input := &cognitoidentityprovider.GlobalSignOutInput{
 		AccessToken: aws.String(accessToken),
 	}
 
-	res, err := r.svc.GlobalSignOut(input)
-
-	fmt.Println(res)
+	_, err := r.svc.GlobalSignOut(input)
 
 	return err
 }
