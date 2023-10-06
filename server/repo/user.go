@@ -262,3 +262,15 @@ func (r *userRepo) Logout(ctx context.Context, accessToken string) (*cognitoiden
 
 	return res, err
 }
+
+func (r *userRepo) Logout(ctx context.Context, accessToken string) error {
+	input := &cognitoidentityprovider.GlobalSignOutInput{
+		AccessToken: aws.String(accessToken),
+	}
+
+	res, err := r.svc.GlobalSignOut(input)
+
+	fmt.Println(res)
+
+	return err
+}

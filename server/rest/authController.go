@@ -14,7 +14,7 @@ func (s *Server) signupUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		logger.Error(ctx, "cannot pass validation", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
 		return
 	}
 
@@ -51,7 +51,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		logger.Error(ctx, "cannot pass validation", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
 		return
 	}
 
@@ -75,4 +75,23 @@ func (s *Server) loginUser(ctx *gin.Context) {
 
 	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
+}
+
+func (s *Server) logoutUser(ctx *gin.Context) {
+	accessToken, err := ctx.Cookie(authorizationHeaderKey)
+	if err != nil {
+		logger.Error(ctx, "no cookie found", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		return
+	}
+
+	err = s.svc.Logout(ctx, accessToken)
+	if err != nil {
+		logger.Error(ctx, "internal server error", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
+	ctx.Status(http.StatusOK)
 }

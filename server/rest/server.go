@@ -53,6 +53,7 @@ func (server *Server) setupRouter() {
 	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
+	router.POST("/api/auth/logout", server.logoutUser)
 
 	////////// Protected Routes ///////////
 	// authRoutes := router.Group("/").Use(server.authMiddleware())

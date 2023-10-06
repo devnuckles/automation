@@ -23,3 +23,12 @@ func (s *service) LoginUser(ctx context.Context, user *User) (*cognitoidentitypr
 
 	return res, nil
 }
+
+func (s *service) Logout(ctx context.Context, accessToken string) error {
+	err := s.userRepo.Logout(ctx, accessToken)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
