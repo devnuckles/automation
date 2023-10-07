@@ -39,7 +39,8 @@ type Aws struct {
 }
 
 type Token struct {
-	SecretKey string `mapstructure:"JWT_SECRET_KEY"`
+	N string `mapstructure:"JWT_SECRET_KEY_N"`
+	E string `mapstructure:"JWT_SECRET_KEY_E"`
 }
 
 type Smtp struct {
@@ -130,7 +131,8 @@ func loadToken() {
 	viper.AutomaticEnv()
 
 	tokenConfig = &Token{
-		SecretKey: viper.GetString("JWT_SECRET_KEY"),
+		N: viper.GetString("JWT_SECRET_KEY_N"),
+		E: viper.GetString("JWT_SECRET_KEY_E"),
 	}
 
 }

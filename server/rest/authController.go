@@ -14,7 +14,7 @@ func (s *Server) signupUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		logger.Error(ctx, "cannot pass validation", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
 		return
 	}
 
@@ -51,7 +51,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		logger.Error(ctx, "cannot pass validation", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
 		return
 	}
 
@@ -75,6 +75,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
 	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
 }
 
@@ -83,7 +84,7 @@ func (s *Server) refrehToken(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		logger.Error(ctx, "cannot pass validation", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
 		return
 	}
 
@@ -96,6 +97,7 @@ func (s *Server) refrehToken(ctx *gin.Context) {
 	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
 	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfull", res))
 }
 
@@ -115,5 +117,6 @@ func (s *Server) logoutUser(ctx *gin.Context) {
 	}
 
 	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, "", -1, "/", "", false, true)
 	ctx.Status(http.StatusOK)
 }
