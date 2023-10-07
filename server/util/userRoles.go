@@ -7,3 +7,11 @@ const (
 	ADMIN       = "admin"
 	OPERATOR    = "operator"
 )
+
+func IsSupportedUserRole(role string) bool {
+	switch role {
+	case ADMIN, OPERATOR:
+		return true
+	}
+	return false
+}

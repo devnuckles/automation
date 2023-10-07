@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	"github.com/schemetech-developer/automation/config"
 	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
@@ -24,6 +26,11 @@ func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig
 		svc:           svc,
 		cognitoConfig: cognitoConfig,
 		jwt:           jwt,
+	}
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("userStatus", validUserStatus)
+		v.RegisterValidation("userRole", validUserRole)
 	}
 
 	server.setupRouter()
