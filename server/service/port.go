@@ -25,6 +25,9 @@ type Service interface {
 	GetFiles(ctx context.Context, prefix string) ([]*S3Object, error)
 	DeleteFile(ctx context.Context, id string) error
 	DeleteFiles(ctx context.Context, prefix string) ([]*S3Object, error)
+
+	// User Service
+	GetUser(ctx context.Context, accessToken string) (*User, error)
 }
 
 type ErrorRepo interface {
@@ -41,6 +44,7 @@ type Cache interface {
 type UserRepo interface {
 	Create(ctx context.Context, user *User) error
 	Login(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
+	GetItem(ctx context.Context, accessToken string) (*User, error)
 }
 
 type FileRepo interface {

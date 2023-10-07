@@ -51,6 +51,9 @@ func (server *Server) setupRouter() {
 	router.DELETE("/api/features/images/:id", server.deleteFeatureImage)
 	router.DELETE("/api/features/images", server.deleteFeatureImages)
 
+	// User APIs
+	router.GET("/api/features/users/profile", server.getUserProfile)
+
 	server.router = router
 }
 

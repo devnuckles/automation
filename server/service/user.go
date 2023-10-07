@@ -1,14 +1,14 @@
 package service
 
 type User struct {
-	ID          string `json:"Id"`
-	Username    string `json:"Username"`
-	Email       string `json:"Email"`
-	Password    string `json:"Password"`
-	PhoneNumber string `json:"PhoneNumber"`
-	Image       string `json:"image"`
-	Role        string `json:"Role"`
-	Status      string `json:"Status"`
+	ID          string `json:"sub"`
+	Username    string `json:"name"`
+	Email       string `json:"email"`
+	Password    string `json:"password"`
+	PhoneNumber string `json:"phone_number"`
+	Image       string `json:"picture"`
+	Role        string `json:"custom:role"`
+	Status      string `json:"custom:status"`
 	CreatedAt   int64  `json:"CreatedAt"`
-	CreatedBy   string `json:"CreatedBy"`
+	CreatedBy   string `json:"custom:createdBy"`
 }
