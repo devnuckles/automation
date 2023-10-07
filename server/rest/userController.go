@@ -13,7 +13,7 @@ func (s *Server) getUserProfile(ctx *gin.Context) {
 
 	if err != nil {
 		logger.Error(ctx, "cannot get token", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad Request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
 		return
 	}
 
@@ -27,7 +27,7 @@ func (s *Server) getUserProfile(ctx *gin.Context) {
 
 	if user == nil {
 		logger.Error(ctx, "user not found", err)
-		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Not Found"))
+		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
 		return
 	}
 
