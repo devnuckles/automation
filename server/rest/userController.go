@@ -97,5 +97,25 @@ func (s *Server) addUser(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, s.svc.Response(ctx, "Successfully created", nil))
+}
 
+func (s *Server) deleteUser(ctx *gin.Context) {
+	userID := ctx.Param("id")
+
+	err := s.repo.DeleteUser(ctx, userID)
+	if err != nil {
+		logger.Error(ctx, "cannot delete user from Cognito", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	// Delete the user from DynamoDB
+	err = s.repo.DeleteItem(ctx, userID)
+	if err != nil {
+		logger.Error(ctx, "cannot delete user from DynamoDB", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, util.EN_DELETE_SUCCESS, "User deleted successfully"))
 }

@@ -22,3 +22,12 @@ func (s *service) GetUserByEmail(ctx context.Context, email string) (*User, erro
 
 	return user, nil
 }
+
+func (s *service) DeleteUser(ctx context.Context, id string) error {
+	err := s.userRepo.DeleteItemByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

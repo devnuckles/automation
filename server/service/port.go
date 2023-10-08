@@ -47,6 +47,7 @@ type UserRepo interface {
 	Login(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	GetItem(ctx context.Context, accessToken string) (*User, error)
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
+	DeleteItemByID(ctx context.Context, id string) error
 }
 
 type FileRepo interface {

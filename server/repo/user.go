@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
 )
 
@@ -36,7 +35,7 @@ func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClient
 }
 
 const (
-	userEmailIndex       = "EmailIndex"
+	userEmailIndex = "EmailIndex"
 )
 
 func (r *userRepo) Create(ctx context.Context, user *service.User) error {
@@ -50,7 +49,6 @@ func (r *userRepo) Create(ctx context.Context, user *service.User) error {
 		TableName: aws.String(r.tableName),
 		Item:      usr,
 	}
-	logger.Info(ctx, "the userrr----->", input)
 
 	_, err = r.db.PutItemWithContext(ctx, input)
 	if err != nil {
@@ -178,4 +176,65 @@ func (r *userRepo) GetItemByEmail(ctx context.Context, email string) (*service.U
 	}
 
 	return user, nil
+}
+
+func (r *userRepo) GetItemByID(ctx context.Context, id string) (*service.User, error) {
+	input := &dynamodb.GetItemInput{
+		TableName: aws.String(r.tableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"Id": {
+				S: aws.String(id),
+			},
+		},
+	}
+
+	result, err := r.db.GetItemWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return nil, fmt.Errorf("failed to get item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return nil, fmt.Errorf("failed to get item: %v", err)
+	}
+
+	if result.Item == nil {
+		return nil, nil
+	}
+
+	var user *service.User
+	err = dynamodbattribute.UnmarshalMap(result.Item, &user)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal DynamoDB item: %v", err)
+	}
+
+	return user, nil
+}
+
+func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
+	u, err := r.GetItemByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	if u == nil {
+		return nil
+	}
+
+	input := &dynamodb.DeleteItemInput{
+		TableName: aws.String(r.tableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"Id": {
+				S: aws.String(u.ID),
+			},
+		},
+	}
+
+	_, err = r.db.DeleteItemWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to delete item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return fmt.Errorf("failed to delete item: %v", err)
+	}
+
+	return nil
 }
