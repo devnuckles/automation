@@ -12,3 +12,15 @@ type User struct {
 	CreatedAt   int64  `json:"CreatedAt"`
 	CreatedBy   string `json:"custom:createdBy"`
 }
+
+type FilterUserParams struct {
+	Role  string `json:"Role"`
+	Pivot string `json:"Pivot"`
+	Limit int64  `json:"Limit"`
+	Offset int64 `json:"Offset"`
+}
+
+type UserResult struct {
+	NextPivot string  `json:"NextPivot"`
+	Users     []*User `json:"Users"`
+}
