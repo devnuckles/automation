@@ -28,6 +28,7 @@ type Service interface {
 
 	// User Service
 	GetUser(ctx context.Context, accessToken string) (*User, error)
+	GetUserByEmail(ctx context.Context, email string) (*User, error)
 }
 
 type ErrorRepo interface {
@@ -45,6 +46,7 @@ type UserRepo interface {
 	Create(ctx context.Context, user *User) error
 	Login(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	GetItem(ctx context.Context, accessToken string) (*User, error)
+	GetItemByEmail(ctx context.Context, email string) (*User, error)
 }
 
 type FileRepo interface {

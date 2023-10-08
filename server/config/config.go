@@ -12,12 +12,14 @@ var appOnce = sync.Once{}
 var awsOnce = sync.Once{}
 var tableOnce = sync.Once{}
 var cognitoOnce = sync.Once{}
+var saltOnce = sync.Once{}
 var tokenOnce = sync.Once{}
 var smtpOnce = sync.Once{}
 var s3Once = sync.Once{}
 
 type Table struct {
 	ErrorTableName string `mapstructure:"ERROR_TABLE_NAME"`
+	UserTableName     string `mapstructure:"USER_TABLE_NAME"`
 }
 
 type Cognito struct {
@@ -51,10 +53,15 @@ type S3 struct {
 	Bucket string `mapstructure:"S3_BUCKET"`
 }
 
+type Salt struct {
+	SecretKey int `mapstructure:"SECRET_SALT_KEY"`
+}
+
 var appConfig *Application
 var awsConfig *Aws
 var tableConfig *Table
 var cognitoConfig *Cognito
+var saltConfig *Salt
 var tokenConfig *Token
 var smtpConfig *Smtp
 var s3Config *S3
@@ -96,7 +103,9 @@ func loadTable() {
 
 	viper.AutomaticEnv()
 
-	tableConfig = &Table{}
+	tableConfig = &Table{
+		UserTableName: viper.GetString("USER_TABLE_NAME"),
+	}
 }
 
 func loadCognito() {
@@ -154,6 +163,19 @@ func loadS3() {
 	}
 }
 
+func loadSalt() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Printf(".env file was not found, that's okay")
+	}
+
+	viper.AutomaticEnv()
+
+	saltConfig = &Salt{
+		SecretKey: viper.GetInt("SECRET_SALT_KEY"),
+	}
+}
+
 func GetApp() *Application {
 	appOnce.Do(func() {
 		loadApp()
@@ -201,4 +223,11 @@ func GetS3() *S3 {
 		loadS3()
 	})
 	return s3Config
+}
+
+func GetSalt() *Salt {
+	saltOnce.Do(func() {
+		loadSalt()
+	})
+	return saltConfig
 }

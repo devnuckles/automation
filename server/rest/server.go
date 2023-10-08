@@ -18,14 +18,16 @@ type Server struct {
 	svc           service.Service
 	cognitoConfig *config.Cognito
 	jwt           *config.Token
+	salt          *config.Salt
 }
 
-func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig *config.Cognito, jwt *config.Token) (*Server, error) {
+func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig *config.Cognito, jwt *config.Token, salt *config.Salt) (*Server, error) {
 	server := &Server{
 		appConfig:     appConfig,
 		svc:           svc,
 		cognitoConfig: cognitoConfig,
 		jwt:           jwt,
+		salt: salt,
 	}
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
@@ -51,6 +53,12 @@ func (server *Server) setupRouter() {
 	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
+
+	////////// Protected Routes ///////////
+	// authRoutes := router.Group("/").Use(server.authMiddleware())
+
+	//////// User Routes ////////////
+	router.POST("/api/add/user", server.addUser)
 
 	//Feature Images APIs
 	router.POST("/api/features/images", server.uploadFeatureImages)

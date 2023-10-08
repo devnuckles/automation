@@ -2,9 +2,14 @@ package repo
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
 )
 
@@ -17,16 +22,46 @@ type UserRepo interface {
 type userRepo struct {
 	svc         *cognitoidentityprovider.CognitoIdentityProvider
 	appClientID string
+	db          *dynamodb.DynamoDB
+	tableName   string
 }
 
-func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string) UserRepo {
+func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, db *dynamodb.DynamoDB, tableName string) UserRepo {
 	return &userRepo{
 		svc:         svc,
 		appClientID: appClientID,
+		db:          db,
+		tableName:   tableName,
 	}
 }
 
+const (
+	userEmailIndex       = "EmailIndex"
+)
+
 func (r *userRepo) Create(ctx context.Context, user *service.User) error {
+	// Creating user to store in DynamoDB
+	usr, err := dynamodbattribute.MarshalMap(user)
+	if err != nil {
+		return fmt.Errorf("cannot marshal report: %v", err)
+	}
+
+	input := &dynamodb.PutItemInput{
+		TableName: aws.String(r.tableName),
+		Item:      usr,
+	}
+	logger.Info(ctx, "the userrr----->", input)
+
+	_, err = r.db.PutItemWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to write item: %v - %v", aerr.Code(), aerr.Message())
+		}
+
+		return fmt.Errorf("failed to write item: %v", err)
+	}
+
+	// Create the user in Cognito
 	userAttributes := []*cognitoidentityprovider.AttributeType{
 		{
 			Name:  aws.String("custom:role"),
@@ -42,15 +77,19 @@ func (r *userRepo) Create(ctx context.Context, user *service.User) error {
 		},
 	}
 
-	input := &cognitoidentityprovider.SignUpInput{
+	cognitoInput := &cognitoidentityprovider.SignUpInput{
 		ClientId:       aws.String(r.appClientID),
 		Password:       aws.String(user.Password),
 		Username:       aws.String(user.Email),
 		UserAttributes: userAttributes,
 	}
 
-	_, err := r.svc.SignUpWithContext(ctx, input)
-	return err
+	_, err = r.svc.SignUpWithContext(ctx, cognitoInput)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (r *userRepo) Login(ctx context.Context, user *service.User) (*cognitoidentityprovider.InitiateAuthOutput, error) {
@@ -106,4 +145,37 @@ func getSvcUserFromAttributes(userAttributes []*cognitoidentityprovider.Attribut
 	}
 
 	return user
+}
+
+func (r *userRepo) GetItemByEmail(ctx context.Context, email string) (*service.User, error) {
+	input := &dynamodb.QueryInput{
+		TableName:              aws.String(r.tableName),
+		IndexName:              aws.String(userEmailIndex),
+		KeyConditionExpression: aws.String("Email = :email"),
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":email": {
+				S: aws.String(email),
+			},
+		},
+	}
+
+	result, err := r.db.QueryWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return nil, fmt.Errorf("failed to get item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return nil, fmt.Errorf("failed to get item: %v", err)
+	}
+
+	if len(result.Items) == 0 {
+		return nil, nil
+	}
+
+	var user *service.User
+	err = dynamodbattribute.UnmarshalMap(result.Items[0], &user)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal DynamoDB item: %v", err)
+	}
+
+	return user, nil
 }

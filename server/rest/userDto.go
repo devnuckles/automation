@@ -11,3 +11,12 @@ type userResponse struct {
 	CreatedAt   int64  `json:"created_at,omitempty"`
 	CreatedBy   string `json:"created_by,omitempty"`
 }
+
+type addUserReq struct {
+	Firstname       string `form:"first_name" binding:"required,min=2,max=50"`
+	Lastname        string `form:"last_name" binding:"required,min=2,max=50"`
+	Email           string `form:"email" binding:"required,email"`
+	Password        string `form:"password" binding:"required,min=8,max=30"`
+	ConfirmPassword string `form:"confirm_password" binding:"required,eqfield=Password"`
+	Role            string `form:"role" binding:"required"`
+}
