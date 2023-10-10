@@ -117,5 +117,5 @@ func (s *Server) deleteUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, s.svc.Response(ctx, util.EN_DELETE_SUCCESS, "User deleted successfully"))
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, util.APPROVED, "User deleted successfully"))
 }
