@@ -44,7 +44,7 @@ func (s *service) DeleteUserFromDynamoDB(ctx context.Context, id string) error {
 func (s *service) DeleteUserFromCognito(ctx context.Context, userID string) error {
 	err := s.userRepo.DeleteItemByID(ctx, userID)
 	if err != nil {
-		return fmt.Errorf("cannot delte user from Cognito: %v", err)
+		return fmt.Errorf("cannot delete user from Cognito: %v", err)
 	}
 
 	return nil

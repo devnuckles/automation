@@ -26,12 +26,13 @@ type userRepo struct {
 	userPoolId  string
 }
 
-func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, db *dynamodb.DynamoDB, tableName string) UserRepo {
+func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, userPoolId string, db *dynamodb.DynamoDB, tableName string) UserRepo {
 	return &userRepo{
 		svc:         svc,
 		appClientID: appClientID,
 		db:          db,
 		tableName:   tableName,
+		userPoolId:  userPoolId,
 	}
 }
 
@@ -231,7 +232,7 @@ func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
 	if err != nil {
 		return err
 	}
-	
+
 	input := &dynamodb.DeleteItemInput{
 		TableName: aws.String(r.tableName),
 		Key: map[string]*dynamodb.AttributeValue{
