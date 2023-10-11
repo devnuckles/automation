@@ -59,6 +59,7 @@ func (server *Server) setupRouter() {
 
 	//////// User Routes ////////////
 	router.POST("/api/add/user", server.addUser)
+	router.POST("/api/logout", server.logoutUser)
 
 	//Feature Images APIs
 	router.POST("/api/features/images", server.uploadFeatureImages)

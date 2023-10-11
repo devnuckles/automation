@@ -100,22 +100,42 @@ func (s *Server) addUser(ctx *gin.Context) {
 }
 
 func (s *Server) deleteUser(ctx *gin.Context) {
-	userID := ctx.Param("id")
+    userID := ctx.Param("id")
 
-	err := s.repo.DeleteUser(ctx, userID)
+    // Delete user from Cognito
+    err := s.svc.DeleteUserFromCognito(ctx, userID)
+    if err != nil {
+        logger.Error(ctx, "cannot delete user from Cognito", err)
+        ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+        return
+    }
+
+    // Delete user from DynamoDB
+    err = s.svc.DeleteUserFromDynamoDB(ctx, userID)
+    if err != nil {
+        logger.Error(ctx, "cannot delete user from DynamoDB", err)
+        ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+        return
+    }
+
+    ctx.JSON(http.StatusOK, gin.H{"message": "User successfully deleted"})
+}
+
+func (s *Server) logoutUser(ctx *gin.Context) {
+	accessToken, err := ctx.Cookie(authorizationHeaderKey)
 	if err != nil {
-		logger.Error(ctx, "cannot delete user from Cognito", err)
+		logger.Error(ctx, "cannot get access token from cookie", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		return
+	}
+
+	err = s.svc.LogoutUser(ctx, accessToken)
+	if err != nil {
+		logger.Error(ctx, "failed to logout user", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
 		return
 	}
 
-	// Delete the user from DynamoDB
-	err = s.repo.DeleteItem(ctx, userID)
-	if err != nil {
-		logger.Error(ctx, "cannot delete user from DynamoDB", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-		return
-	}
-
-	ctx.JSON(http.StatusOK, s.svc.Response(ctx, util.APPROVED, "User deleted successfully"))
+	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged out", nil))
 }

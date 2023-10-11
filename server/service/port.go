@@ -29,6 +29,9 @@ type Service interface {
 	// User Service
 	GetUser(ctx context.Context, accessToken string) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
+	DeleteUserFromDynamoDB(ctx context.Context, userId string) error
+	DeleteUserFromCognito(ctx context.Context, userID string) error
+	LogoutUser(ctx context.Context, accessToken string) error
 }
 
 type ErrorRepo interface {
@@ -48,6 +51,7 @@ type UserRepo interface {
 	GetItem(ctx context.Context, accessToken string) (*User, error)
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
 	DeleteItemByID(ctx context.Context, id string) error
+	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
 }
 
 type FileRepo interface {

@@ -23,6 +23,7 @@ type userRepo struct {
 	appClientID string
 	db          *dynamodb.DynamoDB
 	tableName   string
+	userPoolId string
 }
 
 func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, db *dynamodb.DynamoDB, tableName string) UserRepo {
@@ -39,26 +40,6 @@ const (
 )
 
 func (r *userRepo) Create(ctx context.Context, user *service.User) error {
-	// Creating user to store in DynamoDB
-	usr, err := dynamodbattribute.MarshalMap(user)
-	if err != nil {
-		return fmt.Errorf("cannot marshal report: %v", err)
-	}
-
-	input := &dynamodb.PutItemInput{
-		TableName: aws.String(r.tableName),
-		Item:      usr,
-	}
-
-	_, err = r.db.PutItemWithContext(ctx, input)
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			return fmt.Errorf("failed to write item: %v - %v", aerr.Code(), aerr.Message())
-		}
-
-		return fmt.Errorf("failed to write item: %v", err)
-	}
-
 	// Create the user in Cognito
 	userAttributes := []*cognitoidentityprovider.AttributeType{
 		{
@@ -82,9 +63,31 @@ func (r *userRepo) Create(ctx context.Context, user *service.User) error {
 		UserAttributes: userAttributes,
 	}
 
-	_, err = r.svc.SignUpWithContext(ctx, cognitoInput)
+	res, err := r.svc.SignUpWithContext(ctx, cognitoInput)
 	if err != nil {
 		return err
+	}
+
+	// Creating user to store in DynamoDB
+	user.ID = *res.UserSub
+
+	usr, err := dynamodbattribute.MarshalMap(user)
+	if err != nil {
+		return fmt.Errorf("cannot marshal report: %v", err)
+	}
+
+	input := &dynamodb.PutItemInput{
+		TableName: aws.String(r.tableName),
+		Item:      usr,
+	}
+
+	_, err = r.db.PutItemWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to write item: %v - %v", aerr.Code(), aerr.Message())
+		}
+
+		return fmt.Errorf("failed to write item: %v", err)
 	}
 
 	return nil
@@ -219,6 +222,10 @@ func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
 		return nil
 	}
 
+	cognitoInput := &cognitoidentityprovider.AdminDeleteUserInput{
+		
+	}
+
 	input := &dynamodb.DeleteItemInput{
 		TableName: aws.String(r.tableName),
 		Key: map[string]*dynamodb.AttributeValue{
@@ -237,4 +244,14 @@ func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
 	}
 
 	return nil
+}
+
+func (r *userRepo) Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error) {
+	input := &cognitoidentityprovider.GlobalSignOutInput{
+		AccessToken: aws.String(accessToken),
+	}
+
+	res, err := r.svc.GlobalSignOutWithContext(ctx, input)
+
+	return res, err
 }
