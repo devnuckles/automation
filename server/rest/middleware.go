@@ -3,6 +3,7 @@ package rest
 import (
 	"crypto/rsa"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"math/big"
 	"net/http"
@@ -70,35 +71,53 @@ func (s *Server) authMiddleware() gin.HandlerFunc {
 }
 
 func (s *Server) validateJWT(token *jwt.Token) (interface{}, error) {
+	jwksUrl := fmt.Sprintf("https://cognito-idp.ap-southeast-1.amazonaws.com/%s/.well-known/jwks.json", s.cognitoConfig.PoolId)
+	res, err := http.Get(jwksUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+	var jwks JWKS
+
+	if err := json.NewDecoder(res.Body).Decode(&jwks); err != nil {
+		return nil, err
+	}
+
 	if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 		return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 	}
 
-	_, ok := token.Header["kid"].(string)
+	kid, ok := token.Header["kid"].(string)
 	if !ok {
 		return nil, fmt.Errorf("Key ID (kid) not found in token header")
 	}
+	for _, key := range jwks.Keys {
+		if key.Kid == kid {
+			nBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.N)
+			if err != nil {
+				return nil, err
+			}
 
-	nBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.N)
-	if err != nil {
-		return nil, err
+			eBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.E)
+			if err != nil {
+				return nil, err
+			}
+
+			var n, e big.Int
+			n.SetBytes(nBytes)
+			e.SetBytes(eBytes)
+
+			publicKey := &rsa.PublicKey{
+				E: int(e.Int64()),
+				N: &n,
+			}
+
+			return publicKey, nil
+		}
 	}
 
-	eBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.E)
-	if err != nil {
-		return nil, err
-	}
-
-	var n, e big.Int
-	n.SetBytes(nBytes)
-	e.SetBytes(eBytes)
-
-	publicKey := &rsa.PublicKey{
-		E: int(e.Int64()),
-		N: &n,
-	}
-
-	return publicKey, nil
+	return nil, fmt.Errorf("Public key not found for key ID")
 }
 
 func corsMiddleware(c *gin.Context) {
