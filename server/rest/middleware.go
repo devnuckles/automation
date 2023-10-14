@@ -94,12 +94,12 @@ func (s *Server) validateJWT(token *jwt.Token) (interface{}, error) {
 	}
 	for _, key := range jwks.Keys {
 		if key.Kid == kid {
-			nBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.N)
+			nBytes, err := base64.RawURLEncoding.DecodeString(key.N)
 			if err != nil {
 				return nil, err
 			}
 
-			eBytes, err := base64.RawURLEncoding.DecodeString(s.jwt.E)
+			eBytes, err := base64.RawURLEncoding.DecodeString(key.E)
 			if err != nil {
 				return nil, err
 			}
