@@ -282,15 +282,6 @@ func (r *userRepo) RefreshToken(ctx context.Context, refrehToken string) (*cogni
 	return res, err
 }
 
-func (r *userRepo) Logout(ctx context.Context, accessToken string) error {
-	input := &cognitoidentityprovider.GlobalSignOutInput{
-		AccessToken: aws.String(accessToken),
-	}
-
-	_, err := r.svc.GlobalSignOut(input)
-
-	return err
-
 func (r *userRepo) UpdatePasswordFromCognito(ctx context.Context, user *service.User) error {
 	input := &cognitoidentityprovider.AdminSetUserPasswordInput{
 		UserPoolId: aws.String(r.userPoolId),

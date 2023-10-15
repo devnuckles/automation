@@ -57,14 +57,10 @@ type UserRepo interface {
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
 	GetItemByID(ctx context.Context, id string) (*User, error)
 	DeleteItemByID(ctx context.Context, id string) error
-<<<<<<< HEAD
 	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
-	Logout(ctx context.Context, accessToken string) error
-=======
 	UpdatePasswordFromCognito(ctx context.Context, user *User) error
 	UpdatePasswordFromDynamoDb(ctx context.Context, user *User) error 
 	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
->>>>>>> eec6f76 (Added Change Password API)
 }
 
 type FileRepo interface {

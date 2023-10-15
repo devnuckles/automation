@@ -57,13 +57,13 @@ func (server *Server) setupRouter() {
 	router.POST("/api/auth/logout", server.logoutUser)
 
 	////////// Protected Routes ///////////
-	// authRoutes := router.Group("/").Use(server.authMiddleware())
+	authRoutes := router.Group("/").Use(server.authMiddleware())
 
 	//////// User Routes ////////////
-	router.POST("/api/add/user", server.addUser)
-	router.PATCH("/api/users/change-password", server.changePassword)
-	router.DELETE("/api/user/:id", server.deleteUser)
-	router.POST("/api/logout", server.logoutUser)
+	authRoutes.POST("/api/add/user", server.addUser)
+	authRoutes.PATCH("/api/users/change-password", server.changePassword)
+	authRoutes.DELETE("/api/user/:id", server.deleteUser)
+	authRoutes.POST("/api/logout", server.logoutUser)
 
 	//Feature Images APIs
 	router.POST("/api/features/images", server.uploadFeatureImages)
