@@ -61,6 +61,7 @@ func (server *Server) setupRouter() {
 
 	//////// User Routes ////////////
 	router.POST("/api/add/user", server.addUser)
+	router.PATCH("/api/users/change-password", server.changePassword)
 	router.DELETE("/api/user/:id", server.deleteUser)
 	router.POST("/api/logout", server.logoutUser)
 

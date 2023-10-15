@@ -31,6 +31,9 @@ type Service interface {
 	// User Service
 	GetUser(ctx context.Context, accessToken string) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
+	GetUserByID(ctx context.Context, id string) (*User, error)
+	ChangePasswordFromCognito(ctx context.Context, user *User) error
+	ChangePasswordFromDynamoDB(ctx context.Context, user *User) error
 	DeleteUserFromDynamoDB(ctx context.Context, userId string) error
 	DeleteUserFromCognito(ctx context.Context, userID string) error
 	LogoutUser(ctx context.Context, accessToken string) error
@@ -52,9 +55,16 @@ type UserRepo interface {
 	Login(ctx context.Context, user *User) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	GetItem(ctx context.Context, accessToken string) (*User, error)
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
+	GetItemByID(ctx context.Context, id string) (*User, error)
 	DeleteItemByID(ctx context.Context, id string) error
+<<<<<<< HEAD
 	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	Logout(ctx context.Context, accessToken string) error
+=======
+	UpdatePasswordFromCognito(ctx context.Context, user *User) error
+	UpdatePasswordFromDynamoDb(ctx context.Context, user *User) error 
+	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
+>>>>>>> eec6f76 (Added Change Password API)
 }
 
 type FileRepo interface {

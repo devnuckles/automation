@@ -2,6 +2,7 @@ package repo
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -289,4 +290,47 @@ func (r *userRepo) Logout(ctx context.Context, accessToken string) error {
 	_, err := r.svc.GlobalSignOut(input)
 
 	return err
+
+func (r *userRepo) UpdatePasswordFromCognito(ctx context.Context, user *service.User) error {
+	input := &cognitoidentityprovider.AdminSetUserPasswordInput{
+		UserPoolId: aws.String(r.userPoolId),
+		Username:   aws.String(user.Email),
+		Password:   aws.String(user.Password),
+	}
+
+	_, err := r.svc.AdminSetUserPasswordWithContext(ctx, input)
+	if err != nil {
+		return fmt.Errorf("failed to update password in Cognito: %v", err)
+	}
+
+	return nil
+}
+
+func (r *userRepo) UpdatePasswordFromDynamoDb(ctx context.Context, user *service.User) error {
+	// Create a DynamoDB update item input
+	input := &dynamodb.UpdateItemInput{
+		TableName: aws.String(r.tableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"id": {
+				S: aws.String(user.ID),
+			},
+		},
+		UpdateExpression: aws.String("set #p = :p"),
+		ExpressionAttributeNames: map[string]*string{
+			"#p": aws.String("password"),
+		},
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":p": {
+				S: aws.String(user.Password),
+			},
+		},
+	}
+
+	// Execute the update item operation
+	_, err := r.db.UpdateItemWithContext(ctx, input)
+	if err != nil {
+		return fmt.Errorf("failed to update password in DynamoDB: %v", err)
+	}
+
+	return nil
 }

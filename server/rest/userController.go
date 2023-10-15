@@ -100,25 +100,25 @@ func (s *Server) addUser(ctx *gin.Context) {
 }
 
 func (s *Server) deleteUser(ctx *gin.Context) {
-    userID := ctx.Param("id")
+	userID := ctx.Param("id")
 
-    // Delete user from Cognito
-    err := s.svc.DeleteUserFromCognito(ctx, userID)
-    if err != nil {
-        logger.Error(ctx, "cannot delete user from Cognito", err)
-        ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-        return
-    }
+	// Delete user from Cognito
+	err := s.svc.DeleteUserFromCognito(ctx, userID)
+	if err != nil {
+		logger.Error(ctx, "cannot delete user from Cognito", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
 
-    // Delete user from DynamoDB
-    err = s.svc.DeleteUserFromDynamoDB(ctx, userID)
-    if err != nil {
-        logger.Error(ctx, "cannot delete user from DynamoDB", err)
-        ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-        return
-    }
+	// Delete user from DynamoDB
+	err = s.svc.DeleteUserFromDynamoDB(ctx, userID)
+	if err != nil {
+		logger.Error(ctx, "cannot delete user from DynamoDB", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
 
-    ctx.JSON(http.StatusOK, gin.H{"message": "User successfully deleted"})
+	ctx.JSON(http.StatusOK, gin.H{"message": "User successfully deleted"})
 }
 
 func (s *Server) logoutUser(ctx *gin.Context) {
@@ -138,4 +138,88 @@ func (s *Server) logoutUser(ctx *gin.Context) {
 
 	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged out", nil))
+}
+
+func (s *Server) changePassword(ctx *gin.Context) {
+	var req changePasswordReq
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		return
+	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(Payload)
+
+	logger.Info(ctx, "passsssssword", authPayload)
+
+	// Get the user by their email
+	user, err := s.svc.GetUserByID(ctx, authPayload.ID)
+	if err != nil {
+		logger.Error(ctx, "cannot get user", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	if user == nil {
+		logger.Error(ctx, "user not found", err)
+		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
+		return
+	}
+
+	// Check if the old password matches
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.OldPassword))
+	if err != nil {
+		logger.Error(ctx, "passwords do not match", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_NOT_FOUND, "Old password is incorrect"))
+		return
+	}
+
+	// Hash the new password
+	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), s.salt.SecretKey)
+	if err != nil {
+		logger.Error(ctx, "cannot hash the password", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	user.Password = string(hashedPass)
+	err = s.svc.ChangePasswordFromCognito(ctx, user)
+	if err != nil {
+		logger.Error(ctx, "cannot update user password from cognito", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	err = s.svc.ChangePasswordFromDynamoDB(ctx, user)
+	if err != nil {
+		logger.Error(ctx, "cannot update user from dynamoDb", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	// // Update the user's password in Cognito
+	// cognitoInput := &cognitoidentityprovider.AdminSetUserPasswordInput{
+	// 	UserPoolId: aws.String(s.cognitoUserPoolID),
+	// 	Username:   aws.String(user.Email),
+	// 	Password:   aws.String(string(hashedPass)),
+	// }
+
+	// _, err = s.cognitoSvc.AdminSetUserPasswordWithContext(ctx, cognitoInput)
+	// if err != nil {
+	// 	logger.Error(ctx, "cannot update password in Cognito", err)
+	// 	ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+	// 	return
+	// }
+
+	// // Update the user's password in DynamoDB
+	// user.Password = string(hashedPass)
+	// err = s.svc.UpdateUser(ctx, user)
+	// if err != nil {
+	// 	logger.Error(ctx, "cannot update password in DynamoDB", err)
+	// 	ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+	// 	return
+	// }
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully changed password", nil))
 }

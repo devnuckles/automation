@@ -60,6 +60,11 @@ func (s *Server) loginUser(ctx *gin.Context) {
 		Password: req.Password,
 	}
 
+<<<<<<< HEAD
+=======
+	logger.Info(ctx, "the useerrrrrrrrrrrrrrrrr", user)
+
+>>>>>>> eec6f76 (Added Change Password API)
 	token, err := s.svc.LoginUser(ctx, user)
 	if err != nil {
 		logger.Error(ctx, "User Not Found", err)

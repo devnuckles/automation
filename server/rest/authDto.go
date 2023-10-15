@@ -15,8 +15,11 @@ type loginUserRes struct {
 	IdToken      string `json:"id_token"`
 }
 
+<<<<<<< HEAD
 type refrehTokenReq struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
 type refrehTokenRes loginUserRes
+=======
+>>>>>>> eec6f76 (Added Change Password API)
