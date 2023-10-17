@@ -26,3 +26,9 @@ type UserResult struct {
 	NextPivot string  `json:"NextPivot"`
 	Users     []*User `json:"Users"`
 }
+
+type ChangePassword struct{
+	AccessToken string `json:"access_token"`
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}

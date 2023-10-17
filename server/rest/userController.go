@@ -2,6 +2,7 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -121,25 +122,6 @@ func (s *Server) deleteUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "User successfully deleted"})
 }
 
-func (s *Server) logoutUser(ctx *gin.Context) {
-	accessToken, err := ctx.Cookie(authorizationHeaderKey)
-	if err != nil {
-		logger.Error(ctx, "cannot get access token from cookie", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
-		return
-	}
-
-	err = s.svc.LogoutUser(ctx, accessToken)
-	if err != nil {
-		logger.Error(ctx, "failed to logout user", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-		return
-	}
-
-	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
-	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged out", nil))
-}
-
 func (s *Server) changePassword(ctx *gin.Context) {
 	var req changePasswordReq
 	err := ctx.ShouldBindJSON(&req)
@@ -149,77 +131,136 @@ func (s *Server) changePassword(ctx *gin.Context) {
 		return
 	}
 
-	authPayload := ctx.MustGet(authorizationPayloadKey).(Payload)
-
-	logger.Info(ctx, "passsssssword", authPayload)
-
-	// Get the user by their email
-	user, err := s.svc.GetUserByID(ctx, authPayload.ID)
+	accessToken, err := ctx.Cookie(authorizationHeaderKey)
 	if err != nil {
-		logger.Error(ctx, "cannot get user", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		logger.Error(ctx, "error in getting cookie", err)
+		ctx.JSON(http.StatusUnauthorized, s.svc.Error(ctx, util.EN_UNAUTHORIZED_ERROR, "Unauthorized"))
 		return
 	}
 
-	if user == nil {
-		logger.Error(ctx, "user not found", err)
-		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
-		return
+	user := &service.ChangePassword{
+		AccessToken: accessToken,
+		OldPassword: req.OldPassword,
+		NewPassword: req.NewPassword,
 	}
 
-	// Check if the old password matches
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.OldPassword))
-	if err != nil {
-		logger.Error(ctx, "passwords do not match", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_NOT_FOUND, "Old password is incorrect"))
-		return
-	}
-
-	// Hash the new password
-	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), s.salt.SecretKey)
-	if err != nil {
-		logger.Error(ctx, "cannot hash the password", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-		return
-	}
-
-	user.Password = string(hashedPass)
 	err = s.svc.ChangePasswordFromCognito(ctx, user)
 	if err != nil {
-		logger.Error(ctx, "cannot update user password from cognito", err)
+		logger.Error(ctx, "cannot change user password in Cognito", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
 		return
 	}
-
-	err = s.svc.ChangePasswordFromDynamoDB(ctx, user)
-	if err != nil {
-		logger.Error(ctx, "cannot update user from dynamoDb", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-		return
-	}
-
-	// // Update the user's password in Cognito
-	// cognitoInput := &cognitoidentityprovider.AdminSetUserPasswordInput{
-	// 	UserPoolId: aws.String(s.cognitoUserPoolID),
-	// 	Username:   aws.String(user.Email),
-	// 	Password:   aws.String(string(hashedPass)),
-	// }
-
-	// _, err = s.cognitoSvc.AdminSetUserPasswordWithContext(ctx, cognitoInput)
-	// if err != nil {
-	// 	logger.Error(ctx, "cannot update password in Cognito", err)
-	// 	ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-	// 	return
-	// }
-
-	// // Update the user's password in DynamoDB
-	// user.Password = string(hashedPass)
-	// err = s.svc.UpdateUser(ctx, user)
-	// if err != nil {
-	// 	logger.Error(ctx, "cannot update password in DynamoDB", err)
-	// 	ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-	// 	return
-	// }
 
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully changed password", nil))
 }
+
+func (s *Server) getUsers(ctx *gin.Context) {
+	role := ctx.Query("role")
+	pivot := ctx.Query("pivot")
+	Offset, err := strconv.Atoi(ctx.Query("offset"))
+	if err != nil {
+		Offset = 0
+	}
+
+	limit, err := strconv.Atoi(ctx.Query("limit"))
+	if err != nil {
+		limit = 10
+	}
+
+	query := &service.FilterUserParams{
+		Role:   role,
+		Pivot:  pivot,
+		Offset: int64(Offset),
+		Limit:  int64(limit),
+	}
+
+	userResult, err := s.svc.GetUsers(ctx, query)
+	if err != nil {
+		logger.Error(ctx, "cannot get users", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	var users []*userResponse
+	for _, u := range userResult.Users {
+		userRes := &userResponse{
+			ID:          u.ID,
+			FirstName:   u.FirstName,
+			LastName:    u.LastName,
+			Email:       u.Email,
+			Role:        u.Role,
+			PhoneNumber: u.PhoneNumber,
+			Status:      u.Status,
+			CreatedAt:   u.CreatedAt,
+		}
+
+		users = append(users, userRes)
+	}
+
+	userResponses := &getUsersRes{
+		NextPivot: userResult.NextPivot,
+		Users:     users,
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
+
+}
+
+// func (s *Server) changePassword(ctx *gin.Context) {
+// 	var req changePasswordReq
+// 	err := ctx.ShouldBindJSON(&req)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot pass validation", err)
+// 		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+// 		return
+// 	}
+
+// 	authPayload := ctx.MustGet(authorizationPayloadKey).(Payload)
+
+// 	// Get the user by their ID
+// 	user, err := s.svc.GetUserByID(ctx, authPayload.ID)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot get user", err)
+// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+// 		return
+// 	}
+
+// 	if user == nil {
+// 		logger.Error(ctx, "user not found", err)
+// 		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
+// 		return
+// 	}
+
+// 	// Check if the old password matches
+// 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.OldPassword))
+// 	if err != nil {
+// 		logger.Error(ctx, "passwords do not match", err)
+// 		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_NOT_FOUND, "Old password is incorrect"))
+// 		return
+// 	}
+
+// 	// Hash the new password
+// 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), s.salt.SecretKey)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot hash the password", err)
+// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+// 		return
+// 	}
+
+// 	user.Password = string(hashedPass)
+// 	err = s.svc.ChangePasswordFromCognito(ctx, user)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot update user password from cognito", err)
+// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+// 		return
+// 	}
+
+// 	err = s.svc.ChangePasswordFromDynamoDB(ctx, user)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot update user from dynamoDb", err)
+// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+// 		return
+// 	}
+
+// 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully changed password", nil))
+// }

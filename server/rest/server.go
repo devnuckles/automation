@@ -60,10 +60,10 @@ func (server *Server) setupRouter() {
 	authRoutes := router.Group("/").Use(server.authMiddleware())
 
 	//////// User Routes ////////////
-	authRoutes.POST("/api/add/user", server.addUser)
-	authRoutes.PATCH("/api/users/change-password", server.changePassword)
-	authRoutes.DELETE("/api/user/:id", server.deleteUser)
-	authRoutes.POST("/api/logout", server.logoutUser)
+	router.POST("/api/add/user", server.addUser)
+	router.DELETE("/api/user/:id", server.deleteUser)
+	authRoutes.PATCH("/api/user/change-password", server.changePassword)
+	router.POST("/api/logout", server.logoutUser)
 
 	//Feature Images APIs
 	router.POST("/api/features/images", server.uploadFeatureImages)

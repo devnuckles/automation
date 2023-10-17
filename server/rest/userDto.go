@@ -2,9 +2,10 @@ package rest
 
 type userResponse struct {
 	ID          string `json:"id"`
-	Username    string `json:"username,omitempty"`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
 	Email       string `json:"email"`
-	PhoneNumber string `json:"phoneNumber,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	Image       string `json:"image,omitempty"`
 	Role        string `json:"role"`
 	Status      string `json:"status"`
@@ -21,8 +22,13 @@ type addUserReq struct {
 	Role            string `form:"role" binding:"required"`
 }
 
-type changePasswordReq struct{
+type changePasswordReq struct {
 	OldPassword     string `json:"old_password" binding:"required"`
-	NewPassword string `json:"new_password" binding:"required,min=8,max=30"`
+	NewPassword     string `json:"new_password" binding:"required,min=8,max=30"`
 	ConfirmPassword string `json:"confirm_password" binding:"required,eqfield=NewPassword"`
+}
+
+type getUsersRes struct {
+	NextPivot string          `json:"next_pivot"`
+	Users     []*userResponse `json:"users"`
 }

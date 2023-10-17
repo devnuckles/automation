@@ -14,6 +14,10 @@ func (s *service) GetUser(ctx context.Context, accessToken string) (*User, error
 	return user, nil
 }
 
+func (s *service) GetUsers(ctx context.Context, query FilterUserParams) (*UserResult, error){
+	
+}
+
 func (s *service) GetUserByEmail(ctx context.Context, email string) (*User, error) {
 	user, err := s.userRepo.GetItemByEmail(ctx, email)
 	if err != nil {
@@ -72,7 +76,7 @@ func (s *service) LogoutUser(ctx context.Context, accessToken string) error {
 	return nil
 }
 
-func(s *service) ChangePasswordFromCognito(ctx context.Context, user *User) error{
+func(s *service) ChangePasswordFromCognito(ctx context.Context, user *ChangePassword) error{
 	err := s.userRepo.UpdatePasswordFromCognito(ctx, user)
 	if err != nil {
 		return err

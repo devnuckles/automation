@@ -282,16 +282,16 @@ func (r *userRepo) RefreshToken(ctx context.Context, refrehToken string) (*cogni
 	return res, err
 }
 
-func (r *userRepo) UpdatePasswordFromCognito(ctx context.Context, user *service.User) error {
-	input := &cognitoidentityprovider.AdminSetUserPasswordInput{
-		UserPoolId: aws.String(r.userPoolId),
-		Username:   aws.String(user.Email),
-		Password:   aws.String(user.Password),
+func (r *userRepo) UpdatePasswordFromCognito(ctx context.Context, user *service.ChangePassword) error {
+	input := &cognitoidentityprovider.ChangePasswordInput{
+		AccessToken:      aws.String(user.AccessToken),
+		PreviousPassword: aws.String(user.OldPassword),
+		ProposedPassword: aws.String(user.NewPassword),
 	}
 
-	_, err := r.svc.AdminSetUserPasswordWithContext(ctx, input)
+	_, err := r.svc.ChangePasswordWithContext(ctx, input)
 	if err != nil {
-		return fmt.Errorf("failed to update password in Cognito: %v", err)
+		return err
 	}
 
 	return nil

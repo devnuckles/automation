@@ -21,5 +21,6 @@ type refrehTokenReq struct {
 
 type refrehTokenRes struct{
 	AccessToken string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
 	IdToken string `json:"id_token"`
 }
