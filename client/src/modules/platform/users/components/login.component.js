@@ -24,13 +24,7 @@ import {
 export default function LogInSide() {
   return (
     <div className="log_in_bg">
-      <div
-        // style={{
-        //   padding: "100px",
-        //   height: "100%",
-        // }}
-        className="login_wrapper"
-      >
+      <div className="login_wrapper">
         <Grid container spacing={1}>
           <Grid xs={12} sm={6} md={6} className="login_left">
             <Card
