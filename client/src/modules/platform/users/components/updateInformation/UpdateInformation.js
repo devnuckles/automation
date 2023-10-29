@@ -237,7 +237,7 @@ const UpdateInformation = () => {
               width: "100%",
             }}
           >
-            Add Project User
+            Update Information
           </Button>
         </div>
       </form>
