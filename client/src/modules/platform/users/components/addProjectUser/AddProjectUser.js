@@ -1,6 +1,7 @@
 import React from "react";
 import "./addProjectUser.css";
 import {
+  Button,
   Checkbox,
   FormControlLabel,
   Grid,
@@ -240,6 +241,22 @@ const AddProjectUser = () => {
               </Grid>
             </Grid>
           </div>
+          <Button
+            variant="contained"
+            sx={{
+              mt: "40px",
+              fontFamily: "Outfit",
+              fontSize: "18px",
+              fontWeight: "600",
+              bgcolor: "#047857",
+              "&:hover": {
+                bgcolor: "#047857",
+              },
+              width: "100%",
+            }}
+          >
+            Add Project User
+          </Button>
         </div>
       </form>
     </div>
