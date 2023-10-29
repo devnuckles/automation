@@ -6,6 +6,7 @@ import AddUser from "../modules/platform/users/components/addUser/AddUser";
 import AddProjectUser from "../modules/platform/users/components/addProjectUser/AddProjectUser";
 import { createBrowserRouter } from "react-router-dom";
 import CreateNewProject from "../modules/platform/users/components/createNewProject/CreateNewProject";
+import UpdateProjectDetails from "../modules/platform/users/components/updateProjectDetails/UpdateProjectDetails";
 const Routes = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const Routes = createBrowserRouter([
   {
     path: "/create_new_project",
     element: <CreateNewProject />,
+  },
+  {
+    path: "/update_project_details",
+    element: <UpdateProjectDetails />,
   },
 ]);
 
