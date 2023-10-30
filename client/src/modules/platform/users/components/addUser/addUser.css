@@ -8,6 +8,15 @@
     color: #000;
 }
 
+@media only screen and (max-width: 1880px) {
+    .add_user_main{
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
 @media only screen and (max-width: 380px) {
     .add_user_main{
         width: 100%;
@@ -16,3 +25,4 @@
         padding-bottom: 50px;
     }
 }
+

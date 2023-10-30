@@ -61,7 +61,7 @@ const AddUser = () => {
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="text"
-              value=""
+              // value=""
               label="First Name"
               variant="outlined"
             />
@@ -69,7 +69,7 @@ const AddUser = () => {
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="text"
-              value=""
+              // value=""
               label="Last Name"
               variant="outlined"
             />
@@ -77,7 +77,7 @@ const AddUser = () => {
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="email"
-              value=""
+              // value=""
               label="Email"
               variant="outlined"
             />
