@@ -256,6 +256,63 @@ func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
 	return nil
 }
 
+func (r *userRepo) UpdateUserRole(ctx context.Context, user *service.User) error {
+	u, err := r.GetItemByID(ctx, user.ID)
+	if err != nil {
+		return err
+	}
+
+	if u == nil {
+		return nil
+	}
+
+	// Update role in Cognito
+	cognitoInput := &cognitoidentityprovider.AdminUpdateUserAttributesInput{
+		UserPoolId: aws.String(r.userPoolId),
+		Username:   aws.String(user.Email),
+		UserAttributes: []*cognitoidentityprovider.AttributeType{
+			{
+				Name:  aws.String("custom:role"),
+				Value: aws.String(user.Role),
+			},
+		},
+	}
+
+	_, err = r.svc.AdminUpdateUserAttributesWithContext(ctx, cognitoInput)
+	if err != nil {
+		return fmt.Errorf("failed to update user role in Cognito: %v", err)
+	}
+
+	// Update role in DynamoDB
+	dynamoInput := &dynamodb.UpdateItemInput{
+		TableName: aws.String(r.tableName),
+		Key: map[string]*dynamodb.AttributeValue{
+			"Id": {
+				S: aws.String(user.ID),
+			},
+		},
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":r": {
+				S: aws.String(user.Role),
+			},
+		},
+		UpdateExpression:          aws.String("SET #r = :r"),
+		ExpressionAttributeNames: map[string]*string{
+			"#r": aws.String("Role"),
+		},
+	}
+
+	_, err = r.db.UpdateItemWithContext(ctx, dynamoInput)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to update item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return fmt.Errorf("failed to update item: %v", err)
+	}
+
+	return nil
+}
+
 func (r *userRepo) Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error) {
 	input := &cognitoidentityprovider.GlobalSignOutInput{
 		AccessToken: aws.String(accessToken),

@@ -2,7 +2,6 @@ package rest
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -154,113 +153,88 @@ func (s *Server) changePassword(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully changed password", nil))
 }
 
-func (s *Server) getUsers(ctx *gin.Context) {
-	role := ctx.Query("role")
-	pivot := ctx.Query("pivot")
-	Offset, err := strconv.Atoi(ctx.Query("offset"))
+func (s *Server) updateUserRole(ctx *gin.Context) {
+	userId := ctx.Param("id")
+	user, err := s.svc.GetUserByID(ctx, userId)
 	if err != nil {
-		Offset = 0
-	}
-
-	limit, err := strconv.Atoi(ctx.Query("limit"))
-	if err != nil {
-		limit = 10
-	}
-
-	query := &service.FilterUserParams{
-		Role:   role,
-		Pivot:  pivot,
-		Offset: int64(Offset),
-		Limit:  int64(limit),
-	}
-
-	userResult, err := s.svc.GetUsers(ctx, query)
-	if err != nil {
-		logger.Error(ctx, "cannot get users", err)
+		logger.Error(ctx, "Cannot get user", err)
 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
 		return
 	}
 
-	var users []*userResponse
-	for _, u := range userResult.Users {
-		userRes := &userResponse{
-			ID:          u.ID,
-			FirstName:   u.FirstName,
-			LastName:    u.LastName,
-			Email:       u.Email,
-			Role:        u.Role,
-			PhoneNumber: u.PhoneNumber,
-			Status:      u.Status,
-			CreatedAt:   u.CreatedAt,
-		}
-
-		users = append(users, userRes)
+	if user == nil {
+		logger.Error(ctx, "User not found", err)
+		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
+		return
 	}
 
-	userResponses := &getUsersRes{
-		NextPivot: userResult.NextPivot,
-		Users:     users,
+	var req updateUserRoleReq
+	err = ctx.ShouldBindJSON(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
+		return
 	}
 
-	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
+	user.Role = req.Role
 
+	err = s.svc.UpdateUserRole(ctx, user)
+	if err != nil {
+		logger.Error(ctx, "cannot update user role", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Updated user role successfully", nil))
 }
 
-// func (s *Server) changePassword(ctx *gin.Context) {
-// 	var req changePasswordReq
-// 	err := ctx.ShouldBindJSON(&req)
+// func (s *Server) getUsers(ctx *gin.Context) {
+// 	role := ctx.Query("role")
+// 	pivot := ctx.Query("pivot")
+// 	Offset, err := strconv.Atoi(ctx.Query("offset"))
 // 	if err != nil {
-// 		logger.Error(ctx, "cannot pass validation", err)
-// 		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
-// 		return
+// 		Offset = 0
 // 	}
 
-// 	authPayload := ctx.MustGet(authorizationPayloadKey).(Payload)
-
-// 	// Get the user by their ID
-// 	user, err := s.svc.GetUserByID(ctx, authPayload.ID)
+// 	limit, err := strconv.Atoi(ctx.Query("limit"))
 // 	if err != nil {
-// 		logger.Error(ctx, "cannot get user", err)
+// 		limit = 10
+// 	}
+
+// 	query := &service.FilterUserParams{
+// 		Role:   role,
+// 		Pivot:  pivot,
+// 		Offset: int64(Offset),
+// 		Limit:  int64(limit),
+// 	}
+
+// 	userResult, err := s.svc.GetUsers(ctx, query)
+// 	if err != nil {
+// 		logger.Error(ctx, "cannot get users", err)
 // 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
 // 		return
 // 	}
 
-// 	if user == nil {
-// 		logger.Error(ctx, "user not found", err)
-// 		ctx.JSON(http.StatusNotFound, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
-// 		return
+// 	var users []*userResponse
+// 	for _, u := range userResult {
+// 		userRes := &userResponse{
+// 			ID:          u.ID,
+// 			FirstName:   u,
+// 			LastName:    u.Lastname,
+// 			Email:       u.Email,
+// 			Role:        u.Role,
+// 			PhoneNumber: u.PhoneNumber,
+// 			Status:      u.Status,
+// 			CreatedAt:   u.CreatedAt,
+// 		}
+
+// 		users = append(users, userRes)
 // 	}
 
-// 	// Check if the old password matches
-// 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.OldPassword))
-// 	if err != nil {
-// 		logger.Error(ctx, "passwords do not match", err)
-// 		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_NOT_FOUND, "Old password is incorrect"))
-// 		return
+// 	userResponses := &getUsersRes{
+// 		Users:     users,
 // 	}
 
-// 	// Hash the new password
-// 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), s.salt.SecretKey)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot hash the password", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
-// 		return
-// 	}
+// 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
 
-// 	user.Password = string(hashedPass)
-// 	err = s.svc.ChangePasswordFromCognito(ctx, user)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot update user password from cognito", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
-
-// 	err = s.svc.ChangePasswordFromDynamoDB(ctx, user)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot update user from dynamoDb", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
-
-// 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully changed password", nil))
 // }

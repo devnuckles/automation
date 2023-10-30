@@ -14,9 +14,10 @@ func (s *service) GetUser(ctx context.Context, accessToken string) (*User, error
 	return user, nil
 }
 
-func (s *service) GetUsers(ctx context.Context, query FilterUserParams) (*UserResult, error){
-	
-}
+// func (s *service) GetUsers(ctx context.Context, query *FilterUserParams) ([]*UserResult, error){
+
+// 	return nil, nil
+// }
 
 func (s *service) GetUserByEmail(ctx context.Context, email string) (*User, error) {
 	user, err := s.userRepo.GetItemByEmail(ctx, email)
@@ -34,15 +35,6 @@ func (s *service) GetUserByID(ctx context.Context, id string) (*User, error) {
 	}
 
 	return user, nil
-}
-
-func (s *service) DeleteUser(ctx context.Context, id string) error {
-	err := s.userRepo.DeleteItemByID(ctx, id)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func (s *service) DeleteUserFromDynamoDB(ctx context.Context, userId string) error {
@@ -63,9 +55,14 @@ func (s *service) DeleteUserFromCognito(ctx context.Context, userID string) erro
 	return nil
 }
 
-// func (s *service) ChangePasswordFromCognito(ctx context.Context, userId string) error{
-// 	err := s.userRepo.
-// }
+func (s *service) UpdateUserRole(ctx context.Context, user *User) error {
+	err := s.userRepo.UpdateUserRole(ctx, user)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func (s *service) LogoutUser(ctx context.Context, accessToken string) error {
 	_, err := s.userRepo.Logout(ctx, accessToken)

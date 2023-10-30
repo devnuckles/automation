@@ -21,7 +21,7 @@ const (
 )
 
 func (s *Server) authMiddleware() gin.HandlerFunc {
-	
+
 	return func(ctx *gin.Context) {
 		idToken, err := ctx.Cookie(authenticationHeaderKey)
 		if err != nil {

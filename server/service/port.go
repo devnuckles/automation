@@ -30,9 +30,10 @@ type Service interface {
 
 	// User Service
 	GetUser(ctx context.Context, accessToken string) (*User, error)
-	GetUsers(ctx context.Context, query FilterUserParams) ([]*User, error)
+	// GetUsers(ctx context.Context, query *FilterUserParams) ([]*UserResult, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByID(ctx context.Context, id string) (*User, error)
+	UpdateUserRole(ctx context.Context, user *User) error
 	ChangePasswordFromCognito(ctx context.Context, user *ChangePassword) error
 	ChangePasswordFromDynamoDB(ctx context.Context, user *User) error
 	DeleteUserFromDynamoDB(ctx context.Context, userId string) error
@@ -59,9 +60,10 @@ type UserRepo interface {
 	GetItemByID(ctx context.Context, id string) (*User, error)
 	DeleteItemByID(ctx context.Context, id string) error
 	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
-	UpdatePasswordFromCognito(ctx context.Context, user *ChangePassword ) error
-	UpdatePasswordFromDynamoDb(ctx context.Context, user *User) error 
+	UpdatePasswordFromCognito(ctx context.Context, user *ChangePassword) error
+	UpdatePasswordFromDynamoDb(ctx context.Context, user *User) error
 	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
+	UpdateUserRole(ctx context.Context, user *User) error
 }
 
 type FileRepo interface {

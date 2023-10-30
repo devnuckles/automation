@@ -28,7 +28,6 @@ type changePasswordReq struct {
 	ConfirmPassword string `json:"confirm_password" binding:"required,eqfield=NewPassword"`
 }
 
-type getUsersRes struct {
-	NextPivot string          `json:"next_pivot"`
-	Users     []*userResponse `json:"users"`
+type updateUserRoleReq struct {
+	Role string `json:"role" binding:"required"`
 }
