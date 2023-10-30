@@ -63,6 +63,7 @@ const AddUser = () => {
               // value=""
               label="First Name"
               variant="outlined"
+              focused
             />
             <TextField
               sx={{ width: "100%", mt: "30px" }}
@@ -70,18 +71,20 @@ const AddUser = () => {
               type="text"
               // value=""
               label="Last Name"
+              focused
               variant="outlined"
             />
             <TextField
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="email"
+              focused
               // value=""
               label="Email"
               variant="outlined"
             />
 
-            <FormControl sx={{ mt: "30px", width: "100%" }} variant="outlined">
+            <FormControl sx={{ mt: "30px", width: "100%" }} variant="outlined" focused>
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
@@ -95,6 +98,7 @@ const AddUser = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
+                      
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
@@ -103,7 +107,8 @@ const AddUser = () => {
                 label="Password"
               />
             </FormControl>
-            <FormControl sx={{ mt: "30px", width: "100%" }} variant="outlined">
+            
+            <FormControl sx={{ mt: "30px", width: "100%" }} variant="outlined" focused>
               <InputLabel htmlFor="outlined-adornment-password">
                 Confirm Password
               </InputLabel>
@@ -127,6 +132,7 @@ const AddUser = () => {
             </FormControl>
 
             <TextField
+            focused
               sx={{ mt: "30px", width: "100%", color: "black" }}
               id="outlined-select-currency"
               select
