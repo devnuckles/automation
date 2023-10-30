@@ -49,7 +49,7 @@ const CreateNewProject = () => {
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="text"
-              value=""
+              // value=""
               label="Project Name"
               variant="outlined"
             />
@@ -58,7 +58,7 @@ const CreateNewProject = () => {
               sx={{ width: "100%", mt: "30px" }}
               id="outlined-basic"
               type="text"
-              value=""
+              // value=""
               label="Project Description"
               variant="outlined"
               multiline
