@@ -1,0 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ .left-nav-link {
+    display: inline-block !important;
+}
+
