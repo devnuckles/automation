@@ -98,7 +98,6 @@ const AddUser = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
-                      
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
