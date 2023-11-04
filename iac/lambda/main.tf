@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 resource "aws_iam_role" "lambda_role" {
   name = "automation-lambda-role"
+=======
+# Create IAM role for Lambda function
+resource "aws_iam_role" "lambda_role" {
+  name = "lambda-role"
+>>>>>>> ff2600a (Cognito Initialized)
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

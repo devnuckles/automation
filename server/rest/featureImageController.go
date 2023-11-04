@@ -14,7 +14,7 @@ func (s *Server) uploadFeatureImages(ctx *gin.Context) {
 	err := ctx.Request.ParseMultipartForm(10 << 20)
 	if err != nil {
 		logger.Error(ctx, "File Size more than 10 MB", err)
-		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_BAD_REQUEST, "Bad Request"))
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
 		return
 	}
 

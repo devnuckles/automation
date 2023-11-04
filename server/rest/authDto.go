@@ -11,6 +11,16 @@ type loginUserReq struct {
 
 type loginUserRes struct {
 	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
+	RefreshToken string `json:"refresh_token,omitempty"`
 	IdToken      string `json:"id_token"`
+}
+
+type refrehTokenReq struct {
+	RefreshToken string `json:"refresh_token"`
+}
+
+type refrehTokenRes struct{
+	AccessToken string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	IdToken string `json:"id_token"`
 }

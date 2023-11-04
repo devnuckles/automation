@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	"github.com/schemetech-developer/automation/config"
 	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
@@ -16,14 +18,21 @@ type Server struct {
 	svc           service.Service
 	cognitoConfig *config.Cognito
 	jwt           *config.Token
+	salt          *config.Salt
 }
 
-func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig *config.Cognito, jwt *config.Token) (*Server, error) {
+func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig *config.Cognito, jwt *config.Token, salt *config.Salt) (*Server, error) {
 	server := &Server{
 		appConfig:     appConfig,
 		svc:           svc,
 		cognitoConfig: cognitoConfig,
 		jwt:           jwt,
+		salt: salt,
+	}
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("userStatus", validUserStatus)
+		v.RegisterValidation("userRole", validUserRole)
 	}
 
 	server.setupRouter()
@@ -44,12 +53,27 @@ func (server *Server) setupRouter() {
 	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
+	router.POST("/api/auth/refresh-token", server.refrehToken)
+	router.POST("/api/auth/logout", server.logoutUser)
+
+	////////// Protected Routes ///////////
+	authRoutes := router.Group("/").Use(server.authMiddleware())
+
+	//////// User Routes ////////////
+	authRoutes.POST("/api/add/user", server.addUser)
+	authRoutes.PATCH("/api/role/user/:id", server.updateUserRole)
+	authRoutes.DELETE("/api/user/:id", server.deleteUser)
+	authRoutes.PATCH("/api/user/change-password", server.changePassword)
+	authRoutes.POST("/api/logout", server.logoutUser)
 
 	//Feature Images APIs
-	router.POST("/api/features/images", server.uploadFeatureImages)
-	router.GET("/api/features/images", server.getFeatureImages)
-	router.DELETE("/api/features/images/:id", server.deleteFeatureImage)
-	router.DELETE("/api/features/images", server.deleteFeatureImages)
+	authRoutes.POST("/api/features/images", server.uploadFeatureImages)
+	authRoutes.GET("/api/features/images", server.getFeatureImages)
+	authRoutes.DELETE("/api/features/images/:id", server.deleteFeatureImage)
+	authRoutes.DELETE("/api/features/images", server.deleteFeatureImages)
+
+	// User APIs
+	router.GET("/api/features/users/profile", server.getUserProfile)
 
 	server.router = router
 }

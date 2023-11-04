@@ -20,6 +20,7 @@ func serveRest() {
 	awsConfig := config.GetAws()
 	tableConfig := config.GetTable()
 	cognitoConfig := config.GetCognito()
+	saltConfig := config.GetSalt()
 	tokenConfig := config.GetToken()
 	smtpConfig := config.GetSmtpHost()
 	s3Config := config.GetS3()
@@ -39,13 +40,13 @@ func serveRest() {
 	})
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
-	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId)
+	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId, cognitoConfig.PoolId, ddbClient, tableConfig.UserTableName)
 	fileRepo := repo.NewFileRepo(s3Client, s3Config.Bucket)
 
 	cache := cache.NewCache(redisClient)
 
 	svc := service.NewService(userRepo, fileRepo, errorRepo, cache, smtpConfig)
-	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig)
+	server, err := rest.NewServer(appConfig, svc, cognitoConfig, tokenConfig, saltConfig)
 	if err != nil {
 		panic("Server can not start")
 	}

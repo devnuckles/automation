@@ -59,6 +59,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 		Email:    req.Email,
 		Password: req.Password,
 	}
+
 	token, err := s.svc.LoginUser(ctx, user)
 	if err != nil {
 		logger.Error(ctx, "User Not Found", err)
@@ -66,7 +67,7 @@ func (s *Server) loginUser(ctx *gin.Context) {
 		return
 	}
 
-	res := loginUserRes{
+	res := &loginUserRes{
 		AccessToken:  *token.AuthenticationResult.AccessToken,
 		RefreshToken: *token.AuthenticationResult.RefreshToken,
 		IdToken:      *token.AuthenticationResult.IdToken,
@@ -74,5 +75,48 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
 	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
+}
+
+func (s *Server) refrehToken(ctx *gin.Context) {
+	var req refrehTokenReq
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		return
+	}
+
+	token, err := s.svc.RefreshToken(ctx, req.RefreshToken)
+
+	res := &refrehTokenRes{
+		AccessToken: *token.AuthenticationResult.AccessToken,
+		IdToken:     *token.AuthenticationResult.IdToken,
+	}
+	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
+
+	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "", false, true)
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfull", res))
+}
+
+func (s *Server) logoutUser(ctx *gin.Context) {
+	accessToken, err := ctx.Cookie(authorizationHeaderKey)
+	if err != nil {
+		logger.Error(ctx, "no cookie found", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))
+		return
+	}
+
+	err = s.svc.Logout(ctx, accessToken)
+	if err != nil {
+		logger.Error(ctx, "internal server error", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		return
+	}
+
+	ctx.SetCookie(authorizationHeaderKey, "", -1, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, "", -1, "/", "", false, true)
+	ctx.Status(http.StatusOK)
 }

@@ -17,3 +17,4 @@ type ResponseData struct {
 	Description string      `json:"description"`
 	Data        interface{} `json:"data"`
 }
+
