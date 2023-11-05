@@ -1,32 +1,22 @@
 import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+
 import LandingPage from "../modules/platform/users/components/landingPage/LandingPage.component";
 import LogInSide from "../modules/platform/users/components/login.component";
 import Registration from "../modules/platform/users/components/registration.component";
 import AddUser from "../modules/platform/users/components/addUser/AddUser";
 import AddProjectUser from "../modules/platform/users/components/addProjectUser/AddProjectUser";
-import { createBrowserRouter } from "react-router-dom";
 import CreateNewProject from "../modules/platform/users/components/createNewProject/CreateNewProject";
 import UpdateProjectDetails from "../modules/platform/users/components/updateProjectDetails/UpdateProjectDetails";
 import UpdateInformation from "../modules/platform/users/components/updateInformation/UpdateInformation";
 import Dashboard from "../modules/platform/dashboard/dashboard.component";
+import DashboardLayout from "../modules/platform/dashboard/Layout";
+import UserTable from "../modules/platform/users/user-list.component";
+
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
-        // children: [
-        //   {
-        //     path: "/add_user",
-        //     element: <AddUser />,
-        //   },
-        //   {
-        //     path: "/add_project_user",
-        //     element: <AddProjectUser />,
-        //   },
-        //   {},
-        //   {
-        //
-        //   },
-        // ],
     },
     {
         path: "/login",
@@ -34,7 +24,19 @@ const Routes = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: (
+            <DashboardLayout>
+                <Dashboard />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/user-management",
+        element: (
+            <DashboardLayout>
+                <UserTable />
+            </DashboardLayout>
+        ),
     },
     {
         path: "/registration",
@@ -42,23 +44,43 @@ const Routes = createBrowserRouter([
     },
     {
         path: "/add_user",
-        element: <AddUser />,
+        element: (
+            <DashboardLayout>
+                <AddUser />
+            </DashboardLayout>
+        ),
     },
     {
         path: "/add_project_user",
-        element: <AddProjectUser />,
+        element: (
+            <DashboardLayout>
+                <AddProjectUser />
+            </DashboardLayout>
+        ),
     },
     {
         path: "/create_new_project",
-        element: <CreateNewProject />,
+        element: (
+            <DashboardLayout>
+                <CreateNewProject />
+            </DashboardLayout>
+        ),
     },
     {
         path: "/update_project_details",
-        element: <UpdateProjectDetails />,
+        element: (
+            <DashboardLayout>
+                <UpdateProjectDetails />
+            </DashboardLayout>
+        ),
     },
     {
         path: "/update_information",
-        element: <UpdateInformation />,
+        element: (
+            <DashboardLayout>
+                <UpdateInformation />
+            </DashboardLayout>
+        ),
     },
 ]);
 

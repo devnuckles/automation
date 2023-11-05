@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function LeftNav() {
     return (
         <div className="col-lg-2 col-md-2 p-0">
@@ -31,9 +33,12 @@ export default function LeftNav() {
                             <span className="icon">
                                 <i className="bi bi-person-fill"></i>
                             </span>
-                            <a className="nav-link left-nav-link" href="/dummy">
+                            <Link
+                                className="nav-link left-nav-link"
+                                to="/user-management"
+                            >
                                 User Management
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <span className="icon">

@@ -1,4 +1,4 @@
-import LinearWithValueLabel from "../../core/common/components/progress-bar.component";
+import LinearWithValueLabel from "../../core/common/progress-bar.component";
 
 function ProjectCard({ project }) {
     return (
