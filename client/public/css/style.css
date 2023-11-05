@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
 }
+.container-cs {
+    width: 95vw !important;
+    margin: 0 auto;
+}
 /* Start of Dashboard Left*/
 .dashboard-left {
     height: 100vh;

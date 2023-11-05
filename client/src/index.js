@@ -9,20 +9,20 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/Routes.jsx";
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#3f51b5",
+    palette: {
+        primary: {
+            main: "#3f51b5",
+        },
+        secondary: {
+            main: "#f50057",
+        },
     },
-    secondary: {
-      main: "#f50057",
-    },
-  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <RouterProvider router={router} />
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+    </ThemeProvider>
 );

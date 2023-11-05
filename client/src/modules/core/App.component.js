@@ -7,7 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import Routes from "../../routes/Routes";
 
 function App() {
-  return <div>{/* <LandingPage /> */}</div>;
+    return <div>{/* <LandingPage /> */}</div>;
 }
 
 export default App;
