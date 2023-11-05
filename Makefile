@@ -1,7 +1,7 @@
 .PHONY: start
 
 start-client:
-	cd client && yarn start
+	cd client && npm run start
 
 start-server:
 	cd server && go run main.go

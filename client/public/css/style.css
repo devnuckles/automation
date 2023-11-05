@@ -2,7 +2,298 @@
     margin: 0;
     padding: 0;
 }
- .left-nav-link {
+/* Start of Dashboard Left*/
+.dashboard-left {
+    height: 100vh;
+}
+.dashboard-left-nav {
+    height: 70vh;
+}
+.dashboard-left-nav .nav-item {
+    padding: 0 5px;
+}
+.dashboard-left-nav .nav-item:hover .icon {
+    color: #00db99;
+}
+.dashboard-left-nav .nav-item:hover .left-nav-link {
+    color: #00db99;
+}
+.dashboard-left-nav .nav-item .icon {
+    color: #717986;
+    transition: all linear 0.3s;
+}
+.left-nav-link {
     display: inline-block !important;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #717986;
+    transition: all linear 0.3s;
+}
+.dashboard-left-logout {
+    padding: 15px 0px;
+    border: 1px solid #f2f2f2;
+}
+.dashboard-left-logout a {
+    cursor: pointer;
+}
+.dashboard-left-logout i {
+    margin: 0 10px;
+    color: #ff285c;
+}
+.dashboard-left-logout span {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    color: #ff285c;
 }
 
+/* Start of Dashboard Right */
+.dashboard-right-header {
+    padding: 15px;
+}
+.dashboard-right-heading h2 {
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #3c557a;
+}
+
+.dashboard-right-search {
+    background: #f1f2f7;
+    height: 40px;
+    border-radius: 8px;
+}
+.dashboard-right-search i {
+    color: #8b8b8b;
+}
+.dashboard-right-search input::placeholder {
+    color: #8b8b8b;
+}
+.dashboard-right-search input {
+    background: transparent;
+    border: none !important;
+    display: inline-block !important;
+    width: 85%;
+}
+.dashboard-right-search input:focus {
+    background: transparent;
+    border: none !important;
+    box-shadow: none !important;
+}
+.dashboard-right-tools .tools-icon i {
+    font-size: 20px;
+    color: #717986;
+}
+.dashboard-right-profile img {
+    border-radius: 50%;
+}
+.dashboard-right-profile h3 {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #25364f;
+}
+.dashboard-right-profile p {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #8b8b8b;
+}
+
+.dashboard-right-header .row .new-project-button {
+    padding: 10px 15px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #fff;
+    background: #00db99;
+    border-radius: 26px;
+}
+.dashboard-right-header .project-sorting-tab {
+    border: 1px solid #f1f2f7;
+    border-radius: 8px;
+    padding: 5px 0;
+    height: 40px;
+}
+.dashboard-right-header .project-sorting-tab .nav-item .nav-link {
+    color: #8b8b8b;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    border: none !important;
+    margin: 0 5px !important;
+}
+.project-sorting-tab .nav-tabs .nav-link:hover {
+    border: none !important;
+}
+.project-sorting-tab .nav-tabs {
+    border: none;
+}
+.project-sorting-tab .nav-tabs .nav-link.active {
+    position: relative;
+    color: #25364f;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    border: none;
+}
+.project-sorting-tab .nav-tabs .nav-link.active::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 25px;
+    height: 4px;
+    width: 4px;
+    border-radius: 50%;
+    background: #3c557a;
+}
+
+.project-sorting-button span {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #8b8b8b;
+}
+.project-sorting-button i {
+    color: #8b8b8b;
+}
+
+/* Start of Dashboard Right Project Card */
+
+.card-body {
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #f2f2f2;
+    position: relative;
+    padding: 15px;
+}
+.card-heading-left h6 {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #3c557a;
+}
+
+.card-status::after {
+    position: relative;
+    content: "";
+    bottom: 3px;
+    right: 50px;
+    height: 6px;
+    width: 6px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #00db99;
+}
+.card-status span {
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #00db99;
+}
+.card-more-button i {
+    color: #8b8b8b;
+    font-size: 18px;
+}
+.card-date-common {
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #717986;
+}
+.card-date-heading {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+}
+.card-date-date {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+}
+.card-date-right {
+    margin: -10px 10px 0 0;
+    padding: 15px 0;
+    background: #f9f9f9;
+    border-radius: 7px;
+}
+.card-date-right .task,
+.card-date-right .user {
+    width: 50%;
+}
+.card-date-right .task p:first-child,
+.card-date-right .user p:first-child {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    color: #3c557a;
+}
+.card-date-right .task p:last-child,
+.card-date-right .user p:last-child {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #717986;
+}
+
+.card-member p {
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #717986;
+}
+.member-profiles img {
+    border-radius: 50%;
+    margin-top: -10px;
+}
+.add-member-button {
+    display: inline-block;
+}
+.add-member-button i {
+    color: #8b8b8b;
+    font-size: 30px;
+}
+.card-progress .progress {
+    height: 5px;
+}
