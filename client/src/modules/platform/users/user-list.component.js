@@ -1,5 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import DynamicModal from "../../core/common/ui/modal";
+import AddUser from "./components/addUser/AddUser";
 
 //     // {
 //     //     field: "fullName",
@@ -160,10 +162,19 @@ export default function UserTable() {
                 </div>
                 <div className="col-lg-4">
                     <div className="user-management-heading-button-group text-end">
-                        <a className="me-2">
+                        {/* <a className="me-2">
                             <i class="bi bi-plus me-1"></i>
                             Add
-                        </a>
+                        </a> */}
+                        <DynamicModal
+                            button={
+                                <>
+                                    <i className="bi bi-plus me-1"></i>
+                                    Add
+                                </>
+                            }
+                            modalEliment={<AddUser />}
+                        />
                         <a>
                             <i class="bi bi-download me-2"></i>
                             Download PDF Report
