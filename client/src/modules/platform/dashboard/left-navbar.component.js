@@ -26,12 +26,12 @@ export default function LeftNav() {
                                 <i className="bi bi-grid"></i>
                             </span>
 
-                            <a
+                            <Link
                                 className="nav-link active left-nav-link"
-                                href="/dummy" // Provide a valid URL
+                                to="/projects" // Provide a valid URL
                             >
                                 Projects
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <span className="icon">

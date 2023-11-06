@@ -23,7 +23,7 @@ const Routes = createBrowserRouter([
         element: <LogInSide />,
     },
     {
-        path: "/dashboard",
+        path: "/projects",
         element: (
             <DashboardLayout>
                 <Dashboard />
