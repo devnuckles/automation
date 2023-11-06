@@ -11,7 +11,7 @@ function ProjectCard({ project }) {
                             <span class="ms-3">Active</span>
                         </div>
                     </div>
-                    <div class="col-lg-2 card-heading-right">
+                    <div class="col-lg-2 card-heading-right text-end">
                         <div class="card-more-button">
                             <i class="bi bi-three-dots-vertical"></i>
                         </div>

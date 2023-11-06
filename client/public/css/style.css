@@ -71,28 +71,6 @@
     color: #3c557a;
 }
 
-.dashboard-right-search {
-    background: #f1f2f7;
-    height: 40px;
-    border-radius: 8px;
-}
-.dashboard-right-search i {
-    color: #8b8b8b;
-}
-.dashboard-right-search input::placeholder {
-    color: #8b8b8b;
-}
-.dashboard-right-search input {
-    background: transparent;
-    border: none !important;
-    display: inline-block !important;
-    width: 85%;
-}
-.dashboard-right-search input:focus {
-    background: transparent;
-    border: none !important;
-    box-shadow: none !important;
-}
 .dashboard-right-tools .tools-icon i {
     font-size: 20px;
     color: #717986;
@@ -197,6 +175,10 @@
     border: 1px solid #f2f2f2;
     position: relative;
     padding: 15px;
+    transition: all linear 0.3s;
+}
+.card-body:hover {
+    box-shadow: 0px 3px 36px 12px #507ea91f;
 }
 .card-heading-left h6 {
     font-family: "Roboto", sans-serif;
@@ -253,6 +235,17 @@
     padding: 15px 0;
     background: #f9f9f9;
     border-radius: 7px;
+    position: relative;
+}
+.card-date-right::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    width: 1px;
+    background: #cddcee;
 }
 .card-date-right .task,
 .card-date-right .user {
@@ -300,4 +293,137 @@
 }
 .card-progress .progress {
     height: 5px;
+}
+.progress-bar-text {
+    display: inline-block;
+    width: 50%;
+}
+/* Start of User Management Page */
+.user-management-heading-title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 41px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-transform: uppercase;
+    color: #191d23;
+    margin: -5px 0 0 0;
+}
+
+.user-management-heading-button-group a:first-child {
+    background: #047857;
+    border-radius: 4px;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.user-management-heading-button-group a:first-child:hover {
+    color: #fff;
+}
+.user-management-heading-button-group a:last-child {
+    color: #191d23;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    border-radius: 4px;
+    padding: 8px 12px;
+    border: 1.5px solid #d0d5dd;
+}
+
+.user-management-search {
+    background: hsl(210, 14%, 97%);
+    padding: 12px 0;
+    border-radius: 4px;
+}
+
+.user-management-search-box {
+    border-radius: 8px;
+    border: 1px solid #e7eaee;
+    background: #fff;
+    padding: 2px 10px;
+    margin-left: 12px;
+    width: 40%;
+    display: inline-block;
+}
+.user-management-search-box i {
+    color: #8b8b8b;
+}
+.user-management-search-box input::placeholder {
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #64748b;
+}
+.user-management-search-box input {
+    background: transparent;
+    border: none !important;
+    display: inline-block !important;
+    width: 85%;
+}
+.user-management-search-box input:focus {
+    background: transparent;
+    border: none !important;
+    box-shadow: none !important;
+}
+.user-management-search-filter {
+    display: inline-block;
+    width: 58%;
+    text-align: right;
+}
+.user-management-search-filter a {
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #64748b !important;
+}
+
+.table-header-title {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #64748b;
+}
+.table-data {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #191d23;
+}
+.role-column-data .MuiDataGrid-cellContent {
+    padding: 2px 10px;
+    background: #ecfdf5;
+    font-family: Manrope;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #064e3b;
+    border-radius: 4px;
 }

@@ -11,7 +11,11 @@ export default function LeftNav() {
                 }}
             >
                 <div className="dashboard-left-header px-3 py-3">
-                    <img src="images/Logo.png" className="me-5" alt="Logo" />
+                    <img
+                        src="images/Logo.png"
+                        className="me-5 img-fluid"
+                        alt="Logo"
+                    />
                     <img src="images/Collapse.png" alt="Collapse" />
                 </div>
 

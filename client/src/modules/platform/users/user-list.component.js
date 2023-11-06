@@ -12,13 +12,56 @@ import { DataGrid } from "@mui/x-data-grid";
 //     // },
 
 const columns = [
-    { field: "id", headerName: "USER ID", width: 90 },
-    { field: "firstName", headerName: "FIRST NAME", width: 130 },
-    { field: "lastName", headerName: "LAST NAME", width: 130 },
-    { field: "joinDate", headerName: "JOIN DATE", type: "date", width: 130 },
-    { field: "role", headerName: "ROLE", width: 90 },
-    { field: "email", headerName: "EMAIL ADDRESS", width: 180 },
-    { field: "action", headerName: "ACTION", width: 130 },
+    {
+        field: "id",
+        headerName: "USER NAME",
+        width: 120,
+        headerClassName: "table-header-title ",
+        cellClassName: "table-data",
+    },
+    {
+        field: "firstName",
+        headerName: "FIRST NAME",
+        width: 155,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    {
+        field: "lastName",
+        headerName: "LAST NAME",
+        width: 155,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    {
+        field: "joinDate",
+        headerName: "JOIN DATE",
+        type: "date",
+        width: 160,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    {
+        field: "role",
+        headerName: "ROLE",
+        width: 120,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data role-column-data",
+    },
+    {
+        field: "email",
+        headerName: "EMAIL ADDRESS",
+        width: 250,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    {
+        field: "action",
+        headerName: "ACTION",
+        width: 150,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
 ];
 
 const rows = [
@@ -29,7 +72,7 @@ const rows = [
         joinDate: "1985-09-21",
         role: "Admin",
         email: "jon.snow@example.com",
-        action: "Edit",
+        action: "hello",
     },
     {
         id: 2,
@@ -110,18 +153,63 @@ const rows = [
 
 export default function UserTable() {
     return (
-        <div style={{ height: "90vh", width: "100%" }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </div>
+        <>
+            <div className="row py-4">
+                <div className="col-lg-8">
+                    <h6 className="user-management-heading-title">USER</h6>
+                </div>
+                <div className="col-lg-4">
+                    <div className="user-management-heading-button-group text-end">
+                        <a className="me-2">
+                            <i class="bi bi-plus me-1"></i>
+                            Add
+                        </a>
+                        <a>
+                            <i class="bi bi-download me-2"></i>
+                            Download PDF Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-lg-12 ">
+                    <div className="user-management-search my-3">
+                        <div className="col-lg-12 col-md-10">
+                            <div className="user-management-search-box">
+                                <i class="bi bi-search me-1"></i>
+                                <input
+                                    class="form-control"
+                                    list="datalistOptions"
+                                    id="exampleDataList"
+                                    placeholder="Search by username, name, Email"
+                                />
+                            </div>
+                            <div className="user-management-search-filter">
+                                <a>
+                                    <i class="bi bi-funnel me-2"></i>
+                                    Filter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-lg-1"></div>
+            </div>
+
+            <div style={{ height: "90vh", width: "100%" }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+        </>
     );
 }

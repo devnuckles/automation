@@ -7,16 +7,18 @@ import { useState, useEffect } from "react";
 function LinearProgressWithLabel(props) {
     return (
         <>
-            <Box sx={{ minWidth: 35 }}>
+            <Box sx={{ minWidth: 35, marginTop: 1 }}>
                 <Typography variant="body2" color="text.secondary">
-                    <span>{`${Math.round(props.value)}%`}</span>
-                    <span className="text-end">{`${Math.round(
+                    <span className="progress-bar-text text-start">{`${Math.round(
+                        props.value
+                    )}%`}</span>
+                    <span className="progress-bar-text text-end">{`${Math.round(
                         props.value
                     )}%`}</span>
                 </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Box sx={{ width: "100%", mr: 1 }}>
+                <Box sx={{ width: "100%" }}>
                     <LinearProgress
                         variant="determinate"
                         {...props}
