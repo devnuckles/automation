@@ -9,9 +9,9 @@ function LinearProgressWithLabel(props) {
         <>
             <Box sx={{ minWidth: 35, marginTop: 1 }}>
                 <Typography variant="body2" color="text.secondary">
-                    <span className="progress-bar-text text-start">{`${Math.round(
-                        props.value
-                    )}%`}</span>
+                    <span className="progress-bar-text text-start">
+                        progress
+                    </span>
                     <span className="progress-bar-text text-end">{`${Math.round(
                         props.value
                     )}%`}</span>
@@ -46,7 +46,7 @@ LinearProgressWithLabel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-export default function LinearWithValueLabel() {
+export default function ProgressBar() {
     const [progress, setProgress] = useState(10);
 
     return (

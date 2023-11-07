@@ -1,17 +1,19 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import LandingPage from "../modules/platform/users/components/landingPage/LandingPage.component";
-import LogInSide from "../modules/platform/users/components/login.component";
-import Registration from "../modules/platform/users/components/registration.component";
-import AddUser from "../modules/platform/users/components/addUser/AddUser";
-import AddProjectUser from "../modules/platform/users/components/addProjectUser/AddProjectUser";
-import CreateNewProject from "../modules/platform/users/components/createNewProject/CreateNewProject";
-import UpdateProjectDetails from "../modules/platform/users/components/updateProjectDetails/UpdateProjectDetails";
-import UpdateInformation from "../modules/platform/users/components/updateInformation/UpdateInformation";
-import Dashboard from "../modules/platform/dashboard/dashboard.component";
-import DashboardLayout from "../modules/platform/dashboard/Layout";
-import UserTable from "../modules/platform/users/user-list.component";
+import {
+    AddProjectUser,
+    AddUser,
+    CreateNewProject,
+    LandingPage,
+    Login,
+    Registration,
+    UpdateInformation,
+    UpdateProjectDetails,
+    UserTable,
+    Dashboard,
+} from "../modules/platform";
+import { DashboardLayout } from "../modules/core";
 
 const Routes = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ const Routes = createBrowserRouter([
     },
     {
         path: "/login",
-        element: <LogInSide />,
+        element: <Login />,
     },
     {
         path: "/projects",

@@ -1,4 +1,4 @@
-import LinearWithValueLabel from "../../core/common/progress-bar.component";
+import { ProgressBar } from "../../../core";
 
 function ProjectCard({ project }) {
     return (
@@ -58,22 +58,7 @@ function ProjectCard({ project }) {
                     </div>
                 </div>
                 <div class="row">
-                    {/* <div class="card-progress">
-                        <div
-                            class="progress"
-                            role="progressbar"
-                            aria-label="Success example"
-                            aria-valuenow="67"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                        >
-                            <div
-                                class="progress-bar bg-success"
-                                style={{ width: "67%" }}
-                            ></div>
-                        </div>
-                    </div> */}
-                    <LinearWithValueLabel />
+                    <ProgressBar />
                 </div>
             </div>
         </div>

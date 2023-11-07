@@ -1,7 +1,23 @@
+/* App */
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Outfit;
 }
+
+.log_in_bg {
+    background-color: #ebf5ff;
+    /* padding-top: 100px;
+    padding-bottom: 100px; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* starting css */
+
 .container-cs {
     width: 95vw !important;
     margin: 0 auto;
@@ -426,4 +442,256 @@
     text-align: left;
     color: #064e3b;
     border-radius: 4px;
+}
+/* Add User Modal Style */
+/* .add_user_form{
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+    border-radius: 24px;
+} */
+.add_user_main {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 15px;
+    position: relative;
+    padding: 50px;
+    box-shadow: 0px 3px 36px 12px #507ea91f;
+}
+.add_user_main::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../images/blob\ 1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 50%;
+    border-radius: 15px 0 0 0;
+}
+.options {
+    color: #000;
+}
+.add-user-title {
+    font-family: "Nunito", sans-serif;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 82px;
+    letter-spacing: 0em;
+    text-align: left;
+    position: relative;
+    z-index: 999;
+}
+.add-user-paragraph {
+    font-family: "Nunito", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 44px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 100px 0 0 0;
+}
+.add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+.add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    width: 50%;
+    display: inline-block;
+}
+.add-user-form-input
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root:nth-child(1) {
+    width: 90%;
+    margin-right: auto !important;
+}
+@media only screen and (max-width: 1880px) {
+    .add_user_main {
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .add_user_main {
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+/* rafi: addProjectUser */
+.add_project_user_form {
+    width: 80%;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 24px;
+}
+
+@media only screen and (max-width: 1880px) {
+    .project_user {
+        padding-top: 150px;
+        padding-bottom: 150px;
+    }
+    .add_project_user_form {
+        width: 80%;
+        height: 700px;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+    .project_user {
+        padding-top: 300px;
+        padding-bottom: 150px;
+    }
+    .add_project_user_form {
+        width: 80%;
+        height: 830px;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    .project_user {
+        padding-top: 400px;
+        padding-bottom: 200px;
+    }
+    .add_project_user_form {
+        width: 80%;
+        height: 890px;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .project_user {
+        padding-top: 530px;
+        padding-bottom: 550px;
+    }
+    .add_project_user_form {
+        width: 80%;
+        height: 940px;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+@media only screen and (max-width: 280px) {
+    .add_project_user_form {
+        width: 80%;
+        height: 150vh;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+/* rafi: login */
+.login_wrapper {
+    width: 90%;
+}
+.login_left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid #000; */
+}
+.login_right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid #000; */
+}
+.login_card {
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
+}
+.login_card_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .login_left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 340px;
+        /* border: 1px solid #000; */
+    }
+}
+@media only screen and (max-width: 450px) {
+    .login_left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 200px;
+        /* border: 1px solid #000; */
+    }
+}
+
+/* rafi: update information */
+.update_information_form {
+    width: 80%;
+    height: 75vh;
+    background-color: #fff;
+    border-radius: 24px;
+}
+
+@media only screen and (max-width: 900px) {
+    .update_info_main {
+        /* padding-top: 200px; */
+        padding-bottom: 200px;
+    }
+    .update_information_form {
+        margin-top: 350px;
+        width: 80%;
+        height: 850px;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+/* rafi: update project details */
+.update_project_details_form {
+    width: 80%;
+    height: 60vh;
+    background-color: #fff;
+    border-radius: 24px;
+}
+
+@media only screen and (max-width: 1880px) {
+    .update_project_details_form {
+        width: 80%;
+        height: 75vh;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+
+@media only screen and (max-width: 670px) {
+    .update_project_details_form {
+        width: 80%;
+        height: 82vh;
+        background-color: #fff;
+        border-radius: 24px;
+    }
+}
+@media only screen and (max-width: 470px) {
+    .update_project_details_form {
+        width: 80%;
+        height: 90vh;
+        background-color: #fff;
+        border-radius: 24px;
+    }
 }
