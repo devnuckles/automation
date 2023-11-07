@@ -2,19 +2,27 @@ package repo
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/google/uuid"
+	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
 )
 
 const (
 	flowUsernamePassword = "USER_PASSWORD_AUTH"
 	flowRefreshToken     = "REFRESH_TOKEN_AUTH"
+	userIdxIndex         = "IdxIndex"
+	userRoleIndex        = "RoleIndex"
 )
 
 type UserRepo interface {
@@ -214,6 +222,109 @@ func (r *userRepo) GetItemByID(ctx context.Context, id string) (*service.User, e
 	}
 
 	return user, nil
+}
+
+func (r *userRepo) GetItems(ctx context.Context, pivot string, limit int64) (*service.UserResult, error) {
+	input := &dynamodb.QueryInput{
+		TableName:              aws.String(r.tableName),
+		IndexName:              aws.String(userIdxIndex),
+		KeyConditionExpression: aws.String("Idx = :idx"),
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":idx": {
+				S: aws.String("1"),
+			},
+		},
+		Limit:            aws.Int64(limit),
+		ScanIndexForward: aws.Bool(false),
+	}
+
+	if len(pivot) > 0 {
+		lastEvaluatedKey, err := r.retrieveDefaultLastEvaluatedKey(pivot)
+		if err != nil {
+			return nil, fmt.Errorf("cannot break next page: %v", err)
+		}
+
+		input.ExclusiveStartKey = lastEvaluatedKey
+	}
+
+	result, err := r.db.QueryWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return nil, fmt.Errorf("failed to get item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return nil, fmt.Errorf("failed to get item: %v", err)
+	}
+
+	var users []*service.User
+	err = dynamodbattribute.UnmarshalListOfMaps(result.Items, &users)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal DynamoDB item: %v", err)
+	}
+
+	nextPivot, err := r.formatDefaultLastEvaluatedKey(result.LastEvaluatedKey)
+	if err != nil {
+		logger.Error(ctx, "Error in making next pivot", err)
+	}
+
+	userResult := &service.UserResult{
+		NextPivot: nextPivot,
+		Users:     users,
+	}
+
+	return userResult, nil
+}
+
+func (r *userRepo) GetItemsByRole(ctx context.Context, role, pivot string, limit int64) (*service.UserResult, error) {
+	input := &dynamodb.QueryInput{
+		TableName:              aws.String(r.tableName),
+		IndexName:              aws.String(userRoleIndex),
+		KeyConditionExpression: aws.String("#role = :role"),
+		ExpressionAttributeNames: map[string]*string{
+			"#role": aws.String("Role"),
+		},
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":role": {
+				S: aws.String(role),
+			},
+		},
+		Limit:            aws.Int64(limit),
+		ScanIndexForward: aws.Bool(false),
+	}
+
+	if len(pivot) > 0 {
+		lastEvaluatedKey, err := r.retrieveLastEvaluatedKey(pivot)
+		if err != nil {
+			return nil, fmt.Errorf("cannot break next page: %v", err)
+		}
+
+		input.ExclusiveStartKey = lastEvaluatedKey
+	}
+
+	result, err := r.db.QueryWithContext(ctx, input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return nil, fmt.Errorf("failed to get item: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return nil, fmt.Errorf("failed to get item: %v", err)
+	}
+
+	var users []*service.User
+	err = dynamodbattribute.UnmarshalListOfMaps(result.Items, &users)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal DynamoDB item: %v", err)
+	}
+
+	nextPivot, err := r.formatLastEvaluatedKey(result.LastEvaluatedKey)
+	if err != nil {
+		logger.Error(ctx, "Error in making next pivot", err)
+	}
+
+	userResult := &service.UserResult{
+		NextPivot: nextPivot,
+		Users:     users,
+	}
+
+	return userResult, nil
 }
 
 func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
@@ -433,4 +544,127 @@ func (r *userRepo) UpdatePasswordFromDynamoDb(ctx context.Context, user *service
 	}
 
 	return nil
+}
+
+func (r *userRepo) formatLastEvaluatedKey(lastEvaluatedKey map[string]*dynamodb.AttributeValue) (string, error) {
+	if lastEvaluatedKey == nil {
+		return "", errors.New("lastEvaluatedKey is nil")
+	}
+
+	createdByAttr, ok := lastEvaluatedKey["CreatedBy"]
+	if !ok || createdByAttr.S == nil {
+		return "", errors.New("missing or invalid InitiatorId attribute value")
+	}
+	createdBy := *createdByAttr.S
+
+	createdAtAttr, ok := lastEvaluatedKey["CreatedAt"]
+	if !ok || createdAtAttr.N == nil {
+		return "", errors.New("missing or invalid CreatedAt attribute value")
+	}
+	createdAt := *createdAtAttr.N
+
+	idAttr, ok := lastEvaluatedKey["Id"]
+	if !ok || idAttr.S == nil {
+		return "", errors.New("missing or invalid Id attribute value")
+	}
+	id := *idAttr.S
+
+	nextPivot := strings.Join([]string{createdBy, createdAt, id}, "+")
+
+	return nextPivot, nil
+}
+
+func (r *userRepo) retrieveLastEvaluatedKey(pivot string) (map[string]*dynamodb.AttributeValue, error) {
+	parts := strings.Split(pivot, "+")
+	if len(parts) != 3 {
+		return nil, fmt.Errorf("invalid pivot")
+	}
+
+	createdBy, createdAt, id := parts[0], parts[1], parts[2]
+
+	lastEvaluatedKey := map[string]*dynamodb.AttributeValue{
+		"CreatedBy": {
+			S: &createdBy,
+		},
+		"CreatedAt": {
+			N: &createdAt,
+		},
+		"Id": {
+			S: &id,
+		},
+	}
+
+	return lastEvaluatedKey, nil
+}
+
+func (r *userRepo) formatDefaultLastEvaluatedKey(lastEvaluatedKey map[string]*dynamodb.AttributeValue) (string, error) {
+	if lastEvaluatedKey == nil {
+		return "", errors.New("lastEvaluatedKey is nil")
+	}
+
+	idxAttr, ok := lastEvaluatedKey["Idx"]
+	if !ok || idxAttr.S == nil {
+		return "", errors.New("missing or invalid InitiatorId attribute value")
+	}
+	idx := *idxAttr.S
+
+	createdAtAttr, ok := lastEvaluatedKey["CreatedAt"]
+	if !ok || createdAtAttr.N == nil {
+		return "", errors.New("missing or invalid CreatedAt attribute value")
+	}
+	createdAt := *createdAtAttr.N
+
+	idAttr, ok := lastEvaluatedKey["Id"]
+	if !ok || idAttr.S == nil {
+		return "", errors.New("missing or invalid Id attribute value")
+	}
+	id := *idAttr.S
+
+	nextPivot := strings.Join([]string{idx, createdAt, id}, "+")
+
+	return nextPivot, nil
+}
+
+func (r *userRepo) retrieveDefaultLastEvaluatedKey(pivot string) (map[string]*dynamodb.AttributeValue, error) {
+	parts := strings.Split(pivot, "+")
+	if len(parts) != 3 {
+		return nil, fmt.Errorf("invalid pivot")
+	}
+
+	idx, createdAt, id := parts[0], parts[1], parts[2]
+
+	lastEvaluatedKey := map[string]*dynamodb.AttributeValue{
+		"Idx": {
+			S: &idx,
+		},
+		"CreatedAt": {
+			N: &createdAt,
+		},
+		"Id": {
+			S: &id,
+		},
+	}
+
+	return lastEvaluatedKey, nil
+}
+
+func (r *userRepo) retrieveDefaultLastEvaluatedKeyByOffset(offset int64) (map[string]*dynamodb.AttributeValue, error) {
+	offsetKey := strconv.FormatInt(offset, 10)
+
+	lastEvaluatedKey := map[string]*dynamodb.AttributeValue{
+		"Idx": {
+			S: aws.String("1"),
+		},
+		"CreatedAt": {
+			N: aws.String(strconv.FormatInt(time.Now().Unix(), 10)),
+		},
+		"Id": {
+			S: aws.String(uuid.New().String()),
+		},
+		"Offset": {
+			N: aws.String(offsetKey),
+		},
+	}
+
+	return lastEvaluatedKey, nil
 }

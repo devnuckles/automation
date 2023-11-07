@@ -39,3 +39,17 @@ type updateUserReq struct {
 	Email       string `form:"email" binding:"required,email"`
 	PhoneNumber string `form:"phone_number" binding:"required"`
 }
+
+type getUsersRes struct {
+	NextPivot string          `json:"next_pivot"`
+	Users     []*userResponse `json:"users"`
+}
+
+type forgetPasswordReq struct {
+	Email string `json:"email" binding:"required"`
+}
+
+type otpVerification struct {
+	Code  string `json:"code" binding:"required"`
+	Email string `json:"email" binding:"required"`
+}

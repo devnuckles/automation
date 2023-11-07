@@ -2,8 +2,14 @@ package service
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
+	"math/big"
 )
+
+const otpChars = "0123456789"
+
+var otpCache = make(map[string]string)
 
 func (s *service) GetUser(ctx context.Context, accessToken string) (*User, error) {
 	user, err := s.userRepo.GetItem(ctx, accessToken)
@@ -13,11 +19,6 @@ func (s *service) GetUser(ctx context.Context, accessToken string) (*User, error
 
 	return user, nil
 }
-
-// func (s *service) GetUsers(ctx context.Context, query *FilterUserParams) ([]*UserResult, error){
-
-// 	return nil, nil
-// }
 
 func (s *service) GetUserByEmail(ctx context.Context, email string) (*User, error) {
 	user, err := s.userRepo.GetItemByEmail(ctx, email)
@@ -44,6 +45,24 @@ func (s *service) DeleteUserFromDynamoDB(ctx context.Context, userId string) err
 	}
 
 	return nil
+}
+
+func (s *service) GetUsers(ctx context.Context, params *FilterUserParams) (*UserResult, error) {
+	if len(params.Role) > 0 {
+		result, err := s.userRepo.GetItemsByRole(ctx, params.Role, params.Pivot, params.Limit)
+		if err != nil {
+			return nil, err
+		}
+
+		return result, nil
+	}
+
+	result, err := s.userRepo.GetItems(ctx, params.Pivot, params.Limit)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
 func (s *service) DeleteUserFromCognito(ctx context.Context, userID string) error {
@@ -95,4 +114,22 @@ func (s *service) ChangePasswordFromDynamoDB(ctx context.Context, user *User) er
 		return err
 	}
 	return nil
+}
+
+func (s *service) GetOTP(ctx context.Context, email string) string {
+	otp := generateOTP()
+	otpCache[email] = otp
+	return otp
+}
+
+func generateOTP() string {
+	otpLength := 6
+
+	otp := make([]byte, otpLength)
+	for i := range otp {
+		num, _ := rand.Int(rand.Reader, big.NewInt(int64(len(otpChars))))
+		otp[i] = otpChars[num.Int64()]
+	}
+
+	return string(otp)
 }

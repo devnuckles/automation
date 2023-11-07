@@ -89,6 +89,11 @@ func (s *Server) refrehToken(ctx *gin.Context) {
 	}
 
 	token, err := s.svc.RefreshToken(ctx, req.RefreshToken)
+	if err != nil {
+		logger.Error(ctx, "cannot generate access_token", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
 
 	res := &refrehTokenRes{
 		AccessToken: *token.AuthenticationResult.AccessToken,

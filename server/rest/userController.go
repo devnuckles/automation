@@ -2,6 +2,7 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -148,6 +149,13 @@ func (s *Server) updateUser(ctx *gin.Context) {
 	}
 
 	err = s.svc.UpdateUser(ctx, updatedUser)
+	if err != nil {
+		logger.Error(ctx, "cannot update user", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Sucessfully Updated The User", nil))
 }
 
 func (s *Server) deleteUser(ctx *gin.Context) {
@@ -239,53 +247,90 @@ func (s *Server) updateUserRole(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Updated user role successfully", nil))
 }
 
-// func (s *Server) getUsers(ctx *gin.Context) {
-// 	role := ctx.Query("role")
-// 	pivot := ctx.Query("pivot")
-// 	Offset, err := strconv.Atoi(ctx.Query("offset"))
-// 	if err != nil {
-// 		Offset = 0
-// 	}
+func (s *Server) getUsers(ctx *gin.Context) {
+	role := ctx.Query("role")
+	pivot := ctx.Query("pivot")
+	Offset, err := strconv.Atoi(ctx.Query("offset"))
+	if err != nil {
+		Offset = 0
+	}
 
-// 	limit, err := strconv.Atoi(ctx.Query("limit"))
-// 	if err != nil {
-// 		limit = 10
-// 	}
+	limit, err := strconv.Atoi(ctx.Query("limit"))
+	if err != nil {
+		limit = 10
+	}
 
-// 	query := &service.FilterUserParams{
-// 		Role:   role,
-// 		Pivot:  pivot,
-// 		Offset: int64(Offset),
-// 		Limit:  int64(limit),
-// 	}
+	query := &service.FilterUserParams{
+		Role:   role,
+		Pivot:  pivot,
+		Offset: int64(Offset),
+		Limit:  int64(limit),
+	}
 
-// 	userResult, err := s.svc.GetUsers(ctx, query)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot get users", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
+	userResult, err := s.svc.GetUsers(ctx, query)
+	if err != nil {
+		logger.Error(ctx, "cannot get users", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
 
-// 	var users []*userResponse
-// 	for _, u := range userResult {
-// 		userRes := &userResponse{
-// 			ID:          u.ID,
-// 			FirstName:   u,
-// 			LastName:    u.Lastname,
-// 			Email:       u.Email,
-// 			Role:        u.Role,
-// 			PhoneNumber: u.PhoneNumber,
-// 			Status:      u.Status,
-// 			CreatedAt:   u.CreatedAt,
-// 		}
+	var users []*userResponse
+	for _, u := range userResult.Users {
+		userRes := &userResponse{
+			ID:          u.ID,
+			FirstName:   u.Firstname,
+			LastName:    u.Lastname,
+			Email:       u.Email,
+			Role:        u.Role,
+			PhoneNumber: u.PhoneNumber,
+			Status:      u.Status,
+			CreatedAt:   u.CreatedAt,
+		}
 
-// 		users = append(users, userRes)
-// 	}
+		users = append(users, userRes)
+	}
 
-// 	userResponses := &getUsersRes{
-// 		Users:     users,
-// 	}
+	userResponses := &getUsersRes{
+		Users:     users,
+		NextPivot: userResult.NextPivot,
+	}
 
-// 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
 
-// }
+}
+
+func (s *Server) forgetPassword(ctx *gin.Context) {
+	var req forgetPasswordReq
+
+	err := ctx.ShouldBind(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	user, err := s.svc.GetUserByEmail(ctx, req.Email)
+	if err != nil {
+		logger.Error(ctx, "cannot get user", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	if user == nil {
+		logger.Error(ctx, "No User Found", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
+		return
+	}
+
+	otp := s.svc.GetOTP(ctx, req.Email)
+
+	emailBody := generateEmail(otp)
+	err = s.svc.SendMail(ctx, []string{req.Email}, "Request for Password Reset", emailBody)
+	if err != nil {
+		logger.Error(ctx, "cannot send OTP", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, s.svc.Response(ctx, "OTP Sent Successfully", nil))
+}

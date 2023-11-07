@@ -27,7 +27,7 @@ func NewServer(appConfig *config.Application, svc service.Service, cognitoConfig
 		svc:           svc,
 		cognitoConfig: cognitoConfig,
 		jwt:           jwt,
-		salt: salt,
+		salt:          salt,
 	}
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
@@ -54,17 +54,19 @@ func (server *Server) setupRouter() {
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
 	router.POST("/api/auth/refresh-token", server.refrehToken)
-	router.POST("/api/auth/logout", server.logoutUser)
 
 	////////// Protected Routes ///////////
 	authRoutes := router.Group("/").Use(server.authMiddleware())
 
 	//////// User Routes ////////////
-	authRoutes.POST("/api/add/user", server.addUser)
-	authRoutes.PATCH("/api/role/user/:id", server.updateUserRole)
-	authRoutes.DELETE("/api/user/:id", server.deleteUser)
-	authRoutes.PATCH("/api/user/change-password", server.changePassword)
-	authRoutes.POST("/api/logout", server.logoutUser)
+	authRoutes.POST("/api/add/users", server.addUser)
+	authRoutes.PATCH("/api/role/users/:id", server.updateUserRole)
+	authRoutes.PATCH("/api/users", server.updateUser)
+	authRoutes.GET("/api/users", server.getUsers)
+	authRoutes.GET("/api/users/profile", server.getUserProfile)
+	authRoutes.DELETE("/api/users/:id", server.deleteUser)
+	authRoutes.PATCH("/api/users/change-password", server.changePassword)
+	authRoutes.POST("/api/users/logout", server.logoutUser)
 
 	//Feature Images APIs
 	authRoutes.POST("/api/features/images", server.uploadFeatureImages)

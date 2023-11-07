@@ -21,6 +21,7 @@ type Service interface {
 
 	// Mail Service
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
+	GetOTP(ctx context.Context, email string) string
 
 	// S3 Service
 	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*S3Object, error)
@@ -30,7 +31,7 @@ type Service interface {
 
 	// User Service
 	GetUser(ctx context.Context, accessToken string) (*User, error)
-	// GetUsers(ctx context.Context, query *FilterUserParams) ([]*UserResult, error)
+	GetUsers(ctx context.Context, params *FilterUserParams) (*UserResult, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByID(ctx context.Context, id string) (*User, error)
 	UpdateUser(ctx context.Context, user *User) error
@@ -59,6 +60,8 @@ type UserRepo interface {
 	GetItem(ctx context.Context, accessToken string) (*User, error)
 	GetItemByEmail(ctx context.Context, email string) (*User, error)
 	GetItemByID(ctx context.Context, id string) (*User, error)
+	GetItems(ctx context.Context, pivot string, limit int64) (*UserResult, error)
+	GetItemsByRole(ctx context.Context, role, pivot string, limit int64) (*UserResult, error)
 	DeleteItemByID(ctx context.Context, id string) error
 	RefreshToken(ctx context.Context, refreshToken string) (*cognitoidentityprovider.InitiateAuthOutput, error)
 	UpdatePasswordFromCognito(ctx context.Context, user *ChangePassword) error
