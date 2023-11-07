@@ -6,6 +6,7 @@ export default function ProjectStatusBar() {
                     <i class="bi bi-plus"></i>
                     New
                 </a>
+                {/* test */}
             </div>
             <div className="col-lg-11">
                 <div className="project-sorting-tab">
