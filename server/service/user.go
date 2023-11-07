@@ -8,11 +8,11 @@ type User struct {
 	Email       string `json:"Email"`
 	Password    string `json:"Password"`
 	PhoneNumber string `json:"PhoneNumber"`
-	Image       string `json:"Picture"`
-	Role        string `json:"custom:role"`
-	Status      string `json:"custom:status"`
+	ImageURL    string `json:"ImageUrl"`
+	Role        string `json:"Role"`
+	Status      string `json:"Status"`
 	CreatedAt   int64  `json:"CreatedAt"`
-	CreatedBy   string `json:"custom:createdBy"`
+	CreatedBy   string `json:"CreatedBy"`
 }
 
 type FilterUserParams struct {
@@ -27,7 +27,7 @@ type UserResult struct {
 	Users     []*User `json:"Users"`
 }
 
-type ChangePassword struct{
+type ChangePassword struct {
 	AccessToken string `json:"access_token"`
 	OldPassword string `json:"old_password"`
 	NewPassword string `json:"new_password"`

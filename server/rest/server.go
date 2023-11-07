@@ -49,11 +49,13 @@ func (server *Server) setupRouter() {
 	router.Static("/docs", "./docs") // swagger documentation
 
 	router.GET("/api/test", server.test) // healtch check
-
+	
+	router.POST("/api/auth/refresh-token", server.refrehToken)
+	
 	// Auth APIs
 	router.POST("/api/auth/signup", server.signupUser)
 	router.POST("/api/auth/login", server.loginUser)
-	router.POST("/api/auth/refresh-token", server.refrehToken)
+	router.POST("/api/forget/password", server.resetPassword)
 
 	////////// Protected Routes ///////////
 	authRoutes := router.Group("/").Use(server.authMiddleware())

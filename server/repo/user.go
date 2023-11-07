@@ -145,7 +145,7 @@ func getSvcUserFromAttributes(userAttributes []*cognitoidentityprovider.Attribut
 		"name":             &user.Username,
 		"email":            &user.Email,
 		"phone_number":     &user.PhoneNumber,
-		"picture":          &user.Image,
+		"picture":          &user.ImageURL,
 		"custom:role":      &user.Role,
 		"custom:status":    &user.Status,
 		"custom:createdBy": &user.CreatedBy,
@@ -387,7 +387,7 @@ func (r *userRepo) UpdateUserProfile(ctx context.Context, user *service.User) er
 			},
 			{
 				Name:  aws.String("custom:profile_picture"),
-				Value: aws.String(user.Image),
+				Value: aws.String(user.ImageURL),
 			},
 		},
 	}

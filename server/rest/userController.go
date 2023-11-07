@@ -141,7 +141,7 @@ func (s *Server) updateUser(ctx *gin.Context) {
 		Lastname:    req.LastName,
 		Password:    user.Password,
 		PhoneNumber: req.PhoneNumber,
-		Image:       fileURL.Url,
+		ImageURL:       fileURL.Url,
 		Role:        user.Role,
 		Status:      user.Status,
 		CreatedAt:   user.CreatedAt,
