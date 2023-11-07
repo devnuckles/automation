@@ -1,3 +1,6 @@
-import DashboardLayout from "./common/dashboard-layout.component";
+import DashboardLayout from "./common/dashboard/dashboard-layout.component";
 import ProgressBar from "./common/progress-bar.component";
-export { DashboardLayout, ProgressBar };
+import DynamicModal from "./common/modal.component";
+import Dashboard from "./common/dashboard/dashboard.component";
+
+export { DashboardLayout, ProgressBar, DynamicModal, Dashboard };

@@ -1,6 +1,6 @@
-import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
+import { DashboardLayout, Dashboard } from "../modules/core";
 import {
     AddProjectUser,
     AddUser,
@@ -11,9 +11,7 @@ import {
     UpdateInformation,
     UpdateProjectDetails,
     UserTable,
-    Dashboard,
 } from "../modules/platform";
-import { DashboardLayout } from "../modules/core";
 
 const Routes = createBrowserRouter([
     {

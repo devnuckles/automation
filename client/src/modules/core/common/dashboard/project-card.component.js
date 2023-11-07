@@ -1,4 +1,4 @@
-import { ProgressBar } from "../../../core";
+import { ProgressBar } from "../..";
 
 function ProjectCard({ project }) {
     return (
