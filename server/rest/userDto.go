@@ -45,7 +45,7 @@ type getUsersRes struct {
 	Users     []*userResponse `json:"users"`
 }
 
-type forgetPasswordReq struct {
+type resetPasswordReq struct {
 	Email string `json:"email" binding:"required"`
 }
 

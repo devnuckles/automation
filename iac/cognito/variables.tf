@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-variable "cognito_user_auto_confirm_function_arn" {
-  type        = string
-}
-=======
 variable "cognito_user_pool_id" {
   type = string
 }
@@ -24,4 +19,3 @@ data "aws_region" "current" {}
 output "region" {
   value = data.aws_region.current.name
 }
->>>>>>> 26940e0 (Resolve Conflicts)

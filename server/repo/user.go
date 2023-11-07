@@ -546,6 +546,24 @@ func (r *userRepo) UpdatePasswordFromDynamoDb(ctx context.Context, user *service
 	return nil
 }
 
+func (r *userRepo) ResetCognitoPassword(ctx context.Context, email string) error {
+	cognitoInput := &cognitoidentityprovider.ForgotPasswordInput{
+		ClientId: aws.String(r.appClientID),
+		Username: aws.String(email),
+	}
+
+	_, err := r.svc.ForgotPasswordWithContext(ctx, cognitoInput)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to write item: %v - %v", aerr.Code(), aerr.Message())
+		}
+
+		return fmt.Errorf("failed to write item: %v", err)
+	}
+
+	return nil
+}
+
 func (r *userRepo) formatLastEvaluatedKey(lastEvaluatedKey map[string]*dynamodb.AttributeValue) (string, error) {
 	if lastEvaluatedKey == nil {
 		return "", errors.New("lastEvaluatedKey is nil")

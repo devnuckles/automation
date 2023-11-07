@@ -2,9 +2,7 @@ package service
 
 import (
 	"context"
-	"crypto/rand"
 	"fmt"
-	"math/big"
 )
 
 const otpChars = "0123456789"
@@ -116,20 +114,10 @@ func (s *service) ChangePasswordFromDynamoDB(ctx context.Context, user *User) er
 	return nil
 }
 
-func (s *service) GetOTP(ctx context.Context, email string) string {
-	otp := generateOTP()
-	otpCache[email] = otp
-	return otp
-}
-
-func generateOTP() string {
-	otpLength := 6
-
-	otp := make([]byte, otpLength)
-	for i := range otp {
-		num, _ := rand.Int(rand.Reader, big.NewInt(int64(len(otpChars))))
-		otp[i] = otpChars[num.Int64()]
+func (s *service) InitResetPassword(ctx context.Context, email string) error {
+	err := s.userRepo.ResetCognitoPassword(ctx, email)
+	if err != nil {
+		return err
 	}
-
-	return string(otp)
+	return nil
 }

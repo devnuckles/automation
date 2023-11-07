@@ -21,7 +21,7 @@ type Service interface {
 
 	// Mail Service
 	SendMail(ctx context.Context, emailTo []string, subject, emailBody string) error
-	GetOTP(ctx context.Context, email string) string
+	InitResetPassword(ctx context.Context, email string) error
 
 	// S3 Service
 	UploadFile(ctx context.Context, file multipart.File, fileHeader *multipart.FileHeader, prefix string) (*S3Object, error)
@@ -69,6 +69,7 @@ type UserRepo interface {
 	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
 	UpdateUserRole(ctx context.Context, user *User) error
 	UpdateUserProfile(ctx context.Context, user *User) error
+	ResetCognitoPassword(ctx context.Context, email string) error
 }
 
 type FileRepo interface {
