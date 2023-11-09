@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-const AddUser = () => {
+const AddOperator = () => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,6 +25,25 @@ const AddUser = () => {
         {
             value: "operator",
             label: "Operator",
+        },
+        {
+            value: "admin",
+            label: "Admin",
+        },
+        {
+            value: "super_admin",
+            label: "Super Admin",
+        },
+        {
+            value: "moderator",
+            label: "Moderator",
+        },
+    ];
+
+    const permission = [
+        {
+            value: "document management",
+            label: "Document Management",
         },
         {
             value: "admin",
@@ -190,7 +209,35 @@ const AddUser = () => {
                                         </option>
                                     ))}
                                 </TextField>
+
+                                <TextField
+                                    focused
+                                    sx={{
+                                        mt: "30px",
+                                        width: "100%",
+                                        color: "black",
+                                    }}
+                                    id="outlined-select-currency"
+                                    select
+                                    label="Permission"
+                                    defaultValue="Operator"
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                >
+                                    {permission.map((option) => (
+                                        <option
+                                            key={option.value}
+                                            value={option.value}
+                                        >
+                                            <p className="options">
+                                                {option.label}
+                                            </p>
+                                        </option>
+                                    ))}
+                                </TextField>
                             </div>
+
                             <Button
                                 variant="contained"
                                 sx={{
@@ -215,4 +262,4 @@ const AddUser = () => {
     );
 };
 
-export default AddUser;
+export default AddOperator;

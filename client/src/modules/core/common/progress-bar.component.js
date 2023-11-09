@@ -10,7 +10,7 @@ function LinearProgressWithLabel(props) {
             <Box sx={{ minWidth: 35, marginTop: 1 }}>
                 <Typography variant="body2" color="text.secondary">
                     <span className="progress-bar-text text-start">
-                        progress
+                        Progress
                     </span>
                     <span className="progress-bar-text text-end">{`${Math.round(
                         props.value

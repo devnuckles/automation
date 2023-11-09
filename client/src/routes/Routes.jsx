@@ -12,6 +12,12 @@ import {
     UpdateProjectDetails,
     UserTable,
 } from "../modules/platform";
+import {
+    AddOperator,
+    AssignRole,
+    ChangePassword,
+    UpdateRole,
+} from "../modules/platform/users";
 
 const Routes = createBrowserRouter([
     {
@@ -47,6 +53,38 @@ const Routes = createBrowserRouter([
         element: (
             <DashboardLayout>
                 <AddUser />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/add_operator",
+        element: (
+            <DashboardLayout>
+                <AddOperator />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/change_password",
+        element: (
+            <DashboardLayout>
+                <ChangePassword />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/update_role",
+        element: (
+            <DashboardLayout>
+                <UpdateRole />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/assign_role",
+        element: (
+            <DashboardLayout>
+                <AssignRole />
             </DashboardLayout>
         ),
     },

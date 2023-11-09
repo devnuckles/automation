@@ -7,6 +7,10 @@ import Registration from "./components/registration.component";
 import UpdateInformation from "./components/UpdateInformation.component";
 import UpdateProjectDetails from "./components/UpdateProjectDetails.component";
 import UserTable from "./components/user-list.component";
+import AddOperator from "./components/AddOperator.component";
+import ChangePassword from "./components/ChangePassword.component";
+import UpdateRole from "./components/UpdateRole.component";
+import AssignRole from "./components/AssignRole.component";
 
 export {
     AddProjectUser,
@@ -18,4 +22,8 @@ export {
     UpdateInformation,
     UpdateProjectDetails,
     UserTable,
+    AddOperator,
+    ChangePassword,
+    UpdateRole,
+    AssignRole,
 };

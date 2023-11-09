@@ -5,6 +5,10 @@
     box-sizing: border-box;
     font-family: Outfit;
 }
+::selection {
+    background: #047857;
+    color: white;
+}
 
 .log_in_bg {
     background-color: #ebf5ff;
@@ -325,8 +329,10 @@
     color: #191d23;
     margin: -5px 0 0 0;
 }
-
-.user-management-heading-button-group a:first-child {
+.user-management-heading-button-group div:first-child {
+    display: inline-block;
+}
+.user-management-heading-button-group div:first-child button {
     background: #047857;
     border-radius: 4px;
     font-family: "Manrope", sans-serif;
@@ -450,25 +456,30 @@
     background-color: #fff;
     border-radius: 24px;
 } */
+.css-zznxy6 {
+    padding: 0 !important;
+}
 .add_user_main {
     width: 80%;
     margin: 0 auto;
     border-radius: 15px;
     position: relative;
     padding: 50px;
-    box-shadow: 0px 3px 36px 12px #507ea91f;
 }
 .add_user_main::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    background: url(../images/blob\ 1.png);
+    background: url(../images/blob-1.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
     width: 50%;
     border-radius: 15px 0 0 0;
+}
+.add-user-main-left-content {
+    background: #fff !important;
 }
 .options {
     color: #000;
@@ -492,17 +503,83 @@
     text-align: left;
     margin: 100px 0 0 0;
 }
+
 .add-user-form-input
     .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
 .add-user-form-input
     .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-    width: 50%;
-    display: inline-block;
+    width: 48% !important;
 }
 .add-user-form-input
     .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root:nth-child(1) {
     width: 90%;
     margin-right: auto !important;
+}
+
+/* Change Password Css  */
+.common-modal-wrapper,
+.change-password-main {
+    width: 35%;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 36px 12px #507ea91f;
+}
+.common-modal-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 60px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #989898;
+}
+
+.common-modal-button {
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #047857 !important;
+    background: #047857;
+    box-shadow: 0px 1px 2px 0px #1018280d;
+    padding: 14px 20px;
+    border-radius: 8px;
+    width: 100%;
+}
+.common-modal-button:hover,
+.common-modal-button:visited {
+    background: #047857;
+    border: 1px solid #047857 !important;
+    color: #fff;
+}
+.common-modal-button:focus-visible {
+    color: #047857;
+    background: #fff !important;
+}
+.change-password-main .change-password-form .MuiFormControl-root,
+.change-password-main .change-password-form .MuiInputBase-root {
+    display: block !important;
+}
+
+/* Update Role Css */
+
+.update-role-form label {
+    color: #047857 !important;
+}
+.update-role-form
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline {
+    transition: all linear 0.3s;
+    border-color: #929293;
+}
+.update-role-form
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline:hover {
+    border-color: #047857;
 }
 @media only screen and (max-width: 1880px) {
     .add_user_main {
@@ -529,7 +606,21 @@
     background-color: #fff;
     border-radius: 24px;
 }
-
+.add_project_user_form .MuiFormLabel-root .MuiInputBase-root input {
+    border: 1px solid #d0d5dd !important;
+}
+.add_project_user_form
+    .MuiFormLabel-root
+    .MuiInputBase-root
+    input::placeholder {
+    color: #d0d5dd;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+}
 @media only screen and (max-width: 1880px) {
     .project_user {
         padding-top: 150px;
@@ -693,5 +784,175 @@
         height: 90vh;
         background-color: #fff;
         border-radius: 24px;
+    }
+}
+
+/* Add User Responsive */
+@media (max-width: 1920px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 100%;
+    }
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 80%;
+    }
+    .add-user-form-input
+        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child {
+        margin-right: 10px !important;
+    }
+    .add-user-main-left-content .add-user-title {
+        font-size: 43px !important;
+        line-height: 60px !important;
+    }
+    .add-user-main-left-content .add-user-responsive-title {
+        display: none !important;
+    }
+}
+@media (min-width: 993px) and (max-width: 1200px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 65%;
+    }
+    .add-user-form-input
+        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child {
+        margin-right: 9px !important;
+    }
+    .add-user-main-left-content .add-user-title {
+        margin-top: -12px;
+        font-size: 33px !important;
+        line-height: 46px !important;
+    }
+    .add-user-main-left-content .add-user-paragraph {
+        font-size: 25px;
+        margin: 50px 0 0 0 !important;
+    }
+}
+@media (min-width: 769px) and (max-width: 992px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 0%;
+    }
+    .add_user_form div:first-child {
+        padding: 0px !important;
+    }
+    .add-user-form-input
+        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+    .add-user-form-input
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+        margin-right: 0px !important;
+        display: block;
+        width: 100% !important;
+    }
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+        width: 100% !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-title,
+    .add_user_main .add-user-main-left-content .add-user-paragraph {
+        display: none !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-responsive-title {
+        display: block !important;
+        font-family: "Roboto", sans-serif;
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 60px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: #989898;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 0%;
+    }
+    .add_user_form div:first-child {
+        padding: 0px !important;
+    }
+    .add-user-form-input
+        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+    .add-user-form-input
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+        margin-right: 0px !important;
+        display: block;
+        width: 100% !important;
+    }
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+        width: 100% !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-title,
+    .add_user_main .add-user-main-left-content .add-user-paragraph {
+        display: none !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-responsive-title {
+        display: block !important;
+        font-family: "Roboto", sans-serif;
+        font-size: 38px;
+        font-weight: 600;
+        line-height: 60px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: #989898;
+    }
+}
+
+@media (max-width: 575px) {
+    .add_user_main {
+        margin: 0;
+        width: 100%;
+    }
+    .add_user_main::after {
+        height: 0%;
+    }
+    .add_user_form div:first-child {
+        padding: 0px !important;
+    }
+    .add-user-form-input
+        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+    .add-user-form-input
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+        margin-right: 0px !important;
+        display: block;
+        width: 100% !important;
+    }
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+        width: 100% !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-title,
+    .add_user_main .add-user-main-left-content .add-user-paragraph {
+        display: none !important;
+    }
+    .add_user_main .add-user-main-left-content .add-user-responsive-title {
+        display: block !important;
+        font-family: "Roboto", sans-serif;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 60px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: #989898;
     }
 }
