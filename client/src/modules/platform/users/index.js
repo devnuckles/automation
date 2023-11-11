@@ -11,6 +11,10 @@ import AddOperator from "./components/AddOperator.component";
 import ChangePassword from "./components/ChangePassword.component";
 import UpdateRole from "./components/UpdateRole.component";
 import AssignRole from "./components/AssignRole.component";
+import ActionModal from "./components/ActionModal.component";
+import FlatManagement from "./components/FlatManagement.component";
+import DeleteProjectModal from "./components/DeleteProjectModal.component";
+import ProfileDropdown from "./components/ProfileDropdown.component";
 
 export {
     AddProjectUser,
@@ -26,4 +30,8 @@ export {
     ChangePassword,
     UpdateRole,
     AssignRole,
+    ActionModal,
+    FlatManagement,
+    DeleteProjectModal,
+    ProfileDropdown,
 };

@@ -13,9 +13,13 @@ import {
     UserTable,
 } from "../modules/platform";
 import {
+    ActionModal,
     AddOperator,
     AssignRole,
     ChangePassword,
+    DeleteProjectModal,
+    FlatManagement,
+    ProfileDropdown,
     UpdateRole,
 } from "../modules/platform/users";
 
@@ -89,6 +93,14 @@ const Routes = createBrowserRouter([
         ),
     },
     {
+        path: "/action_modal",
+        element: (
+            <DashboardLayout>
+                <ActionModal />
+            </DashboardLayout>
+        ),
+    },
+    {
         path: "/add_project_user",
         element: (
             <DashboardLayout>
@@ -117,6 +129,30 @@ const Routes = createBrowserRouter([
         element: (
             <DashboardLayout>
                 <UpdateInformation />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/flat-management",
+        element: (
+            <DashboardLayout>
+                <FlatManagement />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/delete-project-modal",
+        element: (
+            <DashboardLayout>
+                <DeleteProjectModal />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/profile-dropdown",
+        element: (
+            <DashboardLayout>
+                <ProfileDropdown />
             </DashboardLayout>
         ),
     },

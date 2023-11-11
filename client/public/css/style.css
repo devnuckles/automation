@@ -581,6 +581,233 @@
     .MuiOutlinedInput-notchedOutline:hover {
     border-color: #047857;
 }
+
+/* Start of Flat Management  */
+.flat-management-header {
+    border: 1px solid #f1f2f7;
+    border-radius: 8px;
+    padding: 7px;
+}
+.flat-management-tab .nav-tabs {
+    border: 0;
+}
+.flat-management-tab .nav-link {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: center;
+    color: #8b8b8b;
+}
+
+.flat-management-tab .nav-item:focus-visible {
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+}
+.flat-management-tab .nav-link.active {
+    border: 0;
+    position: relative;
+    color: #25364f !important;
+}
+.flat-management-tab .nav-link.active::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    background: #3c557a !important;
+    height: 4px;
+    width: 4px;
+    border-radius: 50%;
+}
+.flat-management-header-button button {
+    border: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #8b8b8b;
+}
+.flat-management-header-button button:focus-visible {
+    border: 0;
+}
+.flat-management-header-button button:hover {
+    border: 0;
+    background: #fff;
+}
+
+.flat-management-table {
+    padding: 20px !important;
+}
+.flat-management-table table thead {
+    background: #00db990a;
+}
+.flat-management-table table thead tr th {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    text-align: left;
+    color: #717986;
+}
+.flat-management-table-flat .flat-management-table-icon {
+    font-size: 40px;
+    color: #717986;
+}
+.flat-management-table-flat-content h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #464e5f;
+}
+.flat-management-table-flat-content p {
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #b5b5c3;
+}
+.flat-management-table-flat-status {
+    position: relative;
+}
+.flat-management-table-flat-status::after {
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    transform: translate(-50%);
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background: #00db99;
+}
+.flat-management-table-details-button {
+    padding: 8px 16px !important;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Profile Dropdown Modal  */
+.profile-dropdown-modal {
+    width: 250px;
+    border: 1px solid #cddcee;
+    padding: 16px;
+    border-radius: 8px;
+}
+.profile-dropdown-modal ul {
+    margin: 0;
+}
+.profile-dropdown-modal ul:nth-child(2) {
+    border-top: 1px solid #dfe3e8;
+    border-bottom: 1px solid #dfe3e8;
+    padding: 10px 0;
+}
+.profile-dropdown-modal ul:nth-child(2) li,
+.profile-dropdown-modal ul:nth-child(3) li {
+    padding: 7px 0px;
+}
+.profile-dropdown-modal ul li a {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.profile-dropdown-modal .profile-info h2 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+    color: #161c24;
+}
+.profile-dropdown-modal .profile-info a {
+    color: #919eab;
+    font-size: 12px;
+}
+
+.profile-dropdown-modal .profile-edit,
+.profile-dropdown-modal .profile-sign-out {
+    color: #637381;
+}
+
+/* Delete Project Modal  */
+.delete-project-modal {
+    border: 1px solid #f2f2f2;
+    width: 350px;
+    padding: 20px;
+    border-radius: 8px;
+}
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+    position: relative;
+    z-index: 999;
+}
+.delete-project-modal .delete-project-warning i {
+    color: #d92d20;
+    position: relative;
+}
+.delete-project-modal .delete-project-warning i::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background: #fef3f2;
+    z-index: 500;
+}
+.delete-project-modal .delete-project-content h2 {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #101828;
+}
+.delete-project-modal .delete-project-content p {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #667085;
+}
+.delete-project-buttons button {
+    width: 48%;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #344054 !important;
+}
+.delete-project-buttons button:last-child {
+    border: 1px solid #d92d20 !important;
+    background: #d92d20 !important;
+    color: #fff !important;
+}
+/* Action Modal CSS  */
+
 @media only screen and (max-width: 1880px) {
     .add_user_main {
         width: 100%;
