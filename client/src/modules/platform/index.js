@@ -8,4 +8,5 @@ export {
     UpdateInformation,
     UpdateProjectDetails,
     UserTable,
+    FlatDetails,
 } from "./users";

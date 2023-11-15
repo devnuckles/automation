@@ -1183,3 +1183,141 @@
         color: #989898;
     }
 }
+
+/* Flat Details Page  */
+.css-bvyohc-MuiTypography-root-MuiLink-root {
+    font-family: "Inter", sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 18px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    color: #047857 !important;
+}
+.css-1wuw8dw-MuiBreadcrumbs-separator {
+    color: #047857 !important;
+}
+
+.css-1gqyz35-MuiTypography-root {
+    font-family: "Poppins", sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 24px !important;
+    letter-spacing: 0em;
+    text-align: left !important;
+    color: #047857 !important;
+}
+.flat-details-flat-heading {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 96px;
+    letter-spacing: 0em;
+    color: #000000;
+}
+.flat-details-flat-price-heading {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    color: #232323;
+}
+.flat-details-flat-price {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #047857;
+}
+.flat-details-edit-button button {
+    box-shadow: none !important;
+    text-transform: capitalize !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #047857;
+    background: #f8f8f8 !important;
+    padding: 10px 16px !important;
+    border-radius: 10px !important;
+}
+.flat-details-property-feature-heading {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
+.flat-details-property-feature-details p i {
+    color: #047857;
+}
+.flat-details-common-heading,
+.flat-details-bottom-description-heading {
+    font-family: Inter !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    line-height: 34px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    color: #152046 !important;
+}
+.flat-details-bottom-description-content {
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 26px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    color: #636363 !important;
+}
+.flat-details-bottom-description-button {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0.015em;
+    text-align: left;
+    color: #19cf79;
+}
+.property-documents p i {
+    color: #636363 !important;
+}
+.property-documents p span,
+.property-documents p a {
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 26px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    color: #636363 !important;
+}
+.property-documents p a {
+    color: #19cf79 !important;
+    text-decoration: underline !important;
+}
+.css-9mgopn-MuiDivider-root {
+    border: 1px solid #63636378 !important;
+}
+.property-location-details ul li span,
+.property-details ul li span {
+    font-family: Inter;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #636363;
+}
+.property-location-details ul li span:first-child,
+.property-details ul li span:first-child {
+    font-weight: 600;
+}
+.property-location-details ul li span:last-child,
+.property-details ul li span:last-child {
+    font-weight: 400;
+}
+.property-location-details-map iframe {
+    border-radius: 20px !important;
+}

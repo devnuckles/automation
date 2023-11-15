@@ -15,6 +15,7 @@ import ActionModal from "./components/ActionModal.component";
 import FlatManagement from "./components/FlatManagement.component";
 import DeleteProjectModal from "./components/DeleteProjectModal.component";
 import ProfileDropdown from "./components/ProfileDropdown.component";
+import FlatDetails from "./components/flat-details.component";
 
 export {
     AddProjectUser,
@@ -34,4 +35,5 @@ export {
     FlatManagement,
     DeleteProjectModal,
     ProfileDropdown,
+    FlatDetails,
 };

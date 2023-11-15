@@ -47,9 +47,12 @@ export default function LeftNav() {
                             <span className="icon">
                                 <i class="bi bi-house"></i>
                             </span>
-                            <a className="nav-link left-nav-link" href="/dummy">
-                                Flats Management
-                            </a>
+                            <Link
+                                className="nav-link left-nav-link"
+                                to="/flat-management"
+                            >
+                                Flat Management
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <span className="icon">

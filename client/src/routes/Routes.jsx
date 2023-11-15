@@ -11,6 +11,7 @@ import {
     UpdateInformation,
     UpdateProjectDetails,
     UserTable,
+    FlatDetails,
 } from "../modules/platform";
 import {
     ActionModal,
@@ -153,6 +154,14 @@ const Routes = createBrowserRouter([
         element: (
             <DashboardLayout>
                 <ProfileDropdown />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: "/flat-details",
+        element: (
+            <DashboardLayout>
+                <FlatDetails />
             </DashboardLayout>
         ),
     },

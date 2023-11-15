@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function createData(
     flat,
@@ -109,10 +110,17 @@ export default function FlatManagement() {
                 </div>
                 <div className="col-lg-2">
                     <div className="flat-management-header-button">
-                        <Button className="me-1" variant="outlined" startIcon={<i class="bi bi-funnel"></i>}>
+                        <Button
+                            className="me-1"
+                            variant="outlined"
+                            startIcon={<i class="bi bi-funnel"></i>}
+                        >
                             Filter
                         </Button>
-                        <Button variant="outlined" endIcon={<i class="bi bi-sort-down-alt"></i>}>
+                        <Button
+                            variant="outlined"
+                            endIcon={<i class="bi bi-sort-down-alt"></i>}
+                        >
                             Default
                         </Button>
                     </div>
@@ -206,12 +214,13 @@ export default function FlatManagement() {
                                         {row.numOfRooms}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <button
+                                        <Link
+                                            to="/flat-details"
                                             type="button"
                                             className="btn btn-success flat-management-table-details-button"
                                         >
                                             {row.flatDetails}
-                                        </button>
+                                        </Link>
                                     </TableCell>
                                 </TableRow>
                             ))}
