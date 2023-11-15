@@ -1,5 +1,30 @@
-import { Button, Chip, Divider } from "@mui/material";
+import { Button, Chip, Divider, Collapse } from "@mui/material";
 import FlatDetailsBreadcrumbs from "./flat-details-breadcrumb.component";
+import { ReadMoreLess } from "../../../core/lib/read-more-less.pkg";
+
+const desc = `
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Proin velit augue, hendrerit et tempor ac, rutrum in
+diam. Mauris semper augue nec gravida aliquam. Duis ut
+arcu et ante tincidunt bibendum nec ut nisl. Ut
+bibendum, justo sed vestibulum malesuada, sapien metus
+pharetra nunc, nec vulputate ipsum tellus id erat.
+Nullam augue metus, accumsan a justo eget, rutrum
+accumsan orci. Mauris libero mi, laoreet a viverra
+vitae, sagittis eget eros. Integer vel quam interdum,
+condimentum orci eget, sodales sem.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Proin velit augue, hendrerit et tempor ac, rutrum in
+diam. Mauris semper augue nec gravida aliquam. Duis ut
+arcu et ante tincidunt bibendum nec ut nisl. Ut
+bibendum, justo sed vestibulum malesuada, sapien metus
+pharetra nunc, nec vulputate ipsum tellus id erat.
+Nullam augue metus, accumsan a justo eget, rutrum
+accumsan orci. Mauris libero mi, laoreet a viverra
+vitae, sagittis eget eros. Integer vel quam interdum,
+condimentum orci eget, sodales sem.
+`;
 
 function FlatDetails() {
     return (
@@ -200,31 +225,10 @@ function FlatDetails() {
                     <h2 className="flat-details-bottom-description-heading">
                         Description
                     </h2>
-                    <p className="flat-details-bottom-description-content my-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Proin velit augue, hendrerit et tempor ac, rutrum in
-                        diam. Mauris semper augue nec gravida aliquam. Duis ut
-                        arcu et ante tincidunt bibendum nec ut nisl. Ut
-                        bibendum, justo sed vestibulum malesuada, sapien metus
-                        pharetra nunc, nec vulputate ipsum tellus id erat.
-                        Nullam augue metus, accumsan a justo eget, rutrum
-                        accumsan orci. Mauris libero mi, laoreet a viverra
-                        vitae, sagittis eget eros. Integer vel quam interdum,
-                        condimentum orci eget, sodales sem.
-                    </p>
-
-                    <p className="my-3 flat-details-bottom-description-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Proin velit augue, hendrerit et tempor ac, rutrum in
-                        diam. Mauris semper augue nec gravida aliquam. Duis ut
-                        arcu et ante tincidunt bibendum nec ut nisl. Ut
-                        bibendum, justo sed vestibulum malesuada, sapien metus
-                        pharetra nunc, nec vulputate ipsum tellus id erat.
-                        Nullam augue metus, accumsan a justo eget, rutrum
-                        accumsan orci. Mauris libero mi, laoreet a viverra
-                        vitae, sagittis eget eros. Integer vel quam interdum,
-                        condimentum orci eget, sodales sem.
-                    </p>
+                    <ReadMoreLess
+                        className="my-3 flat-details-bottom-description-content"
+                        desc={desc}
+                    />
 
                     <a className="flat-details-bottom-description-button">
                         Read More

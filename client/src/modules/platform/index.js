@@ -1,4 +1,6 @@
-export {
+import { Dashboard } from "./dashboard";
+
+import {
     AddProjectUser,
     AddUser,
     CreateNewProject,
@@ -10,3 +12,17 @@ export {
     UserTable,
     FlatDetails,
 } from "./users";
+
+export {
+    AddProjectUser,
+    AddUser,
+    CreateNewProject,
+    LandingPage,
+    Login,
+    Registration,
+    UpdateInformation,
+    UpdateProjectDetails,
+    UserTable,
+    FlatDetails,
+    Dashboard,
+};

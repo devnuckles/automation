@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { DashboardLayout, Dashboard } from "../modules/core";
+import { DashboardLayout } from "../modules/core";
+import { Dashboard } from "../modules/platform";
 import {
     AddProjectUser,
     AddUser,
@@ -23,6 +24,7 @@ import {
     ProfileDropdown,
     UpdateRole,
 } from "../modules/platform/users";
+import PrivateRoutes from "./Private.routes";
 
 const Routes = createBrowserRouter([
     {
@@ -163,6 +165,14 @@ const Routes = createBrowserRouter([
             <DashboardLayout>
                 <FlatDetails />
             </DashboardLayout>
+        ),
+    },
+    {
+        path: "/secret",
+        element: (
+            <PrivateRoutes>
+                <FlatDetails />
+            </PrivateRoutes>
         ),
     },
 ]);

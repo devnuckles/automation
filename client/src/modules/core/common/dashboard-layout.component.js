@@ -1,6 +1,5 @@
-import React from "react";
-import LeftNav from "./left-navbar.component";
-import TopNav from "./top-nav.component";
+import TopNav from "./top-nav.component.js";
+import LeftNav from "./left-nav.component.js";
 
 const DashboardLayout = ({ children }) => {
     return (

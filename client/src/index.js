@@ -5,7 +5,7 @@ import App from "./modules/core/App.component";
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { RouterProvider } from "react-router-dom";
-import router from "./routes/Routes.jsx";
+import router from "./routes/Routes.js";
 
 const theme = createTheme({
     palette: {

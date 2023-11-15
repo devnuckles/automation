@@ -1,6 +1,6 @@
-import DashboardLayout from "./common/dashboard/dashboard-layout.component";
+import DashboardLayout from "./common/dashboard-layout.component";
 import ProgressBar from "./common/progress-bar.component";
 import DynamicModal from "./common/modal.component";
-import Dashboard from "./common/dashboard/dashboard.component";
+import { AuthContext } from "./providers/auth.provider";
 
-export { DashboardLayout, ProgressBar, DynamicModal, Dashboard };
+export { DashboardLayout, ProgressBar, DynamicModal, AuthContext };
