@@ -141,7 +141,7 @@ func (s *Server) updateUser(ctx *gin.Context) {
 		Lastname:    req.LastName,
 		Password:    user.Password,
 		PhoneNumber: req.PhoneNumber,
-		ImageURL:       fileURL.Url,
+		ImageURL:    fileURL.Url,
 		Role:        user.Role,
 		Status:      user.Status,
 		CreatedAt:   user.CreatedAt,
@@ -321,48 +321,49 @@ func (s *Server) resetPassword(ctx *gin.Context) {
 		return
 	}
 
-	err = s.svc.InitResetPassword(ctx, req.Email)
+	otp, err := s.svc.SetOTP(ctx, req.Email)
 	if err != nil {
-		logger.Error(ctx, "failed to reset password", err)
-		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal server error"))
+		logger.Error(ctx, "cannot set OTP", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	emailBody := generateEmail(otp)
+	err = s.svc.SendMail(ctx, []string{req.Email}, "Request for Password Reset", emailBody)
+	if err != nil {
+		logger.Error(ctx, "cannot send OTP", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
 		return
 	}
 
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "OTP has been sent to Email", nil))
 }
 
-// func (s *Server) forgetPassword(ctx *gin.Context) {
-// 	var req forgetPasswordReq
+func (s *Server) verifyOTP(ctx *gin.Context) {
+	var req otpVerification
+	err := ctx.ShouldBind(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
+		return
+	}
 
-// 	err := ctx.ShouldBind(&req)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot pass validation", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
+	otp, err := s.svc.GetOTP(ctx, req.Email)
+	if err != nil {
+		logger.Error(ctx, "cannot retrive the OTP", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	} else if otp == "" {
+		logger.Error(ctx, "OTP validation has expired", nil)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
+		return
+	}
 
-// 	user, err := s.svc.GetUserByEmail(ctx, req.Email)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot get user", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
+	if req.OTP != otp {
+		logger.Error(ctx, "Invalid OTP. Try Again", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
+		return
+	}
 
-// 	if user == nil {
-// 		logger.Error(ctx, "No User Found", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_NOT_FOUND, "Not Found"))
-// 		return
-// 	}
-
-// 	otp := s.svc.GetOTP(ctx, req.Email)
-
-// 	emailBody := generateEmail(otp)
-// 	err = s.svc.SendMail(ctx, []string{req.Email}, "Request for Password Reset", emailBody)
-// 	if err != nil {
-// 		logger.Error(ctx, "cannot send OTP", err)
-// 		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
-// 		return
-// 	}
-
-// 	ctx.JSON(http.StatusCreated, s.svc.Response(ctx, "OTP Sent Successfully", nil))
-// }
+	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully verified", nil))
+}

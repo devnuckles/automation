@@ -40,7 +40,7 @@ func serveRest() {
 	})
 
 	errorRepo := repo.NewErrorRepo(tableConfig.ErrorTableName, ddbClient)
-	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId, cognitoConfig.PoolId, ddbClient, tableConfig.UserTableName)
+	userRepo := repo.NewUserRepo(cognitoClient, cognitoConfig.ClientId, cognitoConfig.PoolId, ddbClient, tableConfig.UserTableName, redisClient)
 	fileRepo := repo.NewFileRepo(s3Client, s3Config.Bucket)
 
 	cache := cache.NewCache(redisClient)

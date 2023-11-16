@@ -32,3 +32,8 @@ type ChangePassword struct {
 	OldPassword string `json:"old_password"`
 	NewPassword string `json:"new_password"`
 }
+
+type UserOtp struct {
+	Email string `json:"email"`
+	OTP   string `json:"otp"`
+}

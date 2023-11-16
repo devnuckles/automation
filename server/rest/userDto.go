@@ -50,6 +50,6 @@ type resetPasswordReq struct {
 }
 
 type otpVerification struct {
-	Code  string `json:"code" binding:"required"`
+	OTP   string `json:"otp" binding:"required"`
 	Email string `json:"email" binding:"required"`
 }

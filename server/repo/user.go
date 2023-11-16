@@ -13,6 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/go-redis/redis"
 	"github.com/google/uuid"
 	"github.com/schemetech-developer/automation/logger"
 	"github.com/schemetech-developer/automation/service"
@@ -35,15 +36,17 @@ type userRepo struct {
 	db          *dynamodb.DynamoDB
 	tableName   string
 	userPoolId  string
+	redis       *redis.Client
 }
 
-func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, userPoolId string, db *dynamodb.DynamoDB, tableName string) UserRepo {
+func NewUserRepo(svc *cognitoidentityprovider.CognitoIdentityProvider, appClientID string, userPoolId string, db *dynamodb.DynamoDB, tableName string, redis *redis.Client) UserRepo {
 	return &userRepo{
 		svc:         svc,
 		appClientID: appClientID,
 		db:          db,
 		tableName:   tableName,
 		userPoolId:  userPoolId,
+		redis:       redis,
 	}
 }
 
@@ -562,6 +565,27 @@ func (r *userRepo) ResetCognitoPassword(ctx context.Context, email string) error
 	}
 
 	return nil
+}
+
+func (r *userRepo) StoreOtp(ctx context.Context, otp, email string) error {
+	key := email
+	value := otp
+
+	err := r.redis.Set(key, value, 5*time.Minute).Err()
+	return err
+}
+
+func (r *userRepo) GetOtpFromRedis(ctx context.Context, email string) (string, error) {
+	key := email
+	res, err := r.redis.Get(key).Result()
+
+	if err == redis.Nil {
+		return "", fmt.Errorf("OTP has timed out for : %s", email)
+	} else if err != nil {
+		return "", err
+	}
+
+	return res, nil
 }
 
 func (r *userRepo) formatLastEvaluatedKey(lastEvaluatedKey map[string]*dynamodb.AttributeValue) (string, error) {

@@ -41,6 +41,8 @@ type Service interface {
 	DeleteUserFromDynamoDB(ctx context.Context, userId string) error
 	DeleteUserFromCognito(ctx context.Context, userID string) error
 	LogoutUser(ctx context.Context, accessToken string) error
+	SetOTP(ctx context.Context, Email string) (string, error)
+	GetOTP(ctx context.Context, email string) (string, error)
 }
 
 type ErrorRepo interface {
@@ -70,6 +72,8 @@ type UserRepo interface {
 	UpdateUserRole(ctx context.Context, user *User) error
 	UpdateUserProfile(ctx context.Context, user *User) error
 	ResetCognitoPassword(ctx context.Context, email string) error
+	StoreOtp(ctx context.Context, otp, email string) error
+	GetOtpFromRedis(ctx context.Context, email string) (string, error)
 }
 
 type FileRepo interface {

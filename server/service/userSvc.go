@@ -2,7 +2,11 @@ package service
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
+	"math/big"
+
+	"github.com/schemetech-developer/automation/logger"
 )
 
 const otpChars = "0123456789"
@@ -120,4 +124,36 @@ func (s *service) InitResetPassword(ctx context.Context, email string) error {
 		return err
 	}
 	return nil
+}
+
+func (s *service) SetOTP(ctx context.Context, email string) (string, error) {
+	otp := generateOTP()
+
+	logger.Info(ctx, "otp from the service-------", otp)
+
+	err := s.userRepo.StoreOtp(ctx, otp, email)
+	if err != nil {
+		return "", err
+	}
+	return otp, nil
+}
+
+func (s *service) GetOTP(ctx context.Context, email string) (string, error) {
+	res, err := s.userRepo.GetOtpFromRedis(ctx, email)
+	if err != nil {
+		return "", err
+	}
+	return res, nil
+}
+
+func generateOTP() string {
+	otpLength := 6
+
+	otp := make([]byte, otpLength)
+	for i := range otp {
+		num, _ := rand.Int(rand.Reader, big.NewInt(int64(len(otpChars))))
+		otp[i] = otpChars[num.Int64()]
+	}
+
+	return string(otp)
 }
