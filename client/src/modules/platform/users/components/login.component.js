@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent, Grid } from "@mui/material";
 
 import LoginHeader from "./login-header.component";
@@ -8,7 +9,7 @@ export default function Login() {
         <div className="log_in_bg">
             <div className="login_wrapper">
                 <Grid container spacing={1}>
-                    <Grid xs={12} sm={6} md={6} className="login_left">
+                    <Grid item xs={12} sm={6} md={6} className="login_left">
                         <Card
                             sx={{
                                 width: "100%",
@@ -30,7 +31,7 @@ export default function Login() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid xs={12} sm={6} md={6} className="login_right">
+                    <Grid item xs={12} sm={6} md={6} className="login_right">
                         <div>
                             <img
                                 style={{ width: "100%" }}

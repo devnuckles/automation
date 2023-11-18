@@ -176,7 +176,7 @@ export default function UserTable() {
                             modalEliment={<AddUser />}
                         />
                         <a>
-                            <i class="bi bi-download me-2"></i>
+                            <i className="bi bi-download me-2"></i>
                             Download PDF Report
                         </a>
                     </div>
@@ -188,9 +188,9 @@ export default function UserTable() {
                     <div className="user-management-search my-3">
                         <div className="col-lg-12 col-md-10">
                             <div className="user-management-search-box">
-                                <i class="bi bi-search me-1"></i>
+                                <i className="bi bi-search me-1"></i>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     list="datalistOptions"
                                     id="exampleDataList"
                                     placeholder="Search by username, name, Email"
@@ -198,7 +198,7 @@ export default function UserTable() {
                             </div>
                             <div className="user-management-search-filter">
                                 <a>
-                                    <i class="bi bi-funnel me-2"></i>
+                                    <i className="bi bi-funnel me-2"></i>
                                     Filter
                                 </a>
                             </div>

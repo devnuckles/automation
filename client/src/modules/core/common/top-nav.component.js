@@ -7,8 +7,8 @@ export default function TopNav() {
 
             <div className="col-lg-4 col-md-4 dashboard-right-tools">
                 <div className="col-lg-3 col-md-3 tools-icon float-start">
-                    <i class="bi bi-bell me-3"></i>
-                    <i class="bi bi-gear "></i>
+                    <i className="bi bi-bell me-3"></i>
+                    <i className="bi bi-gear "></i>
                 </div>
                 <div className="col-lg-9 col-md-9 dashboard-right-profile float-start ">
                     <div className="float-start">

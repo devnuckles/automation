@@ -53,7 +53,7 @@ const UpdateRole = () => {
                     </TextField>
                     <button
                         type="submit"
-                        class="btn mt-4    common-modal-button"
+                        className="btn mt-4 common-modal-button"
                     >
                         Update Role
                     </button>

@@ -113,13 +113,13 @@ export default function FlatManagement() {
                         <Button
                             className="me-1"
                             variant="outlined"
-                            startIcon={<i class="bi bi-funnel"></i>}
+                            startIcon={<i className="bi bi-funnel"></i>}
                         >
                             Filter
                         </Button>
                         <Button
                             variant="outlined"
-                            endIcon={<i class="bi bi-sort-down-alt"></i>}
+                            endIcon={<i className="bi bi-sort-down-alt"></i>}
                         >
                             Default
                         </Button>

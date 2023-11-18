@@ -45,7 +45,7 @@ export default function LeftNav() {
                         </li>
                         <li className="nav-item">
                             <span className="icon">
-                                <i class="bi bi-house"></i>
+                                <i className="bi bi-house"></i>
                             </span>
                             <Link
                                 className="nav-link left-nav-link"
@@ -56,7 +56,7 @@ export default function LeftNav() {
                         </li>
                         <li className="nav-item">
                             <span className="icon">
-                                <i class="bi bi-house"></i>
+                                <i className="bi bi-house"></i>
                             </span>
                             <a className="nav-link left-nav-link" href="/dummy">
                                 Recycle Bin
@@ -64,7 +64,7 @@ export default function LeftNav() {
                         </li>
                         <li className="nav-item">
                             <span className="icon">
-                                <i class="bi bi-house"></i>
+                                <i className="bi bi-house"></i>
                             </span>
                             <a className="nav-link left-nav-link" href="/dummy">
                                 Recycle Bin
@@ -74,7 +74,7 @@ export default function LeftNav() {
                 </div>
                 <div className="dashboard-left-logout text-center">
                     <a>
-                        <i class="bi bi-box-arrow-right"></i>
+                        <i className="bi bi-box-arrow-right"></i>
                         <span>Logout</span>
                     </a>
                 </div>
