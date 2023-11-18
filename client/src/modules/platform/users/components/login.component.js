@@ -10,7 +10,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import loginImage from "../../../utils/images&icons/login_right_imag.png";
 
 import {
     Card,
@@ -180,7 +179,7 @@ export default function Login() {
                         <div>
                             <img
                                 style={{ width: "100%" }}
-                                src={loginImage}
+                                src="/images/login_right_imag.png"
                                 alt="loginIcon"
                             />
                         </div>

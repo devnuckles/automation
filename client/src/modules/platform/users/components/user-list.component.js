@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { DynamicModal } from "../../../core";
-import AddUser from "./AddUser.component";
+import AddUser from "./add-user.component";
 
 //     // {
 //     //     field: "fullName",

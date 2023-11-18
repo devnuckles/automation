@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { DashboardLayout } from "../modules/core";
-import { Dashboard } from "../modules/platform";
+import { DashboardLayout } from "..";
+import { Dashboard } from "../../platform";
 import {
     AddProjectUser,
     AddUser,
@@ -13,7 +13,7 @@ import {
     UpdateProjectDetails,
     UserTable,
     FlatDetails,
-} from "../modules/platform";
+} from "../../platform";
 import {
     ActionModal,
     AddOperator,
@@ -23,8 +23,8 @@ import {
     FlatManagement,
     ProfileDropdown,
     UpdateRole,
-} from "../modules/platform/users";
-import PrivateRoutes from "./Private.routes";
+} from "../../platform/users";
+// import PrivateRoutes from "./Private.routes";
 
 const Routes = createBrowserRouter([
     {
@@ -167,14 +167,40 @@ const Routes = createBrowserRouter([
             </DashboardLayout>
         ),
     },
-    {
-        path: "/secret",
-        element: (
-            <PrivateRoutes>
-                <FlatDetails />
-            </PrivateRoutes>
-        ),
-    },
 ]);
 
 export default Routes;
+
+// // Routes.js
+// import React from "react";
+// import { createBrowserRouter } from "react-router-dom";
+// import { DashboardLayout } from "..";
+// import { Dashboard } from "../../platform";
+// import { LandingPage, Login } from "../../platform";
+
+// import ProtectedRoute from "./protected.routes";
+
+// const Routes = createBrowserRouter([
+//     {
+//         path: "/",
+//         element: <LandingPage />,
+//     },
+//     {
+//         path: "/login",
+//         element: <Login />,
+//     },
+//     {
+//         path: "/projects",
+//         element: (
+//             <ProtectedRoute
+//                 element={
+//                     <DashboardLayout>
+//                         <Dashboard />
+//                     </DashboardLayout>
+//                 }
+//             />
+//         ),
+//     },
+// ]);
+
+// export default Routes;
