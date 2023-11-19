@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
+import useLogout from "../../platform/users/hooks/useLogout";
 
 export default function LeftNav() {
+    const logout = useLogout();
     return (
-        <div className="col-lg-2 col-md-2 p-0"   style={{
-            borderRight: "1px solid #f2f2f2",
-        }}>
+        <div
+            className="col-lg-2 col-md-2 p-0"
+            style={{
+                borderRight: "1px solid #f2f2f2",
+            }}
+        >
             <div
                 className="dashboard-left"
                 style={{
@@ -73,7 +78,10 @@ export default function LeftNav() {
                         </li>
                     </ul>
                 </div>
-                <div className="dashboard-left-logout text-center">
+                <div
+                    onClick={logout}
+                    className="dashboard-left-logout text-center"
+                >
                     <a>
                         <i className="bi bi-box-arrow-right"></i>
                         <span>Logout</span>

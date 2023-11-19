@@ -60,6 +60,7 @@
     transition: all linear 0.3s;
 }
 .dashboard-left-logout {
+    cursor: pointer;
     padding: 15px 0px;
     border: 1px solid #f2f2f2;
 }
@@ -1377,7 +1378,7 @@
 /* Project Details Page  */
 .project-details-common-heading {
     color: #0f172a !important;
-    text-align:left !important;
+    text-align: left !important;
 
     font-family: Inter !important;
     font-size: 16px !important;
@@ -1387,12 +1388,12 @@
     letter-spacing: 0.2px !important;
 }
 .project-details-common-paragraph {
-    color:  #94A3B8;
-font-family: Roboto;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 160%; 
+    color: #94a3b8;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
 }
 .project-details-main-heading {
     color: #0f172a !important;
@@ -1418,15 +1419,14 @@ line-height: 160%;
     font-weight: 400;
     line-height: 160%;
 }
-.project-details-wrapper .project-responsibilities{
+.project-details-wrapper .project-responsibilities {
     margin-left: 1em !important;
 }
 .project-details-wrapper .project-responsibilities li:before {
-    
-        content: "\2022"; 
-        color: #2563EB !important; 
-        font-weight: bold; 
-        display: inline-block; 
-        width: 1em;
-        margin-left: -1em; 
+    content: "\2022";
+    color: #2563eb !important;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }

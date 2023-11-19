@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
+
 import {
     TextField,
     InputAdornment,
@@ -10,37 +11,38 @@ import {
 } from "@mui/material";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import axios from "axios";
 
 import { loginSchema } from "../user.schema";
-import { useAuth } from "../../../core";
+import { url, useAuth } from "../../../core";
 import { useNavigate } from "react-router-dom";
+import { setResource } from "../user.helper";
 
 const LoginForm = () => {
     const { login } = useAuth();
-    const navigate = useNavigate(); // Use the useNavigate hook
+    const navigate = useNavigate();
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            // Your authentication logic here
-            // Example: Make an API request to authenticate user
-            // If successful, call the login function from useAuth
-            // Set isAuthenticated to true
-            // If unsuccessful, handle errors appropriately
+            const response = await axios.post(
+                `http://localhost:8080/api/auth/login`,
+                values
+            );
 
-            // Simulating a successful login for demonstration purposes
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Assuming your authentication logic was successful
-            login(); // Call the login function
-
-            // Redirect the user to the /projects route
-            navigate("/projects");
-
-            // Continue with any other logic, e.g., show a success message
-            console.log("Form submitted with values:", values);
+            if (response.status === parseInt(200)) {
+                // toast.success("Logged in successfully");
+                setResource(response);
+                // setTimeout(() => router.push("/dashboard"), 3000);
+                login();
+                navigate("/projects");
+            }
+            if (response.status === parseInt(201)) {
+                // toast.success("User created successfully");
+                navigate("/login");
+            }
         } catch (error) {
-            console.error("Login failed:", error);
-            // Handle login failure, e.g., show an error message
+            console.error(error);
+            // toast.error(error.message);
         } finally {
             setSubmitting(false);
         }
