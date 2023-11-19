@@ -11,6 +11,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const UserPrefix = "profile_picture"
+
 func (s *Server) getUserProfile(ctx *gin.Context) {
 	accessToken, err := ctx.Cookie(authorizationHeaderKey)
 
@@ -97,6 +99,55 @@ func (s *Server) addUser(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, s.svc.Response(ctx, "Successfully created", nil))
+}
+
+func (s *Server) updateUser(ctx *gin.Context) {
+	var req updateUserReq
+	err := ctx.ShouldBind(&req)
+	if err != nil {
+		logger.Error(ctx, "cannot pass validation", err)
+		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad Request"))
+		return
+	}
+
+	file, fileHeader, err := ctx.Request.FormFile("file")
+	if err != nil {
+		logger.Error(ctx, "cannot extract filename", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+	defer file.Close()
+
+	fileURL, err := s.svc.UploadFile(ctx, file, fileHeader, UserPrefix)
+	if err != nil {
+		logger.Error(ctx, "cannot upload file to the S3", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(Payload)
+	user, err := s.svc.GetUserByID(ctx, authPayload.ID)
+	if err != nil {
+		logger.Error(ctx, "cannot get user", err)
+		ctx.JSON(http.StatusInternalServerError, s.svc.Error(ctx, util.EN_INTERNAL_SERVER_ERROR, "Internal Server Error"))
+		return
+	}
+
+	updatedUser := &service.User{
+		ID:          user.ID,
+		Username:    req.UserName,
+		Firstname:   req.FirstName,
+		Lastname:    req.LastName,
+		Password:    user.Password,
+		PhoneNumber: req.PhoneNumber,
+		Image:       fileURL.Url,
+		Role:        user.Role,
+		Status:      user.Status,
+		CreatedAt:   user.CreatedAt,
+		CreatedBy:   user.CreatedBy,
+	}
+
+	err = s.svc.UpdateUser(ctx, updatedUser)
 }
 
 func (s *Server) deleteUser(ctx *gin.Context) {

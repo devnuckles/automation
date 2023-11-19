@@ -33,6 +33,7 @@ type Service interface {
 	// GetUsers(ctx context.Context, query *FilterUserParams) ([]*UserResult, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByID(ctx context.Context, id string) (*User, error)
+	UpdateUser(ctx context.Context, user *User) error
 	UpdateUserRole(ctx context.Context, user *User) error
 	ChangePasswordFromCognito(ctx context.Context, user *ChangePassword) error
 	ChangePasswordFromDynamoDB(ctx context.Context, user *User) error
@@ -64,6 +65,7 @@ type UserRepo interface {
 	UpdatePasswordFromDynamoDb(ctx context.Context, user *User) error
 	Logout(ctx context.Context, accessToken string) (*cognitoidentityprovider.GlobalSignOutOutput, error)
 	UpdateUserRole(ctx context.Context, user *User) error
+	UpdateUserProfile(ctx context.Context, user *User) error
 }
 
 type FileRepo interface {

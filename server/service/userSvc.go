@@ -55,6 +55,14 @@ func (s *service) DeleteUserFromCognito(ctx context.Context, userID string) erro
 	return nil
 }
 
+func (s *service) UpdateUser(ctx context.Context, user *User) error {
+	err := s.userRepo.UpdateUserProfile(ctx, user)
+	if err != nil {
+		return fmt.Errorf("cannot update user profile: %v", err)
+	}
+	return nil
+}
+
 func (s *service) UpdateUserRole(ctx context.Context, user *User) error {
 	err := s.userRepo.UpdateUserRole(ctx, user)
 	if err != nil {
@@ -73,7 +81,7 @@ func (s *service) LogoutUser(ctx context.Context, accessToken string) error {
 	return nil
 }
 
-func(s *service) ChangePasswordFromCognito(ctx context.Context, user *ChangePassword) error{
+func (s *service) ChangePasswordFromCognito(ctx context.Context, user *ChangePassword) error {
 	err := s.userRepo.UpdatePasswordFromCognito(ctx, user)
 	if err != nil {
 		return err
@@ -81,7 +89,7 @@ func(s *service) ChangePasswordFromCognito(ctx context.Context, user *ChangePass
 	return nil
 }
 
-func(s *service) ChangePasswordFromDynamoDB(ctx context.Context, user *User) error{
+func (s *service) ChangePasswordFromDynamoDB(ctx context.Context, user *User) error {
 	err := s.userRepo.UpdatePasswordFromDynamoDb(ctx, user)
 	if err != nil {
 		return err

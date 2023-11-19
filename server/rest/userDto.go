@@ -31,3 +31,11 @@ type changePasswordReq struct {
 type updateUserRoleReq struct {
 	Role string `json:"role" binding:"required"`
 }
+
+type updateUserReq struct {
+	FirstName   string `form:"first_name" binding:"required"`
+	LastName    string `form:"last_name" binding:"required"`
+	UserName    string `json:"user_name" binding:"required"`
+	Email       string `form:"email" binding:"required,email"`
+	PhoneNumber string `form:"phone_number" binding:"required"`
+}

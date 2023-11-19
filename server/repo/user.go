@@ -256,6 +256,58 @@ func (r *userRepo) DeleteItemByID(ctx context.Context, id string) error {
 	return nil
 }
 
+func (r *userRepo) UpdateUserProfile(ctx context.Context, user *service.User) error {
+	// Update user in Cognito
+	cognitoInput := &cognitoidentityprovider.AdminUpdateUserAttributesInput{
+		UserPoolId: aws.String(r.userPoolId),
+		Username:   aws.String(user.Email),
+		UserAttributes: []*cognitoidentityprovider.AttributeType{
+			{
+				Name:  aws.String("firstname"),
+				Value: aws.String(user.Firstname),
+			},
+			{
+				Name:  aws.String("lastname"),
+				Value: aws.String(user.Lastname),
+			},
+			{
+				Name:  aws.String("email"),
+				Value: aws.String(user.Email),
+			},
+			{
+				Name:  aws.String("custom:profile_picture"),
+				Value: aws.String(user.Image),
+			},
+		},
+	}
+
+	_, err := r.svc.AdminUpdateUserAttributesWithContext(ctx, cognitoInput)
+	if err != nil {
+		return fmt.Errorf("failed to update user profile in Cognito: %v", err)
+	}
+
+	// Update user in DynamoDB
+	item, err := dynamodbattribute.MarshalMap(user)
+	if err != nil {
+		return fmt.Errorf("failed to marshal user to DynamoDB map: %v", err)
+	}
+
+	dynamoInput := &dynamodb.PutItemInput{
+		TableName: aws.String(r.tableName),
+		Item:      item,
+	}
+
+	_, err = r.db.PutItemWithContext(ctx, dynamoInput)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			return fmt.Errorf("failed to put item in DynamoDB: %v - %v", aerr.Code(), aerr.Message())
+		}
+		return fmt.Errorf("failed to put item in DynamoDB: %v", err)
+	}
+
+	return nil
+}
+
 func (r *userRepo) UpdateUserRole(ctx context.Context, user *service.User) error {
 	u, err := r.GetItemByID(ctx, user.ID)
 	if err != nil {
@@ -296,7 +348,7 @@ func (r *userRepo) UpdateUserRole(ctx context.Context, user *service.User) error
 				S: aws.String(user.Role),
 			},
 		},
-		UpdateExpression:          aws.String("SET #r = :r"),
+		UpdateExpression: aws.String("SET #r = :r"),
 		ExpressionAttributeNames: map[string]*string{
 			"#r": aws.String("Role"),
 		},
