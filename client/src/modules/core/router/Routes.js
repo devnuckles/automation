@@ -23,8 +23,9 @@ import {
     FlatManagement,
     ProfileDropdown,
     UpdateRole,
-} from "../../platform/users";
-// import PrivateRoutes from "./Private.routes";
+} from "../modules/platform/users";
+import PrivateRoutes from "./Private.routes";
+import { ProjectDetails } from "../modules/platform/dashboard";
 
 const Routes = createBrowserRouter([
     {

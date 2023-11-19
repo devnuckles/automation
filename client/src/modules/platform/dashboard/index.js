@@ -1,2 +1,3 @@
 import Dashboard from "./components/dashboard.component";
-export { Dashboard };
+import ProjectDetails from "./components/project-details.component";
+export { Dashboard, ProjectDetails };

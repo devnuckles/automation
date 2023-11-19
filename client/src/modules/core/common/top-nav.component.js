@@ -1,6 +1,6 @@
 export default function TopNav() {
     return (
-        <div className="row">
+        <div className="row dashboard-right-top-nav">
             <div className="col-lg-8 col-md-8 dashboard-right-heading">
                 <h2>Projects</h2>
             </div>

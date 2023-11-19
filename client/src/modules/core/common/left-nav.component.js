@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 
 export default function LeftNav() {
     return (
-        <div className="col-lg-2 col-md-2 p-0">
+        <div className="col-lg-2 col-md-2 p-0"   style={{
+            borderRight: "1px solid #f2f2f2",
+        }}>
             <div
                 className="dashboard-left"
                 style={{
                     position: "fixed",
-                    borderRight: "1px solid #f2f2f2",
                 }}
             >
                 <div className="dashboard-left-header px-3 py-3">

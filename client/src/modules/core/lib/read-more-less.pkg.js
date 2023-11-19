@@ -4,11 +4,10 @@ export function ReadMoreLess({ desc, className }) {
     return (
         <ReactReadMoreReadLess
             className={className}
-            charLimit={100}
+            charLimit={500}
             readMoreStyle={{
                 whiteSpace: "nowrap",
                 textDecoration: "none",
-                color: "red",
             }}
             readMoreText={"Read more ▼"}
             readLessText={"Read less ▲"}

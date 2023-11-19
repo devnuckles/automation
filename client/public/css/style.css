@@ -9,7 +9,6 @@
     background: #047857;
     color: white;
 }
-
 .log_in_bg {
     background-color: #ebf5ff;
     /* padding-top: 100px;
@@ -34,7 +33,11 @@
     height: 70vh;
 }
 .dashboard-left-nav .nav-item {
-    padding: 0 5px;
+    padding: 0 10px;
+}
+.dashboard-left-nav .nav-item:active,
+.dashboard-left-nav .nav-item:focus {
+    background: #f9f9f9 !important;
 }
 .dashboard-left-nav .nav-item:hover .icon {
     color: #00db99;
@@ -42,9 +45,8 @@
 .dashboard-left-nav .nav-item:hover .left-nav-link {
     color: #00db99;
 }
-.dashboard-left-nav .nav-item .icon {
-    color: #717986;
-    transition: all linear 0.3s;
+.dashboard-left-nav .nav-item .nav-link:focus {
+    color: #00db99 !important;
 }
 .left-nav-link {
     display: inline-block !important;
@@ -78,6 +80,9 @@
 }
 
 /* Start of Dashboard Right */
+.dashboard-right-top-nav {
+    box-shadow: -1px 3px 4px 0px #0000001a;
+}
 .dashboard-right-header {
     padding: 15px;
 }
@@ -185,6 +190,27 @@
 }
 .project-sorting-button i {
     color: #8b8b8b;
+}
+.nav-tabs .nav-link {
+    border: 0 !important;
+}
+.project-new-button {
+    background: #00db99 !important;
+    color: #fff !important;
+    font-family: Roboto !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 21px !important;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    transition: all linear 0.3s;
+}
+.project-new-button:hover {
+    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* Start of Dashboard Right Project Card */
@@ -319,6 +345,11 @@
     width: 50%;
 }
 /* Start of User Management Page */
+.css-1rtphsv-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+.css-1rtphsv-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+    color: #047857 !important;
+}
+
 .user-management-heading-title {
     font-size: 30px;
     font-weight: 700;
@@ -1272,7 +1303,8 @@
     text-align: left !important;
     color: #636363 !important;
 }
-.flat-details-bottom-description-button {
+.react-read-more-read-less,
+.react-read-more-read-less-more {
     font-family: Inter;
     font-size: 16px;
     font-weight: 500;
@@ -1320,4 +1352,81 @@
 }
 .property-location-details-map iframe {
     border-radius: 20px !important;
+}
+.video-tabs {
+    background: #efefef !important;
+    color: #636363 !important;
+    text-transform: capitalize !important;
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 26px !important;
+    letter-spacing: 0em !important;
+    text-align: center !important;
+    border-radius: 6px !important;
+    transition: all linear 0.3s;
+}
+.css-1ljmof1-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    background: #edfbf4 !important;
+    color: #19cf79 !important;
+}
+.css-1l5yae9-MuiTabs-indicator {
+    height: 0px !important;
+}
+
+/* Project Details Page  */
+.project-details-common-heading {
+    color: #0f172a !important;
+    text-align:left !important;
+
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    line-height: 150% !important;
+    letter-spacing: 0.2px !important;
+}
+.project-details-common-paragraph {
+    color:  #94A3B8;
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+.project-details-main-heading {
+    color: #0f172a !important;
+    font-family: Roboto !important;
+    font-size: 24px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 125% !important;
+}
+.project-details-project-title {
+    color: #0f172a;
+    font-family: Roboto;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+.project-details-project-location {
+    color: #94a3b8;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+.project-details-wrapper .project-responsibilities{
+    margin-left: 1em !important;
+}
+.project-details-wrapper .project-responsibilities li:before {
+    
+        content: "\2022"; 
+        color: #2563EB !important; 
+        font-weight: bold; 
+        display: inline-block; 
+        width: 1em;
+        margin-left: -1em; 
 }
