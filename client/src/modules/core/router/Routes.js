@@ -171,37 +171,3 @@ const Routes = createBrowserRouter([
 ]);
 
 export default Routes;
-
-// // Routes.js
-// import React from "react";
-// import { createBrowserRouter } from "react-router-dom";
-// import { DashboardLayout } from "..";
-// import { Dashboard } from "../../platform";
-// import { LandingPage, Login } from "../../platform";
-
-// import ProtectedRoute from "./protected.routes";
-
-// const Routes = createBrowserRouter([
-//     {
-//         path: "/",
-//         element: <LandingPage />,
-//     },
-//     {
-//         path: "/login",
-//         element: <Login />,
-//     },
-//     {
-//         path: "/projects",
-//         element: (
-//             <ProtectedRoute
-//                 element={
-//                     <DashboardLayout>
-//                         <Dashboard />
-//                     </DashboardLayout>
-//                 }
-//             />
-//         ),
-//     },
-// ]);
-
-// export default Routes;

@@ -1,4 +1,4 @@
-import { Dashboard } from "./dashboard";
+import { Dashboard, ProjectDetails } from "./dashboard";
 
 import {
     AddProjectUser,
@@ -25,4 +25,5 @@ export {
     UserTable,
     FlatDetails,
     Dashboard,
+    ProjectDetails,
 };

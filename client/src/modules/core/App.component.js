@@ -3,7 +3,13 @@ import { Routes, Route } from "react-router-dom";
 
 import { ProtectedRoute, useAuth } from "./router";
 import { DashboardLayout } from "./index";
-import { Dashboard, LandingPage, Login, UserTable } from "../platform";
+import {
+    Dashboard,
+    LandingPage,
+    Login,
+    ProjectDetails,
+    UserTable,
+} from "../platform";
 import { FlatManagement } from "../platform/users";
 
 const App = () => {
@@ -50,6 +56,20 @@ const App = () => {
                             isAuthenticated ? (
                                 <DashboardLayout>
                                     <FlatManagement />
+                                </DashboardLayout>
+                            ) : null
+                        }
+                    />
+                }
+            />
+            <Route
+                path="/project-details"
+                element={
+                    <ProtectedRoute
+                        element={
+                            isAuthenticated ? (
+                                <DashboardLayout>
+                                    <ProjectDetails />
                                 </DashboardLayout>
                             ) : null
                         }

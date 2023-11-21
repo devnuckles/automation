@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../../../core";
 
 function ProjectCard({ project }) {
+    const navigate = useNavigate();
+
     return (
-        <div class="col-lg-4 mt-4">
+        <div
+            onClick={() => {
+                navigate("/project-details");
+            }}
+            class="col-lg-4 mt-4"
+        >
             <div class="card-body">
                 <div class="row card-heading mb-4">
                     <div class="col-lg-10 card-heading-left">
