@@ -9,11 +9,11 @@ function ProjectCard({ project }) {
             onClick={() => {
                 navigate("/project-details");
             }}
-            class="col-lg-4 mt-4"
+            className="col-lg-4 mt-4"
         >
-            <div class="card-body">
-                <div class="row card-heading mb-4">
-                    <div class="col-lg-10 card-heading-left">
+            <div className="card-body">
+                <div className="row card-heading mb-4">
+                    <div className="col-lg-10 card-heading-left">
                         <h6>Card Heading</h6>
                         <div className="card-status">
                             <span className="ms-3">Active</span>

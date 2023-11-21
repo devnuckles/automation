@@ -28,10 +28,14 @@ const LoginForm = () => {
                 `http://localhost:8080/api/auth/login`,
                 values
             );
-
+            console.log(
+                "----------------------------------------------------",
+                response
+            );
             if (response.status === parseInt(200)) {
                 // toast.success("Logged in successfully");
                 setResource(response);
+
                 // setTimeout(() => router.push("/dashboard"), 3000);
                 login();
                 navigate("/projects");

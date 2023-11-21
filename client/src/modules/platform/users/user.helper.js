@@ -8,6 +8,8 @@ function setResource(response) {
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("userType", true);
     Cookies.set("token", response.data.data.access_token);
+    Cookies.set("refresh_token", response.data.data.refresh_token);
+    Cookies.set("id", response.data.data.id_token);
 }
 
 export { setResource };
