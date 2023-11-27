@@ -101,6 +101,9 @@
     font-size: 20px;
     color: #717986;
 }
+.dashboard-right-profile {
+    cursor: pointer;
+}
 .dashboard-right-profile img {
     border-radius: 50%;
 }
@@ -731,7 +734,12 @@
 
 /* Profile Dropdown Modal  */
 .profile-dropdown-modal {
-    width: 250px;
+    position: absolute;
+    top: 100%;
+    z-index: 9999;
+    background: #fff;
+    left: 0;
+    width: 185px;
     border: 1px solid #cddcee;
     padding: 16px;
     border-radius: 8px;
@@ -742,11 +750,11 @@
 .profile-dropdown-modal ul:nth-child(2) {
     border-top: 1px solid #dfe3e8;
     border-bottom: 1px solid #dfe3e8;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 .profile-dropdown-modal ul:nth-child(2) li,
 .profile-dropdown-modal ul:nth-child(3) li {
-    padding: 7px 0px;
+    padding: 5px 0px;
 }
 .profile-dropdown-modal ul li a {
     font-family: "DM Sans", sans-serif;
@@ -861,7 +869,6 @@
 /* rafi: addProjectUser */
 .add_project_user_form {
     width: 80%;
-    height: 80vh;
     background-color: #fff;
     border-radius: 24px;
 }
@@ -881,13 +888,8 @@
     text-align: left;
 }
 @media only screen and (max-width: 1880px) {
-    .project_user {
-        padding-top: 150px;
-        padding-bottom: 150px;
-    }
     .add_project_user_form {
-        width: 80%;
-        height: 700px;
+        width: 100%;
         background-color: #fff;
         border-radius: 24px;
     }
