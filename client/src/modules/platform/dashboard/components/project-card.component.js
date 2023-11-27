@@ -53,10 +53,26 @@ function ProjectCard({ project }) {
                         <div className="card-member">
                             <p className="m-0">Members</p>
                             <div className="member-profiles">
-                                <img src="images/profile-1.png" alt="" />
-                                <img src="images/profile 2.png" alt="" />
-                                <img src="images/profile 3.png" alt="" />
-                                <img src="images/profile 4.png" alt="" />
+                                <img
+                                    src="images/profile-1.png"
+                                    alt="Profile-img"
+                                    className="me-1"
+                                />
+                                <img
+                                    src="images/profile 2.png"
+                                    alt="Profile-img"
+                                    className="me-1"
+                                />
+                                <img
+                                    src="images/profile 3.png"
+                                    alt="Profile-img"
+                                    className="me-1"
+                                />
+                                <img
+                                    src="images/profile 4.png"
+                                    alt="Profile-img"
+                                    className="me-1"
+                                />
 
                                 <div className="add-member-button">
                                     <i className="bi bi-plus-circle"></i>

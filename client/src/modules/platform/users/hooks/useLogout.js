@@ -4,12 +4,17 @@ import Cookies from "js-cookie";
 const useLogout = () => {
     const token = Cookies.get("token");
     const id = Cookies.get("id");
+    const refreshToken = Cookies.get("refresh_token");
 
     console.log(
         "---------------------token-------------------------------",
         token
     );
     console.log("--------------------id--------------------------------", id);
+    console.log(
+        "--------------------refresh token--------------------------------",
+        refreshToken
+    );
 
     const logout = async () => {
         try {
@@ -23,9 +28,10 @@ const useLogout = () => {
             localStorage.removeItem("userType");
             Cookies.remove("token");
             Cookies.remove("refresh_token");
-            Cookies.remove("id_token");
+            Cookies.remove("id");
         } catch (error) {
             console.error("Error while logging out:", error);
+            console.log();
         }
     };
 

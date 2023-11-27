@@ -28,12 +28,9 @@ const CreateNewProject = () => {
         },
     ];
     return (
-        <div className="log_in_bg project_user">
+        <div className="create-new-project project_user">
             <form className="add_project_user_form">
-                <div
-                    className="project_form_wrapper"
-                    style={{ padding: "30px" }}
-                >
+                <div className="project_form_wrapper">
                     <Typography
                         sx={{
                             color: "#989898",

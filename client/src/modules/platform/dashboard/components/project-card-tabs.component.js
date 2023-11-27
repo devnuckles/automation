@@ -1,13 +1,24 @@
 import { Button } from "@mui/material";
+import { DynamicModal } from "../../../core";
+import { CreateNewProject } from "../../users";
 
 export default function ProjectCardTabs() {
     return (
         <div className="row my-5">
             <div className="col-lg-1">
-                <button type="button" className="btn project-new-button">
+                <DynamicModal
+                    button={
+                        <>
+                            <i className="bi bi-plus me-1"></i>
+                            New
+                        </>
+                    }
+                    modalElement={<CreateNewProject />}
+                />
+                {/* <button type="button" className="btn project-new-button">
                     <i className="bi bi-plus-lg me-2"></i>
                     New
-                </button>
+                </button> */}
             </div>
 
             <div className="col-lg-11 flat-management-header">
@@ -39,7 +50,7 @@ export default function ProjectCardTabs() {
                                     aria-controls="profile-tab-pane"
                                     aria-selected="false"
                                 >
-                                   Inactive
+                                    Inactive
                                 </button>
                             </li>
                             <li className="nav-item" role="presentation">
@@ -53,7 +64,7 @@ export default function ProjectCardTabs() {
                                     aria-controls="contact-tab-pane"
                                     aria-selected="false"
                                 >
-                               Active
+                                    Active
                                 </button>
                             </li>
                             <li className="nav-item" role="presentation">
@@ -67,7 +78,7 @@ export default function ProjectCardTabs() {
                                     aria-controls="contact-tab-pane"
                                     aria-selected="false"
                                 >
-                                  On hold
+                                    On hold
                                 </button>
                             </li>
                             <li className="nav-item" role="presentation">
@@ -81,7 +92,7 @@ export default function ProjectCardTabs() {
                                     aria-controls="contact-tab-pane"
                                     aria-selected="false"
                                 >
-                                 Completed
+                                    Completed
                                 </button>
                             </li>
                         </ul>
@@ -90,7 +101,9 @@ export default function ProjectCardTabs() {
                         <div className="flat-management-header-button">
                             <Button
                                 variant="outlined"
-                                endIcon={<i className="bi bi-sort-down-alt"></i>}
+                                endIcon={
+                                    <i className="bi bi-sort-down-alt"></i>
+                                }
                             >
                                 Default
                             </Button>

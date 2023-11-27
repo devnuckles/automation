@@ -108,6 +108,7 @@ func (s *Server) refrehToken(ctx *gin.Context) {
 
 func (s *Server) logoutUser(ctx *gin.Context) {
 	accessToken, err := ctx.Cookie(authorizationHeaderKey)
+	
 	if err != nil {
 		logger.Error(ctx, "no cookie found", err)
 		ctx.JSON(http.StatusBadRequest, s.svc.Error(ctx, util.EN_API_PARAMETER_INVALID_ERROR, "Bad request"))

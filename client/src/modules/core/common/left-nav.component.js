@@ -22,7 +22,11 @@ export default function LeftNav() {
                         className="me-5 img-fluid"
                         alt="Logo"
                     />
-                    <img src="images/Collapse.png" alt="Collapse" />
+                    <img
+                        src="images/Collapse.png"
+                        alt="Collapse"
+                        className="text-end"
+                    />
                 </div>
                 <div className="dashboard-left-nav px-3">
                     <ul className="nav flex-column">

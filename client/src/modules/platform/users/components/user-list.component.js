@@ -173,7 +173,7 @@ export default function UserTable() {
                                     Add
                                 </>
                             }
-                            modalEliment={<AddUser />}
+                            modalElement={<AddUser />}
                         />
                         <a>
                             <i className="bi bi-download me-2"></i>

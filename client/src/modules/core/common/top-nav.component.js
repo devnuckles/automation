@@ -12,7 +12,7 @@ export default function TopNav() {
                 </div>
                 <div className="col-lg-9 col-md-9 dashboard-right-profile float-start ">
                     <div className="float-start">
-                        <img src="images/profile.png" />
+                        <img src="images/profile.png" alt="User Profile" />
                     </div>
                     <div className="ms-3 float-start">
                         <h3>Asfak Mahmud</h3>

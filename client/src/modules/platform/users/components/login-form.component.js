@@ -95,12 +95,17 @@ const LoginForm = () => {
 
                         <FormGroup>
                             <FormControlLabel
+                                className="ms-1"
                                 sx={{
                                     mt: "10px",
                                     fontWeight: "bold",
                                 }}
                                 control={
-                                    <Field type="checkbox" name="rememberMe" />
+                                    <Field
+                                        type="checkbox"
+                                        name="rememberMe"
+                                        className="me-2"
+                                    />
                                 }
                                 label="Remember Me"
                             />
