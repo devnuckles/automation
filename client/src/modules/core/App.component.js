@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { ProtectedRoute, useAuth } from "./router";
+import { ProtectedRoute, PublicRoute, useAuth } from "./router";
 import { DashboardLayout } from "./index";
 import {
     Dashboard,
@@ -18,7 +18,15 @@ const App = () => {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route
+                path="/login"
+                element={
+                    <PublicRoute>
+                        <Login />
+                    </PublicRoute>
+                }
+            />
 
             <Route
                 path="/projects"
