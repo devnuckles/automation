@@ -3,16 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { DynamicModal } from "../../../core";
 import AddUser from "./add-user.component";
 
-//     // {
-//     //     field: "fullName",
-//     //     headerName: "Full name",
-//     //     description: "This column has a value getter and is not sortable.",
-//     //     sortable: true,
-//     //     width: 160,
-//     //     valueGetter: (params) =>
-//     //         `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-//     // },
-
 const columns = [
     {
         field: "id",
@@ -162,10 +152,6 @@ export default function UserTable() {
                 </div>
                 <div className="col-lg-4">
                     <div className="user-management-heading-button-group text-end">
-                        {/* <a className="me-2">
-                            <i class="bi bi-plus me-1"></i>
-                            Add
-                        </a> */}
                         <DynamicModal
                             button={
                                 <>

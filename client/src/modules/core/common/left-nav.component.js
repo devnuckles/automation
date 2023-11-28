@@ -31,54 +31,57 @@ export default function LeftNav() {
                 <div className="dashboard-left-nav px-3">
                     <ul className="nav flex-column">
                         <li className="nav-item">
-                            <span className="icon">
-                                <i className="bi bi-grid"></i>
-                            </span>
 
                             <Link
-                                className="nav-link active left-nav-link"
-                                to="/projects" // Provide a valid URL
+                                className="nav-link active left-nav-link px-2"
+                                to="/projects" 
                             >
-                                Projects
+                                 <span className="icon me-2 ms-2">
+                                <i className="bi bi-grid"></i>
+                            </span>    Projects
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <span className="icon">
-                                <i className="bi bi-person-fill"></i>
-                            </span>
+                       
                             <Link
-                                className="nav-link left-nav-link"
+                                className="nav-link left-nav-link px-2"
                                 to="/user-management"
                             >
-                                User Management
+                                    <span className="icon me-2 ms-2">
+                                <i className="bi bi-person-fill"></i>
+                            </span> User Management
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <span className="icon">
-                                <i className="bi bi-house"></i>
-                            </span>
+                         
                             <Link
-                                className="nav-link left-nav-link"
+                                className="nav-link left-nav-link px-2"
                                 to="/flat-management"
                             >
-                                Flat Management
+                                  <span className="icon me-2 ms-2">
+                                <i className="bi bi-house"></i>
+                            </span> Flat Management
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <span className="icon">
+                        <Link
+                                className="nav-link left-nav-link px-2"
+                                to="/dummy"
+                            >
+                                  <span className="icon me-2 ms-2">
                                 <i className="bi bi-house"></i>
-                            </span>
-                            <a className="nav-link left-nav-link" href="/dummy">
-                                Recycle Bin
-                            </a>
+                            </span>Recycle Bin
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <span className="icon">
+                        <Link
+                                className="nav-link left-nav-link px-2"
+                                to="/dummy"
+                            >
+                                  <span className="icon me-2 ms-2">
                                 <i className="bi bi-house"></i>
-                            </span>
-                            <a className="nav-link left-nav-link" href="/dummy">
-                                Recycle Bin
-                            </a>
+                            </span>Recycle Bin
+                            </Link>
                         </li>
                     </ul>
                 </div>

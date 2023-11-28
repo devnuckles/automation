@@ -11,14 +11,13 @@
 }
 .log_in_bg {
     background-color: #ebf5ff;
-    /* padding-top: 100px;
-    padding-bottom: 100px; */
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 /* starting css */
 
 .container-cs {
@@ -32,12 +31,11 @@
 .dashboard-left-nav {
     height: 70vh;
 }
-.dashboard-left-nav .nav-item {
-    padding: 0 10px;
-}
-.dashboard-left-nav .nav-item:active,
-.dashboard-left-nav .nav-item:focus {
+
+.dashboard-left-nav .nav-link:active,
+.dashboard-left-nav .nav-link:focus {
     background: #f9f9f9 !important;
+    border-radius: 8px;
 }
 .dashboard-left-nav .nav-item:hover .icon {
     color: #00db99;
@@ -58,6 +56,7 @@
     text-align: left;
     color: #717986;
     transition: all linear 0.3s;
+    width: 100%;
 }
 .dashboard-left-logout {
     cursor: pointer;
@@ -82,8 +81,21 @@
 
 /* Start of Dashboard Right */
 .dashboard-right-top-nav {
-    box-shadow: -1px 3px 4px 0px #0000001a;
+    padding: 10px 0;
+    width: 100% !important;
 }
+
+.fixed-top {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: -1px 3px 4px 0px #0000001a;
+    transition: box-shadow 0.3s ease;
+}
+
 .dashboard-right-header {
     padding: 15px;
 }
@@ -95,6 +107,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: #3c557a;
+    /* margin: 10px 0; */
 }
 
 .dashboard-right-tools .tools-icon i {
@@ -485,20 +498,10 @@
     border-radius: 4px;
 }
 /* Add User Modal Style */
-/* .add_user_form{
-    width: 80%;
-    height: 80%;
-    background-color: #fff;
-    border-radius: 24px;
-} */
 .css-zznxy6 {
     padding: 0 !important;
 }
 .add_user_main {
-    width: 80%;
-    margin: 0 auto;
-    border-radius: 15px;
-    position: relative;
     padding: 50px;
 }
 .add_user_main::after {
@@ -536,7 +539,7 @@
     line-height: 44px;
     letter-spacing: 0em;
     text-align: left;
-    margin: 100px 0 0 0;
+    margin: 19% 0;
 }
 
 .add-user-form-input
@@ -718,7 +721,7 @@
     content: "";
     position: absolute;
     top: 45%;
-    left: 35%;
+    left: 30%;
     transform: translate(-50%);
     height: 8px;
     width: 8px;
@@ -782,6 +785,33 @@
 .profile-dropdown-modal .profile-edit,
 .profile-dropdown-modal .profile-sign-out {
     color: #637381;
+}
+
+/* Edit Option Dropdown  */
+.edit-option-dropdown {
+    width: 130px;
+    background: #fff;
+    border-radius: 8px;
+}
+.edit-option-dropdown-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #202223;
+}
+.edit-option-dropdown-list-text span {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+.css-1e9lk82-MuiListItemAvatar-root {
+    min-width: 30px !important;
 }
 
 /* Delete Project Modal  */
@@ -887,59 +917,37 @@
     letter-spacing: 0em;
     text-align: left;
 }
-@media only screen and (max-width: 1880px) {
-    .add_project_user_form {
-        width: 100%;
-        background-color: #fff;
-        border-radius: 24px;
-    }
-}
 
 @media only screen and (max-width: 890px) {
-    .project_user {
-        padding-top: 300px;
-        padding-bottom: 150px;
-    }
-    .add_project_user_form {
-        width: 80%;
-        height: 830px;
-        background-color: #fff;
-        border-radius: 24px;
+    .project_form_wrapper h2 {
+        font-size: 30px !important;
     }
 }
 
 @media only screen and (max-width: 530px) {
-    .project_user {
-        padding-top: 400px;
-        padding-bottom: 200px;
+    .project_form_wrapper h2 {
+        font-size: 25px !important;
     }
-    .add_project_user_form {
-        width: 80%;
-        height: 890px;
-        background-color: #fff;
-        border-radius: 24px;
+    .project_form_wrapper button {
+        font-size: 16px !important;
     }
 }
 
 @media only screen and (max-width: 380px) {
-    .project_user {
-        padding-top: 530px;
-        padding-bottom: 550px;
+    .project_form_wrapper h2 {
+        font-size: 18px !important;
     }
-    .add_project_user_form {
-        width: 80%;
-        height: 940px;
-        background-color: #fff;
-        border-radius: 24px;
+    .project_form_wrapper button {
+        font-size: 14px !important;
     }
 }
 
 @media only screen and (max-width: 280px) {
-    .add_project_user_form {
-        width: 80%;
-        height: 150vh;
-        background-color: #fff;
-        border-radius: 24px;
+    .project_form_wrapper h2 {
+        font-size: 15px !important;
+    }
+    .project_form_wrapper button {
+        font-size: 8px !important;
     }
 }
 
@@ -1053,6 +1061,7 @@
     .add_user_main {
         margin: 0;
         width: 100%;
+        overflow-y: auto;
     }
     .add_user_main::after {
         height: 100%;
@@ -1063,13 +1072,20 @@
     .add_user_main {
         margin: 0;
         width: 100%;
+        overflow-y: auto;
     }
     .add_user_main::after {
         height: 80%;
     }
+
+    .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
+        width: 100% !important ;
+    }
     .add-user-form-input
-        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child {
-        margin-right: 10px !important;
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+    .add-user-form-input
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+        width: 100% !important;
     }
     .add-user-main-left-content .add-user-title {
         font-size: 43px !important;
@@ -1083,13 +1099,19 @@
     .add_user_main {
         margin: 0;
         width: 100%;
+        overflow-y: auto;
     }
     .add_user_main::after {
         height: 65%;
     }
+    .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
+        width: 100% !important ;
+    }
     .add-user-form-input
-        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child {
-        margin-right: 9px !important;
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+    .add-user-form-input
+        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+        width: 100% !important;
     }
     .add-user-main-left-content .add-user-title {
         margin-top: -12px;

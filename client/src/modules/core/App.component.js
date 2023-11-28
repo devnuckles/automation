@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { ProtectedRoute, PublicRoute, useAuth } from "./router";
-import { DashboardLayout } from "./index";
+import { DashboardLayout, EditOptionDropdown } from "./index";
 import {
     Dashboard,
     LandingPage,
@@ -36,6 +36,20 @@ const App = () => {
                             isAuthenticated ? (
                                 <DashboardLayout>
                                     <Dashboard />
+                                </DashboardLayout>
+                            ) : null
+                        }
+                    />
+                }
+            />
+                <Route
+                path="/edit-options"
+                element={
+                    <ProtectedRoute
+                        element={
+                            isAuthenticated ? (
+                                <DashboardLayout>
+                                    <EditOptionDropdown />
                                 </DashboardLayout>
                             ) : null
                         }

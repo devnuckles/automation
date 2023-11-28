@@ -4,7 +4,7 @@ import { CreateNewProject } from "../../users";
 
 export default function ProjectCardTabs() {
     return (
-        <div className="row my-5">
+        <div className="row my-3">
             <div className="col-lg-1">
                 <DynamicModal
                     button={

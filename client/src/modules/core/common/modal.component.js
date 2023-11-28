@@ -14,6 +14,7 @@ const style = {
     boxShadow: 24,
     p: 4,
     borderRadius: "16px",
+    overflowY:"auto",
 };
 
 export default function DynamicModal({ modalElement, button }) {
