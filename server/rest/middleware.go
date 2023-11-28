@@ -132,14 +132,15 @@ func corsMiddleware(c *gin.Context) {
 	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, token")
 
 	// Allow all methods
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 
 	// Allow credentials
 	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 
 	// Handle OPTIONS method
 	if c.Request.Method == "OPTIONS" {
-		c.AbortWithStatus(204)
+		// Set the status to 200 instead of 204
+		c.AbortWithStatus(200)
 		return
 	}
 

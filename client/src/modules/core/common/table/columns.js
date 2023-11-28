@@ -1,82 +1,81 @@
-const getCategory = (categoryID) => {
-    const category = categories.find((c) => c.id == categoryID);
-    return category?.Title || "";
-};
+// const getCategory = (categoryID) => {
+//     const category = categories.find((c) => c.id == categoryID);
+//     return category?.Title || "";
+// };
 
-const sectionsColumns = [
+const userListColumns = [
     {
-        label: "ID",
-        path: "id",
-        content: (item, path) => <>{item[path]}</>,
+        field: "id",
+        headerName: "USER NAME",
+        width: 120,
+        headerClassName: "table-header-title ",
+        cellClassName: "table-data",
     },
     {
-        label: "Section",
-        path: "section",
-        content: (item, path) => <>{item[path]}</>,
+        field: "first_name",
+        headerName: "FIRST NAME",
+        width: 155,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
     },
     {
-        label: "Category",
-        path: "category",
-        content: (item, path) => <>{getCategory(item[path])}</>,
+        field: "last_name",
+        headerName: "LAST NAME",
+        width: 155,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    // {
+    //     field: "joinDate",
+    //     headerName: "JOIN DATE",
+    //     type: "date",
+    //     width: 160,
+    //     headerClassName: "table-header-title",
+    //     cellClassName: "table-data",
+    // },
+
+    {
+        field: "role",
+        headerName: "ROLE",
+        width: 120,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data role-column-data",
     },
     {
-        isAction: true,
-        label: "Action",
-        path: "action",
-        content: (item, path) => <>{item[path]}</>,
+        field: "email",
+        headerName: "EMAIL ADDRESS",
+        width: 250,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
+    },
+    {
+        field: "status",
+        headerName: "STATUS",
+        width: 120,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data role-column-data",
+    },
+    {
+        field: "action",
+        headerName: "ACTION",
+        width: 150,
+        headerClassName: "table-header-title",
+        cellClassName: "table-data",
     },
 ];
 
-const usersColumns = [
+const userListrows = [
     {
-        label: "ID",
-        path: "id",
-        content: (item, path) => <>{item[path]}</>,
+        id: 1,
+        last_name: "Snow",
+        first_name: "Jon",
+        status: "active",
+        role: "Admin",
+        email: "jon.snow@example.com",
+        action: "hello",
     },
-    {
-        label: "User Name",
-        path: "username",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Full Name",
-        path: "fullname",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Email",
-        path: "email",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Role",
-        path: "role",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Phone",
-        path: "phone_number",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Posts",
-        path: "post_counts",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        label: "Status",
-        path: "status",
-        content: (item, path) => <>{item[path]}</>,
-    },
-    {
-        isAction: true,
-        label: "Action",
-        path: "action",
-        style: {
-            position: "relative",
-        },
-        content: (item, path) => <>{item[path]}</>,
-    },
-];
+].map((row) => ({
+    ...row,
+}));
 
-export { sectionsColumns, usersColumns };
+export { userListColumns, userListrows };
