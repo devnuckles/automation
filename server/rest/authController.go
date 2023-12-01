@@ -74,8 +74,8 @@ func (s *Server) loginUser(ctx *gin.Context) {
 	}
 	tokenExpiresIn := int(*token.AuthenticationResult.ExpiresIn)
 
-	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "http://localhost:3000", false, true)
-	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "http://localhost:3000", false, true)
+	ctx.SetCookie(authorizationHeaderKey, res.AccessToken, tokenExpiresIn, "/", "", false, true)
+	ctx.SetCookie(authenticationHeaderKey, res.IdToken, tokenExpiresIn, "/", "", false, true)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "successfully logged in", res))
 }
 
