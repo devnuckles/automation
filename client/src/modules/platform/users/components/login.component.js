@@ -3,13 +3,14 @@ import { Card, CardContent, Grid } from "@mui/material";
 
 import LoginHeader from "./login-header.component";
 import LoginForm from "./login-form.component";
+import LoginSlider from "./login-slider.component";
 
 export default function Login() {
     return (
         <div className="log_in_bg">
             <div className="login_wrapper">
                 <Grid container spacing={1}>
-                    <Grid item xs={12} sm={6} md={6} className="login_left">
+                    <Grid item xs={12} sm={4} md={4} className="login_left">
                         <Card
                             sx={{
                                 width: "100%",
@@ -31,14 +32,8 @@ export default function Login() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={6} className="login_right">
-                        <div>
-                            <img
-                                style={{ width: "100%" }}
-                                src="/images/login_right_imag.png"
-                                alt="loginIcon"
-                            />
-                        </div>
+                    <Grid item xs={12} sm={8} md={8} className="login_right">
+                        <LoginSlider />
                     </Grid>
                 </Grid>
             </div>

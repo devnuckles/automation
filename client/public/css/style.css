@@ -451,8 +451,10 @@
     display: inline-block;
     width: 58%;
     text-align: right;
+    position: relative;
 }
 .user-management-search-filter a {
+    cursor: pointer;
     background: #ffffff;
     padding: 8px 16px;
     border-radius: 4px;
@@ -497,12 +499,76 @@
     color: #064e3b;
     border-radius: 4px;
 }
+.user-management-table-action-button div {
+    margin: 0 auto;
+}
+.user-management-table-action-button svg {
+    padding: 2px !important;
+    border-radius: 4px;
+    border: 1px solid #0000007a;
+}
+.user-management-search-filter .filter-dropdown {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    z-index: 999;
+}
+.user-filter-wrapper {
+    width: 240px;
+    padding: 24px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+}
+.user-filter-wrapper .accordion-item {
+    border: none !important;
+}
+.common-filter-accordion .accordion-body {
+    padding: 10px 0;
+    border: none;
+}
+.common-filter-accordion .accordion-body .form-check {
+    text-align: left !important;
+}
+.accordion-body .form-check-input:checked {
+    background-color: #047857;
+    border-color: #047857;
+}
+.user-filter-title {
+    font-family: "Manrope", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+}
+.common-filter-accordion .accordion-header button {
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none !important;
+    background: #fff;
+    padding: 10px 0;
+}
+.common-filter-accordion .accordion-header button:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+.common-filter-accordion .accordion-body label {
+    font-size: 16px;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
 /* Add User Modal Style */
 .css-zznxy6 {
     padding: 0 !important;
 }
 .add_user_main {
-    padding: 50px;
+    padding: 30px;
 }
 .add_user_main::after {
     content: "";
@@ -524,9 +590,9 @@
 }
 .add-user-title {
     font-family: "Nunito", sans-serif;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 600;
-    line-height: 82px;
+    line-height: 70px;
     letter-spacing: 0em;
     text-align: left;
     position: relative;
@@ -898,7 +964,7 @@
 
 /* rafi: addProjectUser */
 .add_project_user_form {
-    width: 80%;
+    width: 100%;
     background-color: #fff;
     border-radius: 24px;
 }
@@ -969,6 +1035,10 @@
     flex-direction: column;
     /* border: 1px solid #000; */
 }
+.login-slider-image {
+    width: 70% !important;
+}
+
 .login_card {
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
 }
@@ -1061,10 +1131,12 @@
     .add_user_main {
         margin: 0;
         width: 100%;
-        overflow-y: auto;
     }
     .add_user_main::after {
         height: 100%;
+    }
+    .add_user_form {
+        overflow-y: auto;
     }
 }
 
@@ -1072,12 +1144,13 @@
     .add_user_main {
         margin: 0;
         width: 100%;
-        overflow-y: auto;
     }
     .add_user_main::after {
         height: 80%;
     }
-
+    .add_user_form {
+        overflow-y: auto;
+    }
     .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
         width: 100% !important ;
     }
@@ -1089,7 +1162,7 @@
     }
     .add-user-main-left-content .add-user-title {
         font-size: 43px !important;
-        line-height: 60px !important;
+        line-height: 50px !important;
     }
     .add-user-main-left-content .add-user-responsive-title {
         display: none !important;
@@ -1099,10 +1172,12 @@
     .add_user_main {
         margin: 0;
         width: 100%;
-        overflow-y: auto;
     }
     .add_user_main::after {
         height: 65%;
+    }
+    .add_user_form {
+        overflow-y: auto;
     }
     .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
         width: 100% !important ;

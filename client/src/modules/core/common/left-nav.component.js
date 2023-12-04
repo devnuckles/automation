@@ -30,57 +30,59 @@ export default function LeftNav() {
                 </div>
                 <div className="dashboard-left-nav px-3">
                     <ul className="nav flex-column">
-                        <li className="nav-item">
-
+                        <li className="nav-item my-1">
                             <Link
                                 className="nav-link active left-nav-link px-2"
-                                to="/projects" 
+                                to="/projects"
                             >
-                                 <span className="icon me-2 ms-2">
-                                <i className="bi bi-grid"></i>
-                            </span>    Projects
+                                <span className="icon me-2 ms-2">
+                                    <i className="bi bi-grid"></i>
+                                </span>{" "}
+                                Projects
                             </Link>
                         </li>
-                        <li className="nav-item">
-                       
+                        <li className="nav-item my-1">
                             <Link
                                 className="nav-link left-nav-link px-2"
                                 to="/user-management"
                             >
-                                    <span className="icon me-2 ms-2">
-                                <i className="bi bi-person-fill"></i>
-                            </span> User Management
+                                <span className="icon me-2 ms-2">
+                                    <i className="bi bi-person-fill"></i>
+                                </span>{" "}
+                                User Management
                             </Link>
                         </li>
-                        <li className="nav-item">
-                         
+                        <li className="nav-item my-1">
                             <Link
                                 className="nav-link left-nav-link px-2"
                                 to="/flat-management"
                             >
-                                  <span className="icon me-2 ms-2">
-                                <i className="bi bi-house"></i>
-                            </span> Flat Management
+                                <span className="icon me-2 ms-2">
+                                    <i className="bi bi-house"></i>
+                                </span>{" "}
+                                Flat Management
                             </Link>
                         </li>
-                        <li className="nav-item">
-                        <Link
+                        <li className="nav-item my-1">
+                            <Link
                                 className="nav-link left-nav-link px-2"
                                 to="/dummy"
                             >
-                                  <span className="icon me-2 ms-2">
-                                <i className="bi bi-house"></i>
-                            </span>Recycle Bin
+                                <span className="icon me-2 ms-2">
+                                    <i className="bi bi-house"></i>
+                                </span>
+                                Recycle Bin
                             </Link>
                         </li>
-                        <li className="nav-item">
-                        <Link
+                        <li className="nav-item my-1">
+                            <Link
                                 className="nav-link left-nav-link px-2"
                                 to="/dummy"
                             >
-                                  <span className="icon me-2 ms-2">
-                                <i className="bi bi-house"></i>
-                            </span>Recycle Bin
+                                <span className="icon me-2 ms-2">
+                                    <i className="bi bi-house"></i>
+                                </span>
+                                Recycle Bin
                             </Link>
                         </li>
                     </ul>

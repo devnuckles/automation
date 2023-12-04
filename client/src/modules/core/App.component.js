@@ -10,7 +10,11 @@ import {
     ProjectDetails,
     UserTable,
 } from "../platform";
-import { FlatDetails, FlatManagement } from "../platform/users";
+import {
+    FlatDetails,
+    FlatManagement,
+    UserTableFilter,
+} from "../platform/users";
 
 const App = () => {
     const { isAuthenticated } = useAuth();
@@ -42,14 +46,14 @@ const App = () => {
                     />
                 }
             />
-                <Route
-                path="/edit-options"
+            <Route
+                path="/test"
                 element={
                     <ProtectedRoute
                         element={
                             isAuthenticated ? (
                                 <DashboardLayout>
-                                    <EditOptionDropdown />
+                                    <UserTableFilter />
                                 </DashboardLayout>
                             ) : null
                         }

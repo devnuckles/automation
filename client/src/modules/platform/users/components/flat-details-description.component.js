@@ -1,7 +1,6 @@
 import { Button, Chip } from "@mui/material";
 import { ReadMoreLess } from "../../../core/lib/read-more-less.pkg";
 
-
 const desc = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Proin velit augue, hendrerit et tempor ac, rutrum in
@@ -25,14 +24,16 @@ accumsan orci. Mauris libero mi, laoreet a viverra
 vitae, sagittis eget eros. Integer vel quam interdum,
 condimentum orci eget, sodales sem.
 `;
-export default function FlatDetailsDescription (){
-    return(
+export default function FlatDetailsDescription() {
+    return (
         <>
-                    <div className="row">
+            <div className="row">
                 <div className="col-lg-6 flat-details-left-slider mt-4">
                     <div
                         id="carouselExampleIndicators"
                         className="carousel slide"
+                        interval="200"
+                        wrap="true"
                     >
                         <div className="carousel-indicators">
                             <button

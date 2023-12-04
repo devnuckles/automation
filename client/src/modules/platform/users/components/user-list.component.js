@@ -1,8 +1,16 @@
+import React, { useState } from "react";
 import { DynamicModal } from "../../../core";
 import AddUser from "./add-user.component";
 import Table from "../../../core/common/table/table.component";
+import UserTableFilter from "./user-table-filter.component";
 
 export default function UserTable() {
+    const [isFilterDropdownVisible, setFilterDropdownVisible] = useState(false);
+
+    const toggleFilterDropdown = () => {
+        setFilterDropdownVisible(!isFilterDropdownVisible);
+    };
+
     return (
         <>
             <div className="row py-4">
@@ -42,10 +50,15 @@ export default function UserTable() {
                                 />
                             </div>
                             <div className="user-management-search-filter">
-                                <a>
+                                <a onClick={toggleFilterDropdown}>
                                     <i className="bi bi-funnel me-2"></i>
                                     Filter
                                 </a>
+                                {isFilterDropdownVisible && (
+                                    <div className="filter-dropdown">
+                                        <UserTableFilter />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

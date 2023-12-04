@@ -16,6 +16,7 @@ import FlatManagement from "./components/flat-management.component";
 import DeleteProjectModal from "./components/delete-project-modal.component";
 import ProfileDropdown from "./components/profile-dropdown.component";
 import FlatDetails from "./components/flat-details.component";
+import UserTableFilter from "./components/user-table-filter.component";
 
 export {
     AddProjectUser,
@@ -36,4 +37,5 @@ export {
     DeleteProjectModal,
     ProfileDropdown,
     FlatDetails,
+    UserTableFilter,
 };

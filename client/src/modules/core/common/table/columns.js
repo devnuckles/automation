@@ -2,6 +2,7 @@
 //     const category = categories.find((c) => c.id == categoryID);
 //     return category?.Title || "";
 // };
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const userListColumns = [
     {
@@ -60,7 +61,13 @@ const userListColumns = [
         headerName: "ACTION",
         width: 150,
         headerClassName: "table-header-title",
-        cellClassName: "table-data",
+        cellClassName: "table-data user-management-table-action-button",
+        renderCell: (params) => (
+            <div>
+                <MoreHorizIcon />
+                {params.row.action}
+            </div>
+        ),
     },
 ];
 
@@ -72,7 +79,6 @@ const userListrows = [
         status: "active",
         role: "Admin",
         email: "jon.snow@example.com",
-        action: "hello",
     },
 ].map((row) => ({
     ...row,
