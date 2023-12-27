@@ -17,6 +17,7 @@ export default function Login() {
                                 borderRadius: "10px",
                                 boxShadow:
                                     "0px 4px 20px 0px rgba(0, 0, 0, 0.35)",
+                                  
                             }}
                         >
                             <CardContent

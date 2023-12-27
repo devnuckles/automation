@@ -44,7 +44,7 @@ export default function TopNav() {
                     onClick={toggleProfileDropdown}
                 >
                     <div className="float-start">
-                        <img src="images/profile.png" alt="User Profile" />
+                        <img src="images/Profile.png" alt="User Profile" />
                     </div>
                     <div className="ms-3 top-nav-profile-section float-start">
                         <h3>Asfak Mahmud</h3>
