@@ -4,16 +4,22 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
     // Check if there is a token in local storage on component mount
     const initialAuthState = Cookies.get("token") ? true : false;
     console.log(initialAuthState);
     const [isAuthenticated, setAuthenticated] = useState(initialAuthState);
 
+
+
     const login = (token) => {
+        console.log("Auth Token||||||||||||||||||||||||||||||||||", token )
         setAuthenticated(true);
         // Store the authentication state in local storage
         localStorage.setItem("token", token);
         Cookies.set("token", token);
+
+
     };
 
     const logout = () => {

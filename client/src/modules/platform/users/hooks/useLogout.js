@@ -17,12 +17,14 @@ const useLogout = () => {
     );
 
     const logout = async () => {
+
+  
         try {
             await axios.post(`http://localhost:8080/api/users/logout`, {
                 token: token,
                 identity: id,
             });
-
+            console.log(">>>>>>>>>>>>>>>>>>>>Logout Clicked")
             localStorage.removeItem("token");
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("userType");
@@ -31,7 +33,6 @@ const useLogout = () => {
             Cookies.remove("id");
         } catch (error) {
             console.error("Error while logging out:", error);
-            console.log();
         }
     };
 

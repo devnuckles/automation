@@ -4,6 +4,8 @@ import { Card, CardContent, Grid } from "@mui/material";
 import LoginHeader from "./login-header.component";
 import LoginForm from "./login-form.component";
 import LoginSlider from "./login-slider.component";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     return (
@@ -30,12 +32,15 @@ export default function Login() {
                             >
                                 <LoginHeader />
                                 <LoginForm />
+          
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item xs={12} sm={8} md={8} className="login_right">
                         <LoginSlider />
                     </Grid>
+
+                    <ToastContainer />
                 </Grid>
             </div>
         </div>
