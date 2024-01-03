@@ -294,7 +294,7 @@ func (s *Server) getUsers(ctx *gin.Context) {
 		Users:     users,
 		NextPivot: userResult.NextPivot,
 	}
-
+logger.Info(ctx, "GetUsers?>>>>>>>>>>>>>>>>>>>>>>>>>>>", users)
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched users successfully", userResponses))
 
 }
