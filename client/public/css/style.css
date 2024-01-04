@@ -1,1531 +1,1594 @@
 /* App */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Outfit;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Outfit;
 }
 ::selection {
-    background: #047857;
-    color: white;
+  background: #047857;
+  color: white;
 }
 .log_in_bg {
-    background-color: #ebf5ff;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #ebf5ff;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* starting css */
 
 .container-cs {
-    width: 95vw !important;
-    margin: 0 auto;
+  width: 95vw !important;
+  margin: 0 auto;
 }
 /* Start of Dashboard Left*/
 .dashboard-left {
-    height: 100vh;
+  height: 100vh;
 }
 .dashboard-left-nav {
-    height: 70vh;
+  height: 70vh;
 }
 
 .dashboard-left-nav .nav-link:active,
 .dashboard-left-nav .nav-link:focus {
-    background: #f9f9f9 !important;
-    border-radius: 8px;
+  background: #f9f9f9 !important;
+  border-radius: 8px;
 }
 .dashboard-left-nav .nav-item:hover .icon {
-    color: #00db99;
+  color: #00db99;
 }
 .dashboard-left-nav .nav-item:hover .left-nav-link {
-    color: #00db99;
+  color: #00db99;
 }
 .dashboard-left-nav .nav-item .nav-link:focus {
-    color: #00db99 !important;
+  color: #00db99 !important;
 }
 .left-nav-link {
-    display: inline-block !important;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #717986;
-    transition: all linear 0.3s;
-    width: 100%;
+  display: inline-block !important;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #717986;
+  transition: all linear 0.3s;
+  width: 100%;
 }
 .dashboard-left-logout {
-    cursor: pointer;
-    padding: 15px 0px;
-    border: 1px solid #f2f2f2;
+  cursor: pointer;
+  padding: 15px 0px;
+  border: 1px solid #f2f2f2;
 }
 .dashboard-left-logout a {
-    cursor: pointer;
+  cursor: pointer;
 }
 .dashboard-left-logout i {
-    margin: 0 10px;
-    color: #ff285c;
+  margin: 0 10px;
+  color: #ff285c;
 }
 .dashboard-left-logout span {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 19px;
-    letter-spacing: 0em;
-    color: #ff285c;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  color: #ff285c;
 }
 
 /* Start of Dashboard Right */
 .dashboard-right-top-nav {
-    padding: 10px 0;
-    width: 100% !important;
+  padding: 10px 0;
+  width: 100% !important;
 }
 
 .fixed-top {
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #fff;
-    box-shadow: -1px 3px 4px 0px #0000001a;
-    transition: box-shadow 0.3s ease;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: -1px 3px 4px 0px #0000001a;
+  transition: box-shadow 0.3s ease;
 }
 
 .dashboard-right-header {
-    padding: 15px;
+  padding: 15px;
 }
 .dashboard-right-heading h2 {
-    font-family: "Roboto", sans-serif;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #3c557a;
-    /* margin: 10px 0; */
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3c557a;
+  /* margin: 10px 0; */
 }
 
 .dashboard-right-tools .tools-icon i {
-    font-size: 20px;
-    color: #717986;
+  font-size: 20px;
+  color: #717986;
 }
 .dashboard-right-profile {
-    cursor: pointer;
+  cursor: pointer;
 }
 .dashboard-right-profile img {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 .dashboard-right-profile h3 {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #25364f;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #25364f;
 }
 .dashboard-right-profile p {
-    font-family: "Roboto", sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #8b8b8b;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #8b8b8b;
 }
 
 .dashboard-right-header .row .new-project-button {
-    padding: 10px 15px;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #fff;
-    background: #00db99;
-    border-radius: 26px;
+  padding: 10px 15px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  background: #00db99;
+  border-radius: 26px;
 }
 .dashboard-right-header .project-sorting-tab {
-    border: 1px solid #f1f2f7;
-    border-radius: 8px;
-    padding: 5px 0;
-    height: 40px;
+  border: 1px solid #f1f2f7;
+  border-radius: 8px;
+  padding: 5px 0;
+  height: 40px;
 }
 .dashboard-right-header .project-sorting-tab .nav-item .nav-link {
-    color: #8b8b8b;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: left;
-    border: none !important;
-    margin: 0 5px !important;
+  color: #8b8b8b;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  border: none !important;
+  margin: 0 5px !important;
 }
 .project-sorting-tab .nav-tabs .nav-link:hover {
-    border: none !important;
+  border: none !important;
 }
 .project-sorting-tab .nav-tabs {
-    border: none;
+  border: none;
 }
 .project-sorting-tab .nav-tabs .nav-link.active {
-    position: relative;
-    color: #25364f;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: left;
-    border: none;
+  position: relative;
+  color: #25364f;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  border: none;
 }
 .project-sorting-tab .nav-tabs .nav-link.active::after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 25px;
-    height: 4px;
-    width: 4px;
-    border-radius: 50%;
-    background: #3c557a;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 25px;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background: #3c557a;
 }
 
 .project-sorting-button span {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #8b8b8b;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #8b8b8b;
 }
 .project-sorting-button i {
-    color: #8b8b8b;
+  color: #8b8b8b;
 }
 .nav-tabs .nav-link {
-    border: 0 !important;
+  border: 0 !important;
 }
 .project-new-button {
-    background: #00db99 !important;
-    color: #fff !important;
-    font-family: Roboto !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 21px !important;
-    letter-spacing: 0em !important;
-    text-align: left !important;
-    padding: 10px 20px !important;
-    border-radius: 25px !important;
-    transition: all linear 0.3s;
+  background: #00db99 !important;
+  color: #fff !important;
+  font-family: Roboto !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 21px !important;
+  letter-spacing: 0em !important;
+  text-align: left !important;
+  padding: 10px 20px !important;
+  border-radius: 25px !important;
+  transition: all linear 0.3s;
 }
 .project-new-button:hover {
-    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* Start of Dashboard Right Project Card */
 
 .card-body {
-    border-radius: 8px;
-    background-color: #fff;
-    border: 1px solid #f2f2f2;
-    position: relative;
-    padding: 15px;
-    transition: all linear 0.3s;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #f2f2f2;
+  position: relative;
+  padding: 15px;
+  transition: all linear 0.3s;
 }
 .card-body:hover {
-    box-shadow: 0px 3px 36px 12px #507ea91f;
+  box-shadow: 0px 3px 36px 12px #507ea91f;
 }
 .card-heading-left h6 {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #3c557a;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #3c557a;
 }
 
 .card-status::after {
-    position: relative;
-    content: "";
-    bottom: 3px;
-    right: 50px;
-    height: 6px;
-    width: 6px;
-    display: inline-block;
-    border-radius: 50%;
-    background-color: #00db99;
+  position: relative;
+  content: "";
+  bottom: 3px;
+  right: 50px;
+  height: 6px;
+  width: 6px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #00db99;
 }
 .card-status span {
-    font-family: "Roboto", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 15px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #00db99;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #00db99;
 }
 .card-more-button i {
-    color: #8b8b8b;
-    font-size: 18px;
+  color: #8b8b8b;
+  font-size: 18px;
 }
 .card-date-common {
-    font-family: "Roboto", sans-serif;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #717986;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #717986;
 }
 .card-date-heading {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
 }
 .card-date-date {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 15px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15px;
 }
 .card-date-right {
-    margin: -10px 10px 0 0;
-    padding: 15px 0;
-    background: #f9f9f9;
-    border-radius: 7px;
-    position: relative;
+  margin: -10px 10px 0 0;
+  padding: 15px 0;
+  background: #f9f9f9;
+  border-radius: 7px;
+  position: relative;
 }
 .card-date-right::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 40px;
-    width: 1px;
-    background: #cddcee;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40px;
+  width: 1px;
+  background: #cddcee;
 }
 .card-date-right .task,
 .card-date-right .user {
-    width: 50%;
+  width: 50%;
 }
 .card-date-right .task p:first-child,
 .card-date-right .user p:first-child {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 21px;
-    letter-spacing: 0em;
-    color: #3c557a;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  color: #3c557a;
 }
 .card-date-right .task p:last-child,
 .card-date-right .user p:last-child {
-    font-family: "Roboto", sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #717986;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #717986;
 }
 
 .card-member p {
-    font-family: "Roboto", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 15px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #717986;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #717986;
 }
 .member-profiles img {
-    border-radius: 50%;
-    margin-top: -10px;
+  border-radius: 50%;
+  margin-top: -10px;
 }
 .add-member-button {
-    display: inline-block;
+  display: inline-block;
 }
 .add-member-button i {
-    color: #8b8b8b;
-    font-size: 30px;
+  color: #8b8b8b;
+  font-size: 30px;
 }
 .card-progress .progress {
-    height: 5px;
+  height: 5px;
 }
 .progress-bar-text {
-    display: inline-block;
-    width: 50%;
+  display: inline-block;
+  width: 50%;
 }
 /* Start of User Management Page */
 .css-1rtphsv-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
 .css-1rtphsv-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-    color: #047857 !important;
+  color: #047857 !important;
 }
 
 .user-management-heading-title {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 41px;
-    letter-spacing: 0em;
-    text-align: left;
-    text-transform: uppercase;
-    color: #191d23;
-    margin: -5px 0 0 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0em;
+  text-align: left;
+  text-transform: uppercase;
+  color: #191d23;
+  margin: -5px 0 0 0;
 }
 .user-management-heading-button-group div:first-child {
-    display: inline-block;
+  display: inline-block;
 }
 .user-management-heading-button-group div:first-child button {
-    background: #047857;
-    border-radius: 4px;
-    font-family: "Manrope", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #fff;
-    padding: 8px 16px;
-    text-decoration: none;
+  background: #047857;
+  border-radius: 4px;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 .user-management-heading-button-group a:first-child:hover {
-    color: #fff;
+  color: #fff;
 }
 .user-management-heading-button-group a:last-child {
-    color: #191d23;
-    font-family: "Manrope", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    border-radius: 4px;
-    padding: 8px 12px;
-    border: 1.5px solid #d0d5dd;
+  color: #191d23;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  border-radius: 4px;
+  padding: 8px 12px;
+  border: 1.5px solid #d0d5dd;
 }
 
 .user-management-search {
-    background: hsl(210, 14%, 97%);
-    padding: 12px 0;
-    border-radius: 4px;
+  background: hsl(210, 14%, 97%);
+  padding: 12px 0;
+  border-radius: 4px;
 }
 
 .user-management-search-box {
-    border-radius: 8px;
-    border: 1px solid #e7eaee;
-    background: #fff;
-    padding: 2px 10px;
-    margin-left: 12px;
-    width: 40%;
-    display: inline-block;
+  border-radius: 8px;
+  border: 1px solid #e7eaee;
+  background: #fff;
+  padding: 2px 10px;
+  margin-left: 12px;
+  width: 40%;
+  display: inline-block;
 }
 .user-management-search-box i {
-    color: #8b8b8b;
+  color: #8b8b8b;
 }
 .user-management-search-box input::placeholder {
-    font-family: "Manrope", sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #64748b;
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #64748b;
 }
 .user-management-search-box input {
-    background: transparent;
-    border: none !important;
-    display: inline-block !important;
-    width: 85%;
+  background: transparent;
+  border: none !important;
+  display: inline-block !important;
+  width: 85%;
 }
 .user-management-search-box input:focus {
-    background: transparent;
-    border: none !important;
-    box-shadow: none !important;
+  background: transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
 .user-management-search-filter {
-    display: inline-block;
-    width: 58%;
-    text-align: right;
-    position: relative;
+  display: inline-block;
+  width: 58%;
+  text-align: right;
+  position: relative;
 }
 .user-management-search-filter a {
-    cursor: pointer;
-    background: #ffffff;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-family: "Manrope", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #64748b !important;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #64748b !important;
 }
 
 .table-header-title {
-    font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif;
 
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #64748b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #64748b;
 }
 .table-data {
-    font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif;
 
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #191d23;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #191d23;
 }
 .role-column-data .MuiDataGrid-cellContent {
-    padding: 2px 10px;
-    background: #ecfdf5;
-    font-family: Manrope;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #064e3b;
-    border-radius: 4px;
+  padding: 2px 10px;
+  background: #ecfdf5;
+  font-family: Manrope;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #064e3b;
+  border-radius: 4px;
 }
 .user-management-table-action-button div {
-    margin: 0 auto;
+  margin: 0 auto;
+  cursor: pointer;
 }
 .user-management-table-action-button svg {
-    padding: 2px !important;
-    border-radius: 4px;
-    border: 1px solid #0000007a;
+  padding: 2px !important;
+  border-radius: 4px;
+  border: 1px solid #0000007a;
 }
 .user-management-search-filter .filter-dropdown {
-    position: absolute;
-    top: 35px;
-    right: 0;
-    z-index: 999;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  z-index: 999;
 }
 .user-filter-wrapper {
-    width: 240px;
-    padding: 24px;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+  width: 240px;
+  padding: 24px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
 }
 .user-filter-wrapper .accordion-item {
-    border: none !important;
+  border: none !important;
 }
 .common-filter-accordion .accordion-body {
-    padding: 10px 0;
-    border: none;
+  padding: 10px 0;
+  border: none;
 }
 .common-filter-accordion .accordion-body .form-check {
-    text-align: left !important;
+  text-align: left !important;
 }
 .accordion-body .form-check-input:checked {
-    background-color: #047857;
-    border-color: #047857;
+  background-color: #047857;
+  border-color: #047857;
 }
 .user-filter-title {
-    font-family: "Manrope", sans-serif;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-align: left;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: left;
 }
 .common-filter-accordion .accordion-header button {
-    font-family: "DM Sans", sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    border: none !important;
-    background: #fff;
-    padding: 10px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none !important;
+  background: #fff;
+  padding: 10px 0;
 }
 .common-filter-accordion .accordion-header button:focus {
-    box-shadow: none !important;
-    border: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 .common-filter-accordion .accordion-body label {
-    font-size: 16px;
-    font-family: "DM Sans", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  font-size: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
-/* Add User Modal Style */
-.css-zznxy6 {
-    padding: 0 !important;
+/* Action Modal  */
+.action-modal-wrapper {
+  width: 16%;
+  box-shadow: 0px 8px 20px -4px #1718181F;
+  padding: 16px 25px;
+  border-radius: 8px;
+  /* position: absolute;
+    top: 0;
+    left: 0; */
 }
-.add_user_main {
-    padding: 30px;
+.action-modal-wrapper h4 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #202223;
 }
-.add_user_main::after {
+.action-modal-wrapper button {
+    font-family:"DM Sans", sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0px;
+text-align: left;
+color: #202223;
+border: none;
+padding: 10px 8px;
+text-transform: capitalize;
+outline: 0;
+}
+.action-modal-wrapper button:hover {
+    border: 0;
+    background: #F2F7FE;
+}
+.action-modal-wrapper .action-modal-edit-button {
+    background: #F2F7FE;
+    position: relative;
+}
+.action-modal-wrapper .action-modal-edit-button::after{
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
-    background: url(../images/blob-1.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 50%;
-    border-radius: 15px 0 0 0;
+    left: -13px;
+    height: 40px;
+    width: 3px;
+    background: #2C6ECB;
+    border-radius: 0px 4px 4px 0px;
+}
+.action-modal-wrapper .action-modal-edit-button span i {
+    color: #2C6ECB;
+    font-size: 14px;
+}
+.action-modal-wrapper .action-modal-delete-button {
+    color: #D72C0D !important;
+    font-size: 14px;
+}
+.action-modal-wrapper .action-modal-delete-button span {
+    margin: 0;
+}
+
+/* Add User Modal Style */
+.css-zznxy6 {
+  padding: 0 !important;
+}
+.add_user_main {
+  padding: 30px;
+}
+.add_user_main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../images/blob-1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 50%;
+  border-radius: 15px 0 0 0;
 }
 .add-user-main-left-content {
-    background: #fff !important;
+  background: #fff !important;
 }
 .options {
-    color: #000;
+  color: #000;
 }
 .add-user-title {
-    font-family: "Nunito", sans-serif;
-    font-size: 50px;
-    font-weight: 600;
-    line-height: 70px;
-    letter-spacing: 0em;
-    text-align: left;
-    position: relative;
-    z-index: 999;
+  font-family: "Nunito", sans-serif;
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 70px;
+  letter-spacing: 0em;
+  text-align: left;
+  position: relative;
+  z-index: 999;
 }
 .add-user-paragraph {
-    font-family: "Nunito", sans-serif;
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 44px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 19% 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 44px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 19% 0;
 }
 
 .add-user-form-input
-    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+  .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
 .add-user-form-input
-    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-    width: 48% !important;
+  .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+  width: 48% !important;
 }
 .add-user-form-input
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root:nth-child(1) {
-    width: 90%;
-    margin-right: auto !important;
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root:nth-child(1) {
+  width: 90%;
+  margin-right: auto !important;
 }
 
 /* Change Password Css  */
 .common-modal-wrapper,
 .change-password-main {
-    width: 35%;
-    margin: 0 auto;
-    padding: 50px;
-    border-radius: 5px;
-    box-shadow: 0px 3px 36px 12px #507ea91f;
+  width: 35%;
+  margin: 0 auto;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 36px 12px #507ea91f;
 }
 .common-modal-title {
-    font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 60px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #989898;
+}
+
+.common-modal-button {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #fff;
+  border: 1px solid #047857 !important;
+  background: #047857;
+  box-shadow: 0px 1px 2px 0px #1018280d;
+  padding: 14px 20px;
+  border-radius: 8px;
+  width: 100%;
+}
+.common-modal-button:hover,
+.common-modal-button:visited {
+  background: #047857;
+  border: 1px solid #047857 !important;
+  color: #fff;
+}
+.common-modal-button:focus-visible {
+  color: #047857;
+  background: #fff !important;
+}
+.change-password-main .change-password-form .MuiFormControl-root,
+.change-password-main .change-password-form .MuiInputBase-root {
+  display: block !important;
+}
+
+/* Update Role Css */
+
+.update-role-form label {
+  color: #047857 !important;
+}
+.update-role-form
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  transition: all linear 0.3s;
+  border-color: #929293;
+}
+.update-role-form
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline:hover {
+  border-color: #047857;
+}
+
+/* Start of Flat Management  */
+.flat-management-header {
+  border: 1px solid #f1f2f7;
+  border-radius: 8px;
+  padding: 7px;
+}
+.flat-management-tab .nav-tabs {
+  border: 0;
+}
+.flat-management-tab .nav-link {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
+  color: #8b8b8b;
+}
+
+.flat-management-tab .nav-item:focus-visible {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+.flat-management-tab .nav-link.active {
+  border: 0;
+  position: relative;
+  color: #25364f !important;
+}
+.flat-management-tab .nav-link.active::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  background: #3c557a !important;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+}
+.flat-management-header-button button {
+  border: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #8b8b8b;
+}
+.flat-management-header-button button:focus-visible {
+  border: 0;
+}
+.flat-management-header-button button:hover {
+  border: 0;
+  background: #fff;
+}
+
+.flat-management-table {
+  padding: 20px !important;
+}
+.flat-management-table table thead {
+  background: #00db990a;
+}
+.flat-management-table table thead tr th {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #717986;
+}
+.flat-management-table-flat .flat-management-table-icon {
+  font-size: 40px;
+  color: #717986;
+}
+.flat-management-table-flat-content h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #464e5f;
+}
+.flat-management-table-flat-content p {
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #b5b5c3;
+}
+.flat-management-table-flat-status {
+  position: relative;
+}
+.flat-management-table-flat-status::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 30%;
+  transform: translate(-50%);
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: #00db99;
+}
+.flat-management-table-details-button {
+  padding: 8px 16px !important;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Profile Dropdown Modal  */
+.profile-dropdown-modal {
+  position: absolute;
+  top: 100%;
+  z-index: 9999;
+  background: #fff;
+  left: 0;
+  width: 185px;
+  border: 1px solid #cddcee;
+  padding: 16px;
+  border-radius: 8px;
+}
+.profile-dropdown-modal ul {
+  margin: 0;
+}
+.profile-dropdown-modal ul:nth-child(2) {
+  border-top: 1px solid #dfe3e8;
+  border-bottom: 1px solid #dfe3e8;
+  padding: 5px 0;
+}
+.profile-dropdown-modal ul:nth-child(2) li,
+.profile-dropdown-modal ul:nth-child(3) li {
+  padding: 5px 0px;
+}
+.profile-dropdown-modal ul li a {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.profile-dropdown-modal .profile-info h2 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+  color: #161c24;
+}
+.profile-dropdown-modal .profile-info a {
+  color: #919eab;
+  font-size: 12px;
+}
+
+.profile-dropdown-modal .profile-edit,
+.profile-dropdown-modal .profile-sign-out {
+  color: #637381;
+}
+
+/* Edit Option Dropdown  */
+.edit-option-dropdown {
+  width: 130px;
+  background: #fff;
+  border-radius: 8px;
+}
+.edit-option-dropdown-title {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #202223;
+}
+.edit-option-dropdown-list-text span {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.css-1e9lk82-MuiListItemAvatar-root {
+  min-width: 30px !important;
+}
+
+/* Delete Project Modal  */
+.delete-project-modal {
+  border: 1px solid #f2f2f2;
+  width: 350px;
+  padding: 20px;
+  border-radius: 8px;
+}
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  position: relative;
+  z-index: 999;
+}
+.delete-project-modal .delete-project-warning i {
+  color: #d92d20;
+  position: relative;
+}
+.delete-project-modal .delete-project-warning i::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background: #fef3f2;
+  z-index: 500;
+}
+.delete-project-modal .delete-project-content h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #101828;
+}
+.delete-project-modal .delete-project-content p {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #667085;
+}
+.delete-project-buttons button {
+  width: 48%;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #344054 !important;
+}
+.delete-project-buttons button:last-child {
+  border: 1px solid #d92d20 !important;
+  background: #d92d20 !important;
+  color: #fff !important;
+}
+/* Action Modal CSS  */
+
+@media only screen and (max-width: 1880px) {
+  .add_user_main {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .add_user_main {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+/* rafi: addProjectUser */
+.add_project_user_form {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 24px;
+}
+.add_project_user_form .MuiFormLabel-root .MuiInputBase-root input {
+  border: 1px solid #d0d5dd !important;
+}
+.add_project_user_form
+  .MuiFormLabel-root
+  .MuiInputBase-root
+  input::placeholder {
+  color: #d0d5dd;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+@media only screen and (max-width: 890px) {
+  .project_form_wrapper h2 {
+    font-size: 30px !important;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .project_form_wrapper h2 {
+    font-size: 25px !important;
+  }
+  .project_form_wrapper button {
+    font-size: 16px !important;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .project_form_wrapper h2 {
+    font-size: 18px !important;
+  }
+  .project_form_wrapper button {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .project_form_wrapper h2 {
+    font-size: 15px !important;
+  }
+  .project_form_wrapper button {
+    font-size: 8px !important;
+  }
+}
+
+/* rafi: login */
+.login_wrapper {
+  width: 90%;
+}
+.login_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid #000; */
+}
+.login_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid #000; */
+}
+.login-slider-image {
+  width: 70% !important;
+}
+
+.login_card {
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
+}
+.login_card_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .login_left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 340px;
+    /* border: 1px solid #000; */
+  }
+}
+@media only screen and (max-width: 450px) {
+  .login_left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 200px;
+    /* border: 1px solid #000; */
+  }
+}
+
+/* rafi: update information */
+.update_information_form {
+  width: 80%;
+  height: 75vh;
+  background-color: #fff;
+  border-radius: 24px;
+}
+
+@media only screen and (max-width: 900px) {
+  .update_info_main {
+    /* padding-top: 200px; */
+    padding-bottom: 200px;
+  }
+  .update_information_form {
+    margin-top: 350px;
+    width: 80%;
+    height: 850px;
+    background-color: #fff;
+    border-radius: 24px;
+  }
+}
+/* rafi: update project details */
+.update_project_details_form {
+  width: 80%;
+  height: 60vh;
+  background-color: #fff;
+  border-radius: 24px;
+}
+
+@media only screen and (max-width: 1880px) {
+  .update_project_details_form {
+    width: 80%;
+    height: 75vh;
+    background-color: #fff;
+    border-radius: 24px;
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  .update_project_details_form {
+    width: 80%;
+    height: 82vh;
+    background-color: #fff;
+    border-radius: 24px;
+  }
+}
+@media only screen and (max-width: 470px) {
+  .update_project_details_form {
+    width: 80%;
+    height: 90vh;
+    background-color: #fff;
+    border-radius: 24px;
+  }
+}
+
+/* Add User Responsive */
+@media (max-width: 1920px) {
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 100%;
+  }
+  .add_user_form {
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 80%;
+  }
+  .add_user_form {
+    overflow-y: auto;
+  }
+  .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
+    width: 100% !important ;
+  }
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    width: 100% !important;
+  }
+  .add-user-main-left-content .add-user-title {
+    font-size: 43px !important;
+    line-height: 50px !important;
+  }
+  .add-user-main-left-content .add-user-responsive-title {
+    display: none !important;
+  }
+}
+@media (min-width: 993px) and (max-width: 1200px) {
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 65%;
+  }
+  .add_user_form {
+    overflow-y: auto;
+  }
+  .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
+    width: 100% !important ;
+  }
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    width: 100% !important;
+  }
+  .add-user-main-left-content .add-user-title {
+    margin-top: -12px;
+    font-size: 33px !important;
+    line-height: 46px !important;
+  }
+  .add-user-main-left-content .add-user-paragraph {
+    font-size: 25px;
+    margin: 50px 0 0 0 !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 992px) {
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 0%;
+  }
+  .add_user_form div:first-child {
+    padding: 0px !important;
+  }
+  .add-user-form-input
+    .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    margin-right: 0px !important;
+    display: block;
+    width: 100% !important;
+  }
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+    width: 100% !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-title,
+  .add_user_main .add-user-main-left-content .add-user-paragraph {
+    display: none !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-responsive-title {
+    display: block !important;
+    font-family: "Roboto", sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 60px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #989898;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 0%;
+  }
+  .add_user_form div:first-child {
+    padding: 0px !important;
+  }
+  .add-user-form-input
+    .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    margin-right: 0px !important;
+    display: block;
+    width: 100% !important;
+  }
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+    width: 100% !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-title,
+  .add_user_main .add-user-main-left-content .add-user-paragraph {
+    display: none !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-responsive-title {
+    display: block !important;
+    font-family: "Roboto", sans-serif;
     font-size: 38px;
     font-weight: 600;
     line-height: 60px;
     letter-spacing: -0.02em;
     text-align: left;
     color: #989898;
-}
-
-.common-modal-button {
-    font-family: "Inter", sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #fff;
-    border: 1px solid #047857 !important;
-    background: #047857;
-    box-shadow: 0px 1px 2px 0px #1018280d;
-    padding: 14px 20px;
-    border-radius: 8px;
-    width: 100%;
-}
-.common-modal-button:hover,
-.common-modal-button:visited {
-    background: #047857;
-    border: 1px solid #047857 !important;
-    color: #fff;
-}
-.common-modal-button:focus-visible {
-    color: #047857;
-    background: #fff !important;
-}
-.change-password-main .change-password-form .MuiFormControl-root,
-.change-password-main .change-password-form .MuiInputBase-root {
-    display: block !important;
-}
-
-/* Update Role Css */
-
-.update-role-form label {
-    color: #047857 !important;
-}
-.update-role-form
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
-    .MuiOutlinedInput-notchedOutline {
-    transition: all linear 0.3s;
-    border-color: #929293;
-}
-.update-role-form
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
-    .MuiOutlinedInput-notchedOutline:hover {
-    border-color: #047857;
-}
-
-/* Start of Flat Management  */
-.flat-management-header {
-    border: 1px solid #f1f2f7;
-    border-radius: 8px;
-    padding: 7px;
-}
-.flat-management-tab .nav-tabs {
-    border: 0;
-}
-.flat-management-tab .nav-link {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    text-align: center;
-    color: #8b8b8b;
-}
-
-.flat-management-tab .nav-item:focus-visible {
-    border: 0;
-    outline: 0;
-    box-shadow: none;
-}
-.flat-management-tab .nav-link.active {
-    border: 0;
-    position: relative;
-    color: #25364f !important;
-}
-.flat-management-tab .nav-link.active::after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
-    background: #3c557a !important;
-    height: 4px;
-    width: 4px;
-    border-radius: 50%;
-}
-.flat-management-header-button button {
-    border: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #8b8b8b;
-}
-.flat-management-header-button button:focus-visible {
-    border: 0;
-}
-.flat-management-header-button button:hover {
-    border: 0;
-    background: #fff;
-}
-
-.flat-management-table {
-    padding: 20px !important;
-}
-.flat-management-table table thead {
-    background: #00db990a;
-}
-.flat-management-table table thead tr th {
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #717986;
-}
-.flat-management-table-flat .flat-management-table-icon {
-    font-size: 40px;
-    color: #717986;
-}
-.flat-management-table-flat-content h2 {
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #464e5f;
-}
-.flat-management-table-flat-content p {
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #b5b5c3;
-}
-.flat-management-table-flat-status {
-    position: relative;
-}
-.flat-management-table-flat-status::after {
-    content: "";
-    position: absolute;
-    top: 45%;
-    left: 30%;
-    transform: translate(-50%);
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-    background: #00db99;
-}
-.flat-management-table-details-button {
-    padding: 8px 16px !important;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-/* Profile Dropdown Modal  */
-.profile-dropdown-modal {
-    position: absolute;
-    top: 100%;
-    z-index: 9999;
-    background: #fff;
-    left: 0;
-    width: 185px;
-    border: 1px solid #cddcee;
-    padding: 16px;
-    border-radius: 8px;
-}
-.profile-dropdown-modal ul {
-    margin: 0;
-}
-.profile-dropdown-modal ul:nth-child(2) {
-    border-top: 1px solid #dfe3e8;
-    border-bottom: 1px solid #dfe3e8;
-    padding: 5px 0;
-}
-.profile-dropdown-modal ul:nth-child(2) li,
-.profile-dropdown-modal ul:nth-child(3) li {
-    padding: 5px 0px;
-}
-.profile-dropdown-modal ul li a {
-    font-family: "DM Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-}
-.profile-dropdown-modal .profile-info h2 {
-    font-family: "DM Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 0;
-    color: #161c24;
-}
-.profile-dropdown-modal .profile-info a {
-    color: #919eab;
-    font-size: 12px;
-}
-
-.profile-dropdown-modal .profile-edit,
-.profile-dropdown-modal .profile-sign-out {
-    color: #637381;
-}
-
-/* Edit Option Dropdown  */
-.edit-option-dropdown {
-    width: 130px;
-    background: #fff;
-    border-radius: 8px;
-}
-.edit-option-dropdown-title {
-    font-family: "DM Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #202223;
-}
-.edit-option-dropdown-list-text span {
-    font-family: "DM Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0px;
-    text-align: left;
-}
-.css-1e9lk82-MuiListItemAvatar-root {
-    min-width: 30px !important;
-}
-
-/* Delete Project Modal  */
-.delete-project-modal {
-    border: 1px solid #f2f2f2;
-    width: 350px;
-    padding: 20px;
-    border-radius: 8px;
-}
-.bi::before,
-[class^="bi-"]::before,
-[class*=" bi-"]::before {
-    position: relative;
-    z-index: 999;
-}
-.delete-project-modal .delete-project-warning i {
-    color: #d92d20;
-    position: relative;
-}
-.delete-project-modal .delete-project-warning i::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    background: #fef3f2;
-    z-index: 500;
-}
-.delete-project-modal .delete-project-content h2 {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #101828;
-}
-.delete-project-modal .delete-project-content p {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #667085;
-}
-.delete-project-buttons button {
-    width: 48%;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #344054 !important;
-}
-.delete-project-buttons button:last-child {
-    border: 1px solid #d92d20 !important;
-    background: #d92d20 !important;
-    color: #fff !important;
-}
-/* Action Modal CSS  */
-
-@media only screen and (max-width: 1880px) {
-    .add_user_main {
-        width: 100%;
-        height: 100%;
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-}
-
-@media only screen and (max-width: 380px) {
-    .add_user_main {
-        width: 100%;
-        height: 100%;
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-}
-
-/* rafi: addProjectUser */
-.add_project_user_form {
-    width: 100%;
-    background-color: #fff;
-    border-radius: 24px;
-}
-.add_project_user_form .MuiFormLabel-root .MuiInputBase-root input {
-    border: 1px solid #d0d5dd !important;
-}
-.add_project_user_form
-    .MuiFormLabel-root
-    .MuiInputBase-root
-    input::placeholder {
-    color: #d0d5dd;
-    font-family: Poppins;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-}
-
-@media only screen and (max-width: 890px) {
-    .project_form_wrapper h2 {
-        font-size: 30px !important;
-    }
-}
-
-@media only screen and (max-width: 530px) {
-    .project_form_wrapper h2 {
-        font-size: 25px !important;
-    }
-    .project_form_wrapper button {
-        font-size: 16px !important;
-    }
-}
-
-@media only screen and (max-width: 380px) {
-    .project_form_wrapper h2 {
-        font-size: 18px !important;
-    }
-    .project_form_wrapper button {
-        font-size: 14px !important;
-    }
-}
-
-@media only screen and (max-width: 280px) {
-    .project_form_wrapper h2 {
-        font-size: 15px !important;
-    }
-    .project_form_wrapper button {
-        font-size: 8px !important;
-    }
-}
-
-/* rafi: login */
-.login_wrapper {
-    width: 90%;
-}
-.login_left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* border: 1px solid #000; */
-}
-.login_right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* border: 1px solid #000; */
-}
-.login-slider-image {
-    width: 70% !important;
-}
-
-.login_card {
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.35);
-}
-.login_card_content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-}
-
-@media only screen and (max-width: 600px) {
-    .login_left {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 340px;
-        /* border: 1px solid #000; */
-    }
-}
-@media only screen and (max-width: 450px) {
-    .login_left {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 200px;
-        /* border: 1px solid #000; */
-    }
-}
-
-/* rafi: update information */
-.update_information_form {
-    width: 80%;
-    height: 75vh;
-    background-color: #fff;
-    border-radius: 24px;
-}
-
-@media only screen and (max-width: 900px) {
-    .update_info_main {
-        /* padding-top: 200px; */
-        padding-bottom: 200px;
-    }
-    .update_information_form {
-        margin-top: 350px;
-        width: 80%;
-        height: 850px;
-        background-color: #fff;
-        border-radius: 24px;
-    }
-}
-/* rafi: update project details */
-.update_project_details_form {
-    width: 80%;
-    height: 60vh;
-    background-color: #fff;
-    border-radius: 24px;
-}
-
-@media only screen and (max-width: 1880px) {
-    .update_project_details_form {
-        width: 80%;
-        height: 75vh;
-        background-color: #fff;
-        border-radius: 24px;
-    }
-}
-
-@media only screen and (max-width: 670px) {
-    .update_project_details_form {
-        width: 80%;
-        height: 82vh;
-        background-color: #fff;
-        border-radius: 24px;
-    }
-}
-@media only screen and (max-width: 470px) {
-    .update_project_details_form {
-        width: 80%;
-        height: 90vh;
-        background-color: #fff;
-        border-radius: 24px;
-    }
-}
-
-/* Add User Responsive */
-@media (max-width: 1920px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 100%;
-    }
-    .add_user_form {
-        overflow-y: auto;
-    }
-}
-
-@media (min-width: 1201px) and (max-width: 1400px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 80%;
-    }
-    .add_user_form {
-        overflow-y: auto;
-    }
-    .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
-        width: 100% !important ;
-    }
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-        width: 100% !important;
-    }
-    .add-user-main-left-content .add-user-title {
-        font-size: 43px !important;
-        line-height: 50px !important;
-    }
-    .add-user-main-left-content .add-user-responsive-title {
-        display: none !important;
-    }
-}
-@media (min-width: 993px) and (max-width: 1200px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 65%;
-    }
-    .add_user_form {
-        overflow-y: auto;
-    }
-    .add-user-form-input .css-1h74rfp-MuiFormControl-root-MuiTextField-root {
-        width: 100% !important ;
-    }
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(1),
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-        width: 100% !important;
-    }
-    .add-user-main-left-content .add-user-title {
-        margin-top: -12px;
-        font-size: 33px !important;
-        line-height: 46px !important;
-    }
-    .add-user-main-left-content .add-user-paragraph {
-        font-size: 25px;
-        margin: 50px 0 0 0 !important;
-    }
-}
-@media (min-width: 769px) and (max-width: 992px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 0%;
-    }
-    .add_user_form div:first-child {
-        padding: 0px !important;
-    }
-    .add-user-form-input
-        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-        margin-right: 0px !important;
-        display: block;
-        width: 100% !important;
-    }
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
-        width: 100% !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-title,
-    .add_user_main .add-user-main-left-content .add-user-paragraph {
-        display: none !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-responsive-title {
-        display: block !important;
-        font-family: "Roboto", sans-serif;
-        font-size: 48px;
-        font-weight: 600;
-        line-height: 60px;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #989898;
-    }
-}
-
-@media (min-width: 577px) and (max-width: 768px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 0%;
-    }
-    .add_user_form div:first-child {
-        padding: 0px !important;
-    }
-    .add-user-form-input
-        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-        margin-right: 0px !important;
-        display: block;
-        width: 100% !important;
-    }
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
-        width: 100% !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-title,
-    .add_user_main .add-user-main-left-content .add-user-paragraph {
-        display: none !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-responsive-title {
-        display: block !important;
-        font-family: "Roboto", sans-serif;
-        font-size: 38px;
-        font-weight: 600;
-        line-height: 60px;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #989898;
-    }
+  }
 }
 
 @media (max-width: 575px) {
-    .add_user_main {
-        margin: 0;
-        width: 100%;
-    }
-    .add_user_main::after {
-        height: 0%;
-    }
-    .add_user_form div:first-child {
-        padding: 0px !important;
-    }
-    .add-user-form-input
-        .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
-    .add-user-form-input
-        .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
-        margin-right: 0px !important;
-        display: block;
-        width: 100% !important;
-    }
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
-    .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
-        width: 100% !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-title,
-    .add_user_main .add-user-main-left-content .add-user-paragraph {
-        display: none !important;
-    }
-    .add_user_main .add-user-main-left-content .add-user-responsive-title {
-        display: block !important;
-        font-family: "Roboto", sans-serif;
-        font-size: 28px;
-        font-weight: 600;
-        line-height: 60px;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #989898;
-    }
+  .add_user_main {
+    margin: 0;
+    width: 100%;
+  }
+  .add_user_main::after {
+    height: 0%;
+  }
+  .add_user_form div:first-child {
+    padding: 0px !important;
+  }
+  .add-user-form-input
+    .css-1h74rfp-MuiFormControl-root-MuiTextField-root:first-child,
+  .add-user-form-input
+    .css-n8py6z-MuiFormControl-root-MuiTextField-root:nth-child(2) {
+    margin-right: 0px !important;
+    display: block;
+    width: 100% !important;
+  }
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root,
+  .css-1qi90xi-MuiInputBase-root-MuiOutlinedInput-root {
+    width: 100% !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-title,
+  .add_user_main .add-user-main-left-content .add-user-paragraph {
+    display: none !important;
+  }
+  .add_user_main .add-user-main-left-content .add-user-responsive-title {
+    display: block !important;
+    font-family: "Roboto", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 60px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #989898;
+  }
 }
 
 /* Flat Details Page  */
 .css-bvyohc-MuiTypography-root-MuiLink-root {
-    font-family: "Inter", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    line-height: 18px !important;
-    letter-spacing: 0em !important;
-    text-align: left !important;
-    color: #047857 !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+  letter-spacing: 0em !important;
+  text-align: left !important;
+  color: #047857 !important;
 }
 .css-1wuw8dw-MuiBreadcrumbs-separator {
-    color: #047857 !important;
+  color: #047857 !important;
 }
 
 .css-1gqyz35-MuiTypography-root {
-    font-family: "Poppins", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    line-height: 24px !important;
-    letter-spacing: 0em;
-    text-align: left !important;
-    color: #047857 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+  letter-spacing: 0em;
+  text-align: left !important;
+  color: #047857 !important;
 }
 .flat-details-flat-heading {
-    font-size: 64px;
-    font-weight: 700;
-    line-height: 96px;
-    letter-spacing: 0em;
-    color: #000000;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 96px;
+  letter-spacing: 0em;
+  color: #000000;
 }
 .flat-details-flat-price-heading {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0em;
-    color: #232323;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  color: #232323;
 }
 .flat-details-flat-price {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 36px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #047857;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #047857;
 }
 .flat-details-edit-button button {
-    box-shadow: none !important;
-    text-transform: capitalize !important;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 27px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #047857;
-    background: #f8f8f8 !important;
-    padding: 10px 16px !important;
-    border-radius: 10px !important;
+  box-shadow: none !important;
+  text-transform: capitalize !important;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #047857;
+  background: #f8f8f8 !important;
+  padding: 10px 16px !important;
+  border-radius: 10px !important;
 }
 .flat-details-property-feature-heading {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 30px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000000;
 }
 .flat-details-property-feature-details p i {
-    color: #047857;
+  color: #047857;
 }
 .flat-details-common-heading,
 .flat-details-bottom-description-heading {
-    font-family: Inter !important;
-    font-size: 24px !important;
-    font-weight: 600 !important;
-    line-height: 34px !important;
-    letter-spacing: 0em !important;
-    text-align: left !important;
-    color: #152046 !important;
+  font-family: Inter !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  line-height: 34px !important;
+  letter-spacing: 0em !important;
+  text-align: left !important;
+  color: #152046 !important;
 }
 .flat-details-bottom-description-content {
-    font-family: Inter !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 26px !important;
-    letter-spacing: 0em !important;
-    text-align: left !important;
-    color: #636363 !important;
+  font-family: Inter !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+  letter-spacing: 0em !important;
+  text-align: left !important;
+  color: #636363 !important;
 }
 .react-read-more-read-less,
 .react-read-more-read-less-more {
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 26px;
-    letter-spacing: 0.015em;
-    text-align: left;
-    color: #19cf79;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0.015em;
+  text-align: left;
+  color: #19cf79;
 }
 .property-documents p i {
-    color: #636363 !important;
+  color: #636363 !important;
 }
 .property-documents p span,
 .property-documents p a {
-    font-family: Inter !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 26px !important;
-    letter-spacing: 0em !important;
-    text-align: left !important;
-    color: #636363 !important;
+  font-family: Inter !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+  letter-spacing: 0em !important;
+  text-align: left !important;
+  color: #636363 !important;
 }
 .property-documents p a {
-    color: #19cf79 !important;
-    text-decoration: underline !important;
+  color: #19cf79 !important;
+  text-decoration: underline !important;
 }
 .css-9mgopn-MuiDivider-root {
-    border: 1px solid #63636378 !important;
+  border: 1px solid #63636378 !important;
 }
 .property-location-details ul li span,
 .property-details ul li span {
-    font-family: Inter;
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #636363;
+  font-family: Inter;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #636363;
 }
 .property-location-details ul li span:first-child,
 .property-details ul li span:first-child {
-    font-weight: 600;
+  font-weight: 600;
 }
 .property-location-details ul li span:last-child,
 .property-details ul li span:last-child {
-    font-weight: 400;
+  font-weight: 400;
 }
 .property-location-details-map iframe {
-    border-radius: 20px !important;
+  border-radius: 20px !important;
 }
 .video-tabs {
-    background: #efefef !important;
-    color: #636363 !important;
-    text-transform: capitalize !important;
-    font-family: Inter !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 26px !important;
-    letter-spacing: 0em !important;
-    text-align: center !important;
-    border-radius: 6px !important;
-    transition: all linear 0.3s;
+  background: #efefef !important;
+  color: #636363 !important;
+  text-transform: capitalize !important;
+  font-family: Inter !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+  letter-spacing: 0em !important;
+  text-align: center !important;
+  border-radius: 6px !important;
+  transition: all linear 0.3s;
 }
 .css-1ljmof1-MuiButtonBase-root-MuiTab-root.Mui-selected {
-    background: #edfbf4 !important;
-    color: #19cf79 !important;
+  background: #edfbf4 !important;
+  color: #19cf79 !important;
 }
 .css-1l5yae9-MuiTabs-indicator {
-    height: 0px !important;
+  height: 0px !important;
 }
 
 /* Project Details Page  */
 .project-details-common-heading {
-    color: #0f172a !important;
-    text-align: left !important;
+  color: #0f172a !important;
+  text-align: left !important;
 
-    font-family: Inter !important;
-    font-size: 16px !important;
-    font-style: normal !important;
-    font-weight: 600 !important;
-    line-height: 150% !important;
-    letter-spacing: 0.2px !important;
+  font-family: Inter !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  line-height: 150% !important;
+  letter-spacing: 0.2px !important;
 }
 .project-details-common-paragraph {
-    color: #94a3b8;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%;
+  color: #94a3b8;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
 }
 .project-details-main-heading {
-    color: #0f172a !important;
-    font-family: Roboto !important;
-    font-size: 24px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: 125% !important;
+  color: #0f172a !important;
+  font-family: Roboto !important;
+  font-size: 24px !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: 125% !important;
 }
 .project-details-project-title {
-    color: #0f172a;
-    font-family: Roboto;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%; /* 30px */
+  color: #0f172a;
+  font-family: Roboto;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
 }
 .project-details-project-location {
-    color: #94a3b8;
-    font-family: Roboto;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%;
+  color: #94a3b8;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
 }
 .project-details-wrapper .project-responsibilities {
-    margin-left: 1em !important;
+  margin-left: 1em !important;
 }
 .project-details-wrapper .project-responsibilities li:before {
-    content: "\2022";
-    color: #2563eb !important;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
+  content: "\2022";
+  color: #2563eb !important;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
 }

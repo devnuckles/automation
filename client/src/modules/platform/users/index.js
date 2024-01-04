@@ -13,7 +13,7 @@ import UpdateRole from "./components/update-role.component";
 import AssignRole from "./components/assign-role.component";
 import ActionModal from "./components/action-modal.component";
 import FlatManagement from "./components/flat-management.component";
-import DeleteProjectModal from "./components/delete-project-modal.component";
+import DynamicDeleteModal from "./components/dynamic-delete-modal.component";
 import ProfileDropdown from "./components/profile-dropdown.component";
 import FlatDetails from "./components/flat-details.component";
 import UserTableFilter from "./components/user-table-filter.component";
@@ -34,7 +34,7 @@ export {
     AssignRole,
     ActionModal,
     FlatManagement,
-    DeleteProjectModal,
+    DynamicDeleteModal,
     ProfileDropdown,
     FlatDetails,
     UserTableFilter,
