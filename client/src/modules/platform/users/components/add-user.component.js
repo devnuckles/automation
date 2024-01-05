@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
     Button,
@@ -12,16 +12,59 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 const AddUser = () => {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [formData, setFormData] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+        role: "",
+    });
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const handleInputChange = (field) => (event) => {
+        setFormData({ ...formData, [field]: event.target.value });
+    };
+    const handleFormSubmit = async (event) => {
+        const token = Cookies.get("token");
+        const id = Cookies.get("id");
+        event.preventDefault();
 
-    const currencies = [
+        try {
+            const response = await axios.post(
+                "http://localhost:8080/api/add/users",
+                formData,
+                {
+                    headers: {
+                        token: `Bearer ${token}`,
+                        identity: id,
+                    },
+                }
+            );
+
+            // Handle response
+            if (response.status === 200) {
+                // Successful API call, you can handle success here
+                console.log("User added successfully");
+            } else {
+                // Handle API error here
+                console.error("Failed to add user");
+            }
+        } catch (error) {
+            // Handle network or other errors
+            console.error("Error during API call", error);
+        }
+    };
+    const userRole = [
         {
             value: "operator",
             label: "Operator",
@@ -52,8 +95,7 @@ const AddUser = () => {
                     </p>
                 </div>
                 <div className="col-lg-6">
-                    {" "}
-                    <form className="add_user_form">
+                    <form className="add_user_form" onSubmit={handleFormSubmit}>
                         <div style={{ padding: " 0 30px" }}>
                             <div className="add-user-form-input">
                                 <TextField
@@ -64,28 +106,31 @@ const AddUser = () => {
                                     }}
                                     id="outlined-basic"
                                     type="text"
-                                    // value=""
+                                    value={formData.first_name}
                                     label="First Name"
                                     variant="outlined"
                                     focused
+                                    onChange={handleInputChange("first_name")}
                                 />
                                 <TextField
                                     sx={{ width: "100%", mt: "30px" }}
                                     id="outlined-basic"
                                     type="text"
-                                    // value=""
+                                    value={formData.last_name}
                                     label="Last Name"
                                     focused
                                     variant="outlined"
+                                    onChange={handleInputChange("last_name")}
                                 />
                                 <TextField
                                     sx={{ width: "100%", mt: "30px" }}
                                     id="outlined-basic"
                                     type="email"
                                     focused
-                                    // value=""
+                                    value={formData.email}
                                     label="Email"
                                     variant="outlined"
+                                    onChange={handleInputChange("email")}
                                 />
 
                                 <FormControl
@@ -122,6 +167,8 @@ const AddUser = () => {
                                             </InputAdornment>
                                         }
                                         label="Password"
+                                        value={formData.password}
+                                        onChange={handleInputChange("Password")}
                                     />
                                 </FormControl>
 
@@ -159,6 +206,10 @@ const AddUser = () => {
                                             </InputAdornment>
                                         }
                                         label="Confirm Password"
+                                        value={formData.confirm_password}
+                                        onChange={handleInputChange(
+                                            "confirm_password"
+                                        )}
                                     />
                                 </FormControl>
 
@@ -169,17 +220,20 @@ const AddUser = () => {
                                         width: "100%",
                                         color: "black",
                                     }}
-                                    id="outlined-select-currency"
+                                    id="outlined-select-role"
                                     select
                                     label="Role"
-                                    defaultValue="EUR"
+                                    defaultValue="Operator"
                                     SelectProps={{
                                         native: true,
                                     }}
+                                    value={formData.role}
+                                    onChange={handleInputChange("role")}
+
                                     // variant="standard"
                                     // helperText="Please select your currency"
                                 >
-                                    {currencies.map((option) => (
+                                    {userRole.map((option) => (
                                         <option
                                             key={option.value}
                                             value={option.value}
@@ -192,6 +246,7 @@ const AddUser = () => {
                                 </TextField>
                             </div>
                             <Button
+                                type="submit"
                                 variant="contained"
                                 sx={{
                                     mt: "40px",
